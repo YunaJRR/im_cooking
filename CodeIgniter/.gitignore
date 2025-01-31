@@ -1,0 +1,73 @@
+# Ignored Directories
+
+writable/
+vendor/
+node_modules/
+
+# Ignored Files
+
+.env
+.htaccess
+composer.lock
+phpunit.xml
+
+# Specific Files/Folders within writable
+
+writable/cache/*
+!writable/cache/.htaccess  # Keep .htaccess for security
+writable/logs/*
+!writable/logs/.htaccess   # Keep .htaccess for security
+writable/uploads/*
+!writable/uploads/.htaccess # Keep .htaccess for security
+writable/session/*
+!writable/session/.htaccess # Keep .htaccess for security
+
+# System Folders (Generally not committed)
+
+system/
+
+# OS Specific Files
+
+.DS_Store
+Thumbs.db
+
+# IDE Specific Files (Examples)
+
+.idea/
+.vscode/
+*.swp
+
+# Archive Files (Examples)
+
+*.zip
+*.rar
+*.tar.gz
+
+# Sensitive Information (Customize as needed)
+
+config/database.php  # If you have different DB credentials for dev/prod
+application/config/email.php # If you have sensitive email settings
+
+# Testing Files
+
+tests/_support/*
+tests/CodeIgniter/*
+
+# PHP Specific Files
+
+*.log
+
+# Temporary Files
+
+*~
+\#*
+*.tmp
+
+# Deployment Specific Files
+
+.deploy.sh
+deploy.php
+
+# Docker related files (If applicable)
+docker-compose.yml
+.dockerenv

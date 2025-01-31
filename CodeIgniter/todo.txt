@@ -1,0 +1,5 @@
+1 Registro e inicio de sesion funcional -> Ambos tienen que procesarse correctamente y redirigir donde toque, además de guardar los usuarios en la base de datos y que los campos coincidan con los que tenga la plantilla de metronic
+2 Listados de sidebar -> cada seccion (de cada tabla de la bbdd) debe mostrar un listado con el contenido de la tabla. Por metronic hay listas pa copiar y usar. Deben tener paginación de codeigniter supongo, esto hay que preguntarlo.
+3 Tengo que estudiar cada pequeño punto de la parte de metronic que estoy usando y lo que me haga falta pasarlo a codeigniter como vista y lo que no pues se borra
+4 Lo de las sesiones está rarillo. De primeras no debería haber un perfil random iniciado sesión. 
+Tengo que hacer que el index sea el inicio de sesión, y la página principal solo sea accesible una vez tengas sesión iniciada, y que actually tus datos se muestren bien en la pagina principal y no el max smith este raro
