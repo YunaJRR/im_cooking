@@ -39,6 +39,9 @@ License: For each use you must have a valid license purchased only from above li
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
+	<?php
+		$session = service('session');
+	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
 		<!--begin::Main-->
 		<!--begin::Root-->
@@ -146,8 +149,10 @@ License: For each use you must have a valid license purchased only from above li
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer " data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user" />
+										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<span class="text-success"><?php echo $user = $session->get('name');?></span>	
 									</div>
+									
 									<!--begin::Menu-->
 									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
 										<!--begin::Menu item-->
@@ -160,9 +165,25 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-													<div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+														<?php
+															switch ($user = $session->get('role')) {
+																case '1':
+																	echo 'Admin';
+																	break;
+																case '2':
+																	echo 'Chef';
+																	break;
+																case '3':
+																	echo 'User';
+																	break;
+																default:
+																	break;
+															}
+														?>
+													</span></div>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -300,7 +321,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-5">
-										<a href="<?= site_url('sign-in') ?>" class="menu-link px-5">Sign Out</a>
+										<a href="<?= site_url('logout') ?>" class="menu-link px-5">Sign Out</a>
 										</div>
 										<!--end::Menu item-->
 										<!--begin::Menu separator-->
@@ -368,106 +389,12 @@ License: For each use you must have a valid license purchased only from above li
 											<!--begin::Header-->
 											<div class="card-header border-0 bg-danger py-5">
 												<h3 class="card-title fw-bolder text-white">Sales Statistics</h3>
-												<div class="card-toolbar">
-													<!--begin::Menu-->
-													<button type="button" class="btn btn-sm btn-icon btn-color-white btn-active-white btn-active-color- border-0 me-n3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-														<!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-														<span class="svg-icon svg-icon-2">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-																<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																	<rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-																	<rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																	<rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																	<rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																</g>
-															</svg>
-														</span>
-														<!--end::Svg Icon-->
-													</button>
-													<!--begin::Menu 3-->
-													<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3" data-kt-menu="true">
-														<!--begin::Heading-->
-														<div class="menu-item px-3">
-															<div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
-														</div>
-														<!--end::Heading-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Create Invoice</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link flex-stack px-3">Create Payment
-															<i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i></a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3">
-															<a href="#" class="menu-link px-3">Generate Bill</a>
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
-															<a href="#" class="menu-link px-3">
-																<span class="menu-title">Subscription</span>
-																<span class="menu-arrow"></span>
-															</a>
-															<!--begin::Menu sub-->
-															<div class="menu-sub menu-sub-dropdown w-175px py-4">
-																<!--begin::Menu item-->
-																<div class="menu-item px-3">
-																	<a href="#" class="menu-link px-3">Plans</a>
-																</div>
-																<!--end::Menu item-->
-																<!--begin::Menu item-->
-																<div class="menu-item px-3">
-																	<a href="#" class="menu-link px-3">Billing</a>
-																</div>
-																<!--end::Menu item-->
-																<!--begin::Menu item-->
-																<div class="menu-item px-3">
-																	<a href="#" class="menu-link px-3">Statements</a>
-																</div>
-																<!--end::Menu item-->
-																<!--begin::Menu separator-->
-																<div class="separator my-2"></div>
-																<!--end::Menu separator-->
-																<!--begin::Menu item-->
-																<div class="menu-item px-3">
-																	<div class="menu-content px-3">
-																		<!--begin::Switch-->
-																		<label class="form-check form-switch form-check-custom form-check-solid">
-																			<!--begin::Input-->
-																			<input class="form-check-input w-30px h-20px" type="checkbox" value="1" checked="checked" name="notifications" />
-																			<!--end::Input-->
-																			<!--end::Label-->
-																			<span class="form-check-label text-muted fs-6">Recuring</span>
-																			<!--end::Label-->
-																		</label>
-																		<!--end::Switch-->
-																	</div>
-																</div>
-																<!--end::Menu item-->
-															</div>
-															<!--end::Menu sub-->
-														</div>
-														<!--end::Menu item-->
-														<!--begin::Menu item-->
-														<div class="menu-item px-3 my-1">
-															<a href="#" class="menu-link px-3">Settings</a>
-														</div>
-														<!--end::Menu item-->
-													</div>
-													<!--end::Menu 3-->
-													<!--end::Menu-->
-												</div>
 											</div>
 											<!--end::Header-->
 											<!--begin::Body-->
 											<div class="card-body p-0">
 												<!--begin::Chart-->
-												<div class="mixed-widget-2-chart card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 200px"></div>
+												<div id="commentchart" class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 200px"></div>
 												<!--end::Chart-->
 												<!--begin::Stats-->
 												<div class="card-p mt-n20 position-relative">
@@ -668,99 +595,6 @@ License: For each use you must have a valid license purchased only from above li
 														<!--end::Content-->
 													</div>
 													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">14:37</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bolder text-gray-800 ps-3">Make deposit
-														<a href="#" class="text-primary">USD 700</a>. to ESL</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-primary fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving and keep structure keep great</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-														<a href="#" class="text-primary">#XF-2356</a>.</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">16:50</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-primary fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Indulging in poorly driving and keep structure keep great</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">21:03</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-danger fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Desc-->
-														<div class="timeline-content fw-bold text-gray-800 ps-3">New order placed
-														<a href="#" class="text-primary">#XF-2356</a>.</div>
-														<!--end::Desc-->
-													</div>
-													<!--end::Item-->
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">10:30</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-success fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Text-->
-														<div class="timeline-content fw-mormal text-muted ps-3">Finance KPI Mobile app launch preparion meeting</div>
-														<!--end::Text-->
-													</div>
-													<!--end::Item-->
 												</div>
 												<!--end::Timeline-->
 											</div>
@@ -806,7 +640,7 @@ License: For each use you must have a valid license purchased only from above li
 												</div>
 												<!--end::Hidden-->
 												<!--begin::Chart-->
-												<div class="mixed-widget-10-chart" data-kt-color="primary" style="height: 175px"></div>
+												<div class="card-rounded-bottom" id="popularitychart"  style="height: 175px"></div>
 												<!--end::Chart-->
 											</div>
 										</div>
@@ -1172,6 +1006,7 @@ License: For each use you must have a valid license purchased only from above li
 		</div>
 		<!--end::Scrolltop-->
 		<!--end::Main-->
+		<script src="assets/js/custom/session.js"></script>
 		<script>var hostUrl = "assets/";</script>
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
@@ -1183,7 +1018,9 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Page Vendors Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="assets/js/custom/widgets.js"></script>
-		<script src="assets/js/custom/apps/charts/chart.js"></script>
+		<script src="assets/js/custom/apps/charts/userchart.js"></script>
+		<script src="assets/js/custom/apps/charts/popularitychart.js"></script>
+		<script src="assets/js/custom/apps/charts/commentchart.js"></script>
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>

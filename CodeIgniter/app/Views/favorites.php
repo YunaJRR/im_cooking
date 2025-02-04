@@ -784,7 +784,6 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                                             </div>
                                                         </th>
-                                                        <th class="min-w-125px">ID</th>
                                                         <th class="min-w-125px">User ID</th>
                                                         <th class="min-w-125px">Recipe ID</th>
                                                         <th class="min-w-125px">Text</th>
@@ -807,9 +806,6 @@ License: For each use you must have a valid license purchased only from above li
                                                         </td>
                                                         <!--end::Checkbox-->
                                                         <!--begin::User=-->
-                                                        <td>
-                                                            <?= esc($favorite['ID']) ?>
-                                                        </td>
                                                         <td><?= esc($favorite['UserID']) ?></td>
                                                         <td><?= esc($favorite['RecipeID']) ?></td>
                                                         <td><?= esc($favorite['Date']) ?></td>

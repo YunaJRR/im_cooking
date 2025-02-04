@@ -4,15 +4,20 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    // Método por defecto
-    public function index(): string
+    // Default method
+    public function index()
     {
+
+        $session = session()->get('role');
+        if (!$session) {
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
         return view('index');
     }
     public function getUsers()
     {
         $userModel = new \App\Models\UserModel();
-        $users = $userModel->findAll(); // Obtiene todos los registros
+        $users = $userModel->findAll(); // Obtains all registers
         return view('user_list', ['users' => $users]);
     }
 }

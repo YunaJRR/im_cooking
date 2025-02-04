@@ -19,5 +19,15 @@ public function findByEmail(string $email)
 {
     return $this->where('Email', $email)->first();
 }
+
+
+public function getUsers($search = null, $perPage = 3, $page = 1)
+    {
+    if ($search) {
+        return $this->like('Username', $search)
+                    ->paginate($perPage, 'default', $page);
+    }
+    return $this->paginate($perPage);
+    }
 }
 ?>

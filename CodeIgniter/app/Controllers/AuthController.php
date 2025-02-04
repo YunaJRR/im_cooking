@@ -1,27 +1,28 @@
 <?php
-
 namespace App\Controllers;
-
-use App\Models\UserModel; // Importamos el modelo de usuarios para interactuar con la base de datos.
-
+use App\Models\UserModel; // Import the user model to interact with the database.
 class AuthController extends BaseController
 {
+    public function index(){
+        $session = session()->get('isLoggedIn');
+        print_r($session);
+        
+
+    }
     /**
-     * Muestra el formulario de registro de usuario.
+     * Displays the user registration form.
      */
     public function register()
     {
-        return view('register'); // Carga y retorna la vista del formulario de registro.
+        return view('register'); // Load and return the registration form view.
     }
-
     /**
-     * Procesa el registro de un nuevo usuario.
+     * Processes the registration of a new user.
      */
     public function registerProcess()
     {
-        helper(['form', 'url']); // Carga los helpers necesarios para trabajar con formularios y URLs.
-
-        // Configuración de las reglas de validación del formulario.
+        helper(['form', 'url']); // Load the necessary helpers for working with forms and URLs.
+        // Configuration of the form validation rules.
         $rules = [
             'firstname' => 'required|min_length[3]|max_length[50]', 
             'lastname' => 'required|min_length[3]|max_length[50]', 
@@ -30,105 +31,91 @@ class AuthController extends BaseController
             'password' => 'required|min_length[8]', 
             'confirm-password' => 'required|matches[password]', 
         ];
-
-        // Si la validación falla, volvemos a mostrar el formulario con los errores.
+        // If validation fails, we show the form again with the errors.
         if (!$this->validate($rules)) {
             return view('sign-up', [
-                'validation' => $this->validator, // Pasamos los errores de validación a la vista.
+                'validation' => $this->validator, // Pass validation errors to the view.
             ]);
         }
-
-        // Si la validación pasa, procedemos a guardar el usuario en la base de datos.
+        // If validation passes, proceed to save the user in the database.
         $userModel = new UserModel();
         $userModel->save([
-            'CreationDate' => date('Y-m-d'),
+            'CreationDate' => date('Y-m-d H:i:s'),
             'DeletionDate' => null,
             'Firstname' => $this->request->getPost('firstname'),
             'Lastname' => $this->request->getPost('lastname'),
             'Username' => $this->request->getPost('username'), 
             'Email' => $this->request->getPost('email'),
-            'Password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // Encriptamos la contraseña antes de guardarla.
+            'Password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT), // Encrypt the password before saving it.
             'RoleID' => 1 
         ]);
-
-        // Redirigimos al formulario de inicio de sesión con un mensaje de éxito.
-        return redirect()->to('/sign-in')->with('success', 'Usuario registrado correctamente.');
+        // Redirect to the login form with a success message.
+        return redirect()->to('/sign-in')->with('success', 'User registered successfully.');
     }
-
     /**
-     * Muestra el formulario de inicio de sesión.
+     * Displays the login form.
      */
     public function signIn()
     {
-        return view('sign-in'); // Carga y retorna la vista del formulario de inicio de sesión.
+        return view('sign-in'); // Load and return the login form view.
     }
     public function login()
     {
-        return view('login'); // Carga y retorna la vista del formulario de inicio de sesión.
+        return view('login'); // Load and return the login form view.
     }
     public function signUp()
     {
-        return view('sign-up'); // Carga y retorna la vista del formulario de registro.
+        return view('sign-up'); // Load and return the registration form view.
     }
-
     /**
-     * Procesa el inicio de sesión del usuario.
+     * Processes the user login.
      */
     public function loginProcess()
     {
-        helper(['form', 'url']); // Carga los helpers necesarios para trabajar con formularios y URLs.
-        $session = session(); // Inicia una sesión para el usuario.
-
-        // Configuración de las reglas de validación del formulario.
+        helper(['form', 'url']); // Load the necessary helpers for working with forms and URLs.
+        $session = session(); // Start a session for the user.
+        // Configuration of the form validation rules.
         $rules = [
-            'email' => 'required|valid_email', // El correo es obligatorio y debe ser válido.
-            'password' => 'required', // La contraseña es obligatoria.
+            'email' => 'required|valid_email', // Email is required and must be valid.
+            'password' => 'required', // Password is required.
         ];
-
-        // Si la validación falla, volvemos a mostrar el formulario con los errores.
+        // If validation fails, we show the form again with the errors.
         if (!$this->validate($rules)) {
             return view('sign-in', [
-                'validation' => $this->validator, // Pasamos los errores de validación a la vista.
+                'validation' => $this->validator, // Pass validation errors to the view.
             ]);
         }
-
-        // Si la validación pasa, verificamos las credenciales.
+        // If validation passes, check the credentials.
         $userModel = new UserModel();
-        $user = $userModel->findByEmail($this->request->getPost('email')); // Buscamos al usuario por su correo.
-
+        $user = $userModel->findByEmail($this->request->getPost('email')); // Find the user by their email.
         if ($user && password_verify($this->request->getPost('password'), $user['Password'])) {
-            // Si las credenciales son correctas, guardamos datos del usuario en la sesión.
-            echo 'hola';
+            // If the credentials are correct, save user data in the session.
             $session->set([
-                
-                'id' => $user['ID'],           // ID del usuario.
-                'name' => $user['Username'],       // Nombre del usuario.
-                'email' => $user['Email'],     // Correo del usuario.
-                'isLoggedIn' => true,          // Bandera para indicar que está logueado.
-                
+                'id' => $user['ID'],           // User ID.
+                'name' => $user['Username'],   // User name.
+                'email' => $user['Email'],     // User email.
+                'role' => $user['RoleID'],     // User role
+                'isLoggedIn' => true,          // Flag to indicate that the user is logged in.
             ]);
-
-            // Redirigimos a la página de inicio con un mensaje de éxito.
-            return redirect()->to('')->with('success', 'Inicio de sesión exitoso.');
+            // Redirect to the home page with a success message.
+            
+            return redirect()->to('')->with('success', 'Login successful.');
         }
-
-        // Si las credenciales son incorrectas, mostramos un mensaje de error.
-        return redirect()->to('/login')->with('error', 'Correo o contraseña incorrectos.');
+        // If the credentials are incorrect, show an error message.
+        return redirect()->to('/login')->with('error', 'Incorrect email or password.');
     }
-
     /**
-     * Cierra la sesión del usuario.
+     * Logs out the user.
      */
     public function logout()
     {
-        $session = session(); // Inicia o accede a la sesión.
-        $session->destroy(); // Destruye todos los datos de la sesión.
-
-        // Redirige al formulario de inicio de sesión con un mensaje de éxito.
-        return redirect()->to('/login')->with('success', 'Has cerrado sesión correctamente.');
+        $this->session = session(); // Start or access the session.
+        $this->session->destroy(); // Destroy all session data.
+        // Redirect to the login form with a success message.
+        return redirect()->to('/sign-in')->with('success', 'You have logged out successfully.');
     }
     public function dashboard()
     {
-        return view('dashboard'); // Redirigir a dashboard
+        return view('dashboard'); // Redirect to dashboard
     }
 }

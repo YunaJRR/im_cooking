@@ -9,7 +9,7 @@ $routes->get('/', 'Home::index');
 $routes->get('home', 'Home::index');
 $routes->get('sign-in', 'AuthController::signIn'); // Página de login
 $routes->get('login', 'AuthController::login'); // Página de login
-$routes->get('sign-up', 'AuthController::signUp'); // Página de login
+$routes->get('sign-up', 'AuthController::signUp'); // Página de registro
 $routes->post('login/process', 'AuthController::loginProcess'); // Procesar login
 $routes->get('register', 'AuthController::register'); // Crear usuario (POST)
 $routes->post('register/process', 'AuthController::registerProcess'); // Procesar registro

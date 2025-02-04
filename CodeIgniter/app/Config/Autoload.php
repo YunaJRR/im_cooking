@@ -91,6 +91,6 @@ class Autoload extends AutoloadConfig
      * @var list<string>
      */
     public $helpers = [];
-    public $libraries = ['session'];  // Add 'session' here.
+    public $libraries = ['session']; 
 
 }

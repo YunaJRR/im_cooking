@@ -797,7 +797,7 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($recipes as $recipes): ?>
+                                                    <?php foreach ($recipes as $recipe): ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -808,12 +808,11 @@ License: For each use you must have a valid license purchased only from above li
                                                         </td>
                                                         <!--end::Checkbox-->
                                                         <!--begin::User=-->
-                                                        <td><?= esc($recipes['ID']) ?></td>
-                                                        <td><?= esc($recipes['Title']) ?></td>
-                                                        <td><?= esc($recipes['Description']) ?></td>
-                                                        <td><?= esc($recipes['Instructions']) ?></td>
-                                                        <td><?= esc($recipes['Image']) ?></td>
-                                                        <td><?= esc($recipes['UserID']) ?></td>
+                                                        <td><?= esc($recipe['Title']) ?></td>
+                                                        <td><?= esc($recipe['Description']) ?></td>
+                                                        <td><?= esc($recipe['Instructions']) ?></td>
+                                                        <td><?= esc($recipe['Image']) ?></td>
+                                                        <td><?= esc($recipe['UserID']) ?></td>
                                                         <!--begin::Action=-->
                                                         <td class="text-end">
                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

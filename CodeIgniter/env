@@ -31,7 +31,7 @@
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = i'm cooking
+database.default.database = im_cooking
 database.default.username = root
 database.default.password = 
 database.default.DBDriver = MySQLi
