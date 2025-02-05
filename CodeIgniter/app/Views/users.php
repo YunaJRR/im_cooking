@@ -39,6 +39,9 @@ License: For each use you must have a valid license purchased only from above li
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
+    <?php
+		$session = service('session');
+	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
         <?php if (session()->getFlashdata('success')): ?>
             <script>
@@ -149,10 +152,13 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+								<span class="text-white px-3 user-text	"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
-									<div class="cursor-pointer " data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user" />
+									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+											
 									</div>
+									
 									<!--begin::Menu-->
 									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
 										<!--begin::Menu item-->
@@ -165,9 +171,25 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-													<div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+														<?php
+															switch ($user = $session->get('role')) {
+																case '1':
+																	echo 'Admin';
+																	break;
+																case '2':
+																	echo 'Chef';
+																	break;
+																case '3':
+																	echo 'User';
+																	break;
+																default:
+																	break;
+															}
+														?>
+													</span></div>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -305,7 +327,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-5">
-										<a href="<?= site_url('sign-in') ?>" class="menu-link px-5">Sign Out</a>
+										<a href="<?= site_url('logout') ?>" class="menu-link px-5">Sign Out</a>
 										</div>
 										<!--end::Menu item-->
 										<!--begin::Menu separator-->
@@ -372,18 +394,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <div class="card-header border-0 pt-6">
                                             <!--begin::Card title-->
                                             <div class="card-title">
-                                                <!--begin::Search-->
-                                                <div class="d-flex align-items-center position-relative my-1">
-                                                <form method="GET" action="<?= site_url('users') ?>" class="mb-3">
-                                                    <div class="container d-flex">
-                                                        <div class="input-group w-auto">
-                                                            <input type="text" name="name" class="form-control form-control-solid w-250px ps-14" value="<?= $Username ?>" placeholder="Search user"/>
-                                                            <button class="btn btn-sm btn-primary" type="submit">Buscar</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                                </div>
-                                                <!--end::Search-->
+                                                
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
@@ -392,18 +403,19 @@ License: For each use you must have a valid license purchased only from above li
                                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                                     <!--begin::Filter-->
                                                     <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
-                                                    <span class="svg-icon svg-icon-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                            <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->Filter</button>
+                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                                        <span class="svg-icon svg-icon-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="black" />
+                                                            </svg>
+                                                        </span>
+                                                        <!--end::Svg Icon-->Filter
+                                                    </button>
                                                     <!--begin::Menu 1-->
                                                     <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                                         <!--begin::Header-->
                                                         <div class="px-7 py-5">
-                                                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
+                                                            <div class="fs-3 text-dark fw-bolder">Filter Options</div>
                                                         </div>
                                                         <!--end::Header-->
                                                         <!--begin::Separator-->
@@ -412,38 +424,34 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--begin::Content-->
                                                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                             <!--begin::Input group-->
-                                                            <div class="mb-10">
-                                                                <label class="form-label fs-6 fw-bold">Role:</label>
-                                                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
-                                                                    <option></option>
-                                                                    <option value="Administrator">Administrator</option>
-                                                                    <option value="Analyst">Analyst</option>
-                                                                    <option value="Developer">Developer</option>
-                                                                    <option value="Support">Support</option>
-                                                                    <option value="Trial">Trial</option>
-                                                                </select>
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="mb-10">
-                                                                <label class="form-label fs-6 fw-bold">Two Step Verification:</label>
-                                                                <select class="form-select form-select-solid fw-bolder" data-kt-select2="true" data-placeholder="Select option" data-allow-clear="true" data-kt-user-table-filter="two-step" data-hide-search="true">
-                                                                    <option></option>
-                                                                    <option value="Enabled">Enabled</option>
-                                                                </select>
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Actions-->
-                                                            <div class="d-flex justify-content-end">
-                                                                <button type="reset" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                                                <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
-                                                            </div>
-                                                            <!--end::Actions-->
+                                                            <form id="form-filter" method="GET" action="<?= site_url('users') ?>" class="mb-3">
+                                                                <div class="input-group w-auto mb-3">
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Username</div>
+                                                                    <input type="text" name="name" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Username) ?>" placeholder="Search"/>
+                                                                </div>
+                                                                <div class="input-group w-auto mb-3">
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">First name</div>
+                                                                    <input type="text" name="firstname" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Firstname) ?>" placeholder="Search"/>
+                                                                </div>
+                                                                <div class="input-group w-auto mb-3">
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Last name</div>
+                                                                    <input type="text" name="lastname" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Lastname) ?>" placeholder="Search"/>
+                                                                </div>
+                                                                <div class="input-group w-auto mb-3">
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Email</div>
+                                                                    <input type="text" name="email" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Email) ?>" placeholder="Search"/>
+                                                                </div>
+                                                                <!--begin::Actions-->
+                                                                <div class="d-flex justify-content-end">
+                                                                <button type="button" id="resetFilters" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6">Reset</button>
+                                                                    <button type="submit " class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                                                </div>
+                                                                <!--end::Actions-->
+                                                            </form>
                                                         </div>
                                                         <!--end::Content-->
                                                     </div>
                                                     <!--end::Menu 1-->
-                                                    <!--end::Filter-->
                                                     <!--begin::Export-->
                                                     <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
@@ -456,6 +464,30 @@ License: For each use you must have a valid license purchased only from above li
                                                     </span>
                                                     <!--end::Svg Icon-->Export</button>
                                                     <!--end::Export-->
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
                                                     <!--begin::Add user-->
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
@@ -473,7 +505,7 @@ License: For each use you must have a valid license purchased only from above li
                                                 <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
                                                     <div class="fw-bolder me-5">
                                                     <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
-                                                    <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
+                                                    <button type="button" class="btn btn-danger" id="delete_selected">Delete Selected</button>
                                                 </div>
                                                 <!--end::Group actions-->
                                                 <!--begin::Modal - Adjust Balance-->
@@ -558,6 +590,23 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Modal dialog-->
                                                 </div>
                                                 <!--end::Modal - New Card-->
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
                                                 <!--begin::Modal - Add task-->
                                                 <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
                                                     <!--begin::Modal dialog-->
@@ -628,7 +677,26 @@ License: For each use you must have a valid license purchased only from above li
                                                                         <!--begin::Input group-->
                                                                         <div class="fv-row mb-7">
                                                                             <!--begin::Label-->
-                                                                            <label class="required fw-bold fs-6 mb-2">Full Name</label>
+                                                                            <label class="required fw-bold fs-6 mb-2">First Name</label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--end::Input group-->
+                                                                        <!--begin::Input group-->
+                                                                        <div class="fv-row mb-7">
+                                                                            <!--begin::Label-->
+                                                                            <label class="required fw-bold fs-6 mb-2">Last Name</label>
+                                                                            <!--end::Label-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
+                                                                            <!--end::Input-->
+                                                                        </div>
+                                                                        <!--begin::Input group-->
+                                                                        <div class="fv-row mb-7">
+                                                                            <!--begin::Label-->
+                                                                            <label class="required fw-bold fs-6 mb-2">Username</label>
                                                                             <!--end::Label-->
                                                                             <!--begin::Input-->
                                                                             <input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
@@ -661,7 +729,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                                     <!--begin::Label-->
                                                                                     <label class="form-check-label" for="kt_modal_update_role_option_0">
                                                                                         <div class="fw-bolder text-gray-800">Administrator</div>
-                                                                                        <div class="text-gray-600">Best for business owners and company administrators</div>
+                                                                                        <div class="text-gray-600">Has access to the whole site and every permission</div>
                                                                                     </label>
                                                                                     <!--end::Label-->
                                                                                 </div>
@@ -678,8 +746,8 @@ License: For each use you must have a valid license purchased only from above li
                                                                                     <!--end::Input-->
                                                                                     <!--begin::Label-->
                                                                                     <label class="form-check-label" for="kt_modal_update_role_option_1">
-                                                                                        <div class="fw-bolder text-gray-800">Developer</div>
-                                                                                        <div class="text-gray-600">Best for developers or people primarily using the API</div>
+                                                                                        <div class="fw-bolder text-gray-800">Chef</div>
+                                                                                        <div class="text-gray-600">Has access to the non-admin part of the site and can post recipes</div>
                                                                                     </label>
                                                                                     <!--end::Label-->
                                                                                 </div>
@@ -696,8 +764,8 @@ License: For each use you must have a valid license purchased only from above li
                                                                                     <!--end::Input-->
                                                                                     <!--begin::Label-->
                                                                                     <label class="form-check-label" for="kt_modal_update_role_option_2">
-                                                                                        <div class="fw-bolder text-gray-800">Analyst</div>
-                                                                                        <div class="text-gray-600">Best for people who need full access to analytics data, but don't need to update business settings</div>
+                                                                                        <div class="fw-bolder text-gray-800">User</div>
+                                                                                        <div class="text-gray-600">Has access to the non-admin part of the site and can only read recipes</div>
                                                                                     </label>
                                                                                     <!--end::Label-->
                                                                                 </div>
@@ -705,41 +773,7 @@ License: For each use you must have a valid license purchased only from above li
                                                                             </div>
                                                                             <!--end::Input row-->
                                                                             <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="3" id="kt_modal_update_role_option_3" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_3">
-                                                                                        <div class="fw-bolder text-gray-800">Support</div>
-                                                                                        <div class="text-gray-600">Best for employees who regularly refund payments and respond to disputes</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="4" id="kt_modal_update_role_option_4" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_4">
-                                                                                        <div class="fw-bolder text-gray-800">Trial</div>
-                                                                                        <div class="text-gray-600">Best for people who need to preview content data, but don't need to make any updates</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
+
                                                                             <!--end::Roles-->
                                                                         </div>
                                                                         <!--end::Input group-->
@@ -795,7 +829,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($users as $user): ?>
+                                                    <?php foreach ($users as $user): 
+                                                        if (!$user['DeletionDate']){    
+                                                    ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -839,7 +875,10 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--end::Action=-->
                                                     </tr>
                                                     <!--end::Table row-->
-                                                    <?php endforeach; ?>
+                                                    <?php 
+                                                        }
+                                                        endforeach; 
+                                                    ?>
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
@@ -914,12 +953,12 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="assets/js/scripts.bundle.js"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Page Vendors Javascript(used by this page)-->
-		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+		<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
 		<!--end::Page Vendors Javascript-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="assets/js/custom/widgets.js"></script>
+		<script src="assets/js/custom/apps/user-management/users/list/table.js"></script>
+		<script src="assets/js/custom/apps/user-management/users/list/list-mods.js"></script>
 		<!--end::Page Custom Javascript-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

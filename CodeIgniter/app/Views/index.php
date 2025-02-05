@@ -147,10 +147,11 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+								<span class="text-white px-3 user-text	"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
-									<div class="cursor-pointer " data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
-										<span class="text-success"><?php echo $user = $session->get('name');?></span>	
+											
 									</div>
 									
 									<!--begin::Menu-->

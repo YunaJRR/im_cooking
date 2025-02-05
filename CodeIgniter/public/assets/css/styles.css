@@ -1,17 +1,25 @@
 .toolbar-fixed .toolbar {
     top: 0!important;
 }
-#kt_header_user_menu_toggle {
-    position: absolute;
-    bottom: 0;
 
-    left: 0%;
-  }
-.profile-icon{
+#kt_header_user_menu_toggle {
+  position: absolute; /* Change to relative */
+  bottom: 0;
+  left: 45%;
+}
+
+.profile-icon {
+  position: absolute;
   width: 75px;
   height: 75px;
   border-radius: 50%;
+  bottom: 0;
+  transform: translateX(-50%); /* Adjust for the width of the icon */
 }
-.username{
-  
+
+.user-text {
+  position: absolute;
+  bottom: 80px;
+  transform: translateX(-50%);
+  font-size: 16px;
 }

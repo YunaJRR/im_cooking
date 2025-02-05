@@ -1,6 +1,11 @@
 <?php
 namespace App\Controllers;
 use App\Models\UserModel;
+use App\Controllers\Views;
+
+/**
+ * UserController: 
+ */
 class UserController extends BaseController
 {
     
@@ -10,17 +15,42 @@ class UserController extends BaseController
     if (!$session) {
         return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
     }
+    
     $userModel = new UserModel();
     $perPage = 3;
-    $name = $this->request->getVar('name'); 
+
+    // Get the search parameters from the request
+    $name = $this->request->getVar('name'); // For Username
+    $firstname = $this->request->getVar('firstname'); // For Firstname
+    $lastname = $this->request->getVar('lastname'); // For Lastname
+    $email = $this->request->getVar('email'); // For Email
+
+    // Build the query based on the search parameters
+    $query = $userModel;
+
     if ($name) {
-        $query = $userModel->like('Username', $name);
-        $data['users'] = $query->paginate($perPage);
-    } else {
-        $data['users'] = $userModel->paginate($perPage);
+        $query = $query->like('Username', $name);
     }
+    if ($firstname) {
+        $query = $query->like('Firstname', $firstname);
+    }
+    if ($lastname) {
+        $query = $query->like('Lastname', $lastname);
+    }
+    if ($email) {
+        $query = $query->like('Email', $email);
+    }
+
+    // Execute the query and paginate results
+    $data['users'] = $query->paginate($perPage);
     $data['pager'] = $userModel->pager;
+
+    // Store the search parameters in the data array
     $data['Username'] = $name; 
+    $data['Firstname'] = $firstname; 
+    $data['Lastname'] = $lastname; 
+    $data['Email'] = $email; 
+
     return view('users', $data);
 }
     public function saveUser($id = null)
