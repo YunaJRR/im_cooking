@@ -4,13 +4,15 @@ namespace App\Controllers;
 use App\Models\UserModel; // Import the user model to interact with the database.
 
 /**
- * [Description AuthController]
+ *
+ * This controller handles user authentication processes such as login, logout, and registration.
+ * It interacts with the User model to validate credentials and manage user sessions.
+ *
+ * @package App\Controllers
  */
 class AuthController extends BaseController
 {
-    /**
-     * Displays the login form.
-     */
+    
     public function signIn()
     {
         return view('sign-in'); // Load and return the login form view.
@@ -31,7 +33,11 @@ class AuthController extends BaseController
     }
     
     /**
-     * Processes the registration of a new user.
+     * 
+     * This method manages the registration process, including the validation of the fields and calling the userModel to save the user in the database
+     * 
+     * @return string | \CodeIgniter\HTTP\RedirectResponse
+     * 
      */
     public function registerProcess()
     {
@@ -70,9 +76,7 @@ class AuthController extends BaseController
         // Redirect to the login form with a success message.
         return redirect()->to('/sign-in')->with('success', 'User  registered successfully.');
     }
-    /**
-     * Processes the user login.
-     */
+
     public function loginProcess()
     {
         helper(['form', 'url']); // Load the necessary helpers for working with forms and URLs.
@@ -93,15 +97,15 @@ class AuthController extends BaseController
 
         // If validation passes, check the credentials.
         $userModel = new UserModel();
-        $user = $userModel->findByEmail($this->request->getPost('email')); // Find the user by their email.
+        $logged_user = $userModel->findByEmail($this->request->getPost('email')); // Find the user by their email.
 
-        if ($user && password_verify($this->request->getPost('password'), $user['Password'])) {
+        if ($logged_user && password_verify($this->request->getPost('password'), $logged_user['Password'])) {
             // If the credentials are correct, save user data in the session.
             $session->set([
-                'id'        => $user['ID'],           // User ID.
-                'name'      => $user['Username'],     // User name.
-                'email'     => $user['Email'],        // User email.
-                'role'      => $user['RoleID'],       // User role
+                'id'        => $logged_user['ID'],           // User ID.
+                'name'      => $logged_user['Username'],     // User name.
+                'email'     => $logged_user['Email'],        // User email.
+                'role'      => $logged_user['RoleID'],       // User role
                 'isLoggedIn' => true,                  // Flag to indicate that the user is logged in.
             ]);
 
@@ -113,9 +117,6 @@ class AuthController extends BaseController
         return redirect()->to(uri: '/login')->with('error', 'Incorrect email or password.');
     }
 
-    /**
-     * Logs out the user.
-     */
     public function logout()
     {
         $this->session = session(); // Start or access the session.

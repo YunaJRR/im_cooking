@@ -152,7 +152,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-								<span class="text-white px-3 user-text	"><?php echo $user = $session->get('name');?></span>
+								<span class="text-white px-3 user-text	"><?php echo $logged_user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
@@ -171,10 +171,10 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $logged_user = $session->get('name'); ?>	
 													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
 														<?php
-															switch ($user = $session->get('role')) {
+															switch ($logged_user = $session->get('role')) {
 																case '1':
 																	echo 'Admin';
 																	break;
@@ -189,7 +189,7 @@ License: For each use you must have a valid license purchased only from above li
 															}
 														?>
 													</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $logged_ = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -464,32 +464,8 @@ License: For each use you must have a valid license purchased only from above li
                                                     </span>
                                                     <!--end::Svg Icon-->Export</button>
                                                     <!--end::Export-->
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
                                                     <!--begin::Add user-->
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                                                    <a href="<?= site_url('add-user') ?>" type="button" class="btn btn-primary">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                                     <span class="svg-icon svg-icon-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -497,7 +473,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                                         </svg>
                                                     </span>
-                                                    <!--end::Svg Icon-->Add User</button>
+                                                    <!--end::Svg Icon-->Add User</a>
                                                     <!--end::Add user-->
                                                 </div>
                                                 <!--end::Toolbar-->
@@ -861,12 +837,12 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
+                                                                    <a href="<?= site_url('users/save/' . $user['ID']) ?>" class="menu-link px-3">Edit</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                                    <a href="<?= site_url('users/delete/' . $user['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                             </div>
@@ -901,32 +877,34 @@ License: For each use you must have a valid license purchased only from above li
                         <!--end::Content-->
 					
                         <!--begin::Footer-->
-					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-						<!--begin::Container-->
-						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
-							<!--begin::Copyright-->
-							<div class="text-dark order-2 order-md-1">
-								<span class="text-muted fw-bold me-1">2025©</span>
-								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">I'm Cooking</a>
-							</div>
-							<!--end::Copyright-->
-							<!--begin::Menu-->
-							<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
-								<li class="menu-item">
-									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-								</li>
-								<li class="menu-item">
-									<a href="https://keenthemes.com/support" target="_blank" class="menu-link px-2">Support</a>
-								</li>
-								<li class="menu-item">
-									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
-								</li>
-							</ul>
-							<!--end::Menu-->
-						</div>
-						<!--end::Container-->
-					</div>
-					<!--end::Footer-->
+                        <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+                            <!--begin::Container-->
+                            <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+                                <!--begin::Copyright-->
+                                <div class="text-dark order-2 order-md-1">
+                                    <span class="text-muted fw-bold me-1">2025©</span>
+                                    <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">I'm Cooking</a>
+                                </div>
+                                <!--end::Copyright-->
+                                <!--begin::Menu-->
+                                <ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+                                    <li class="menu-item">
+                                        <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="https://keenthemes.com/support" target="_blank" class="menu-link px-2">Support</a>
+                                    </li>
+                                    <li class="menu-item">
+                                        <a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
+                                    </li>
+                                </ul>
+                                <!--end::Menu-->
+                            </div>
+                            <!--end::Container-->
+                        </div>
+                        <!--end::Footer-->
+                    </div>
+                    <!--end::Content-->
 				</div>
 				<!--end::Wrapper-->
 			</div>

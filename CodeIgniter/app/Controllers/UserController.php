@@ -18,6 +18,7 @@ class UserController extends BaseController
     
     $userModel = new UserModel();
     $perPage = 3;
+    $data['user'] = $userModel->findAll();
 
     // Get the search parameters from the request
     $name = $this->request->getVar('name'); // For Username
@@ -27,6 +28,7 @@ class UserController extends BaseController
 
     // Build the query based on the search parameters
     $query = $userModel;
+    $query = $query->where('DeletionDate', null);
 
     if ($name) {
         $query = $query->like('Username', $name);
@@ -53,46 +55,62 @@ class UserController extends BaseController
 
     return view('users', $data);
 }
-    public function saveUser($id = null)
-    {
-        $userModel = new UserModel();
-        // Load user data if editing
-        $data['user'] = $id ? $userModel->find($id) : null;
-        if ($this->request->getMethod() == 'POST') {
-            // Validation rules
-            $validation = \Config\Services::validation();
-            $validation->setRules([
-                'name' => 'required|min_length[3]|max_length[50]',
-                'email' => 'required|valid_email',
-            ]);
-            if (!$validation->withRequest($this->request)->run()){
-                // Show validation errors
-                $data['validation'] = $validation;
-            }else{
-                // Prepare form data
-                $userData = [
-                    'name' => $this->request->getPost('name'),
-                    'email' => $this->request->getPost('email'),
-                ];
-                if ($id){
-                    // Update existing user
-                    $userModel->update($id, $userData);
-                    $message = 'User updated successfully';
-                } else {
-                    // Create new user
-                    $userModel->save($userData);
-                    $message = 'User created successfully';
-                }
-                // Redirect to the list with a success message
-                return redirect()->to('/users', )->with('success', $message);
+public function saveUser ($id = null)
+{
+    $userModel = new UserModel();
+    // Load user data if editing
+    $data['user'] = $id ? $userModel->find($id) : null;
+
+    if ($this->request->getMethod() == 'POST') {
+        // Validation rules
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'firstname' => 'required|min_length[3]|max_length[50]', 
+            'lastname'  => 'required|min_length[3]|max_length[50]', 
+            'username'  => 'required|min_length[3]|max_length[50]', 
+            'email'     => 'required|valid_email' . ($id ? '' : '|is_unique[users.email]'), 
+            'password'  => 'required|min_length[8]', 
+            'confirm-password' => 'required|matches[password]', 
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            // Show validation errors
+            $data['validation'] = $validation;
+        } else {
+            // Prepare form data
+            $userData = [
+                'CreationDate' => date('Y-m-d H:i:s'),
+                'DeletionDate' => null,
+                'Firstname'    => $this->request->getPost('firstname'),
+                'Lastname'     => $this->request->getPost('lastname'),
+                'Username'     => $this->request->getPost('username'), 
+                'Email'        => $this->request->getPost('email'),
+                'Password'     => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'RoleID'      => $this->request->getPost('role')
+            ];
+
+            if ($id) {
+                // Update existing user
+                $userModel->update($id, $userData);
+                $message = 'User updated successfully';
+            } else {
+                // Create new user
+                $userModel->save($userData);
+                $message = 'User created successfully';
             }
+            // Redirect to the list with a success message
+            return redirect()->to('/users')->with('success', $message);
         }
-        return view('user_form', $data);
     }
+    return view('add-user', $data);
+}
     public function delete($id)
     {
         $userModel = new UserModel();
-        $userModel->delete($id); // Delete user
+        $userData = [
+            'DeletionDate' => date('Y-m-d H:i:s')
+        ];
+        $userModel->update($id, $userData);
         return redirect()->to('/users')->with('success', 'User deleted successfully.');
     }
 }

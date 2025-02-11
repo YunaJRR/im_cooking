@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+		<title><?= isset($user) ? 'Edit User' : 'Add User' ?></title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,18 +24,18 @@ License: For each use you must have a valid license purchased only from above li
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/favicon.ico') ?>" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
-		<link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendor Stylesheets-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
-		<link rel="stylesheet" href="assets/css/styles.css">
+		<link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -59,7 +59,7 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="<?= site_url('') ?>">
-							<img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" />
+							<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1-dark.svg') ?>" class="h-25px logo" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -152,10 +152,10 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-								<span class="text-white px-3 user-text	"><?php echo $user = $session->get('name');?></span>
+								<span class="text-white px-3 user-text	"><?php echo $logged_user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg') ?>" alt="user"/>
 											
 									</div>
 									
@@ -166,15 +166,15 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+													<img alt="Logo" src="<?= base_url('assets/media/avatars/150-26.jpg') ?>" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $logged_user = $session->get('name'); ?>	
 													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
 														<?php
-															switch ($user = $session->get('role')) {
+															switch ($logged_user = $session->get('role')) {
 																case '1':
 																	echo 'Admin';
 																	break;
@@ -189,7 +189,7 @@ License: For each use you must have a valid license purchased only from above li
 															}
 														?>
 													</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $logged_user = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -272,7 +272,7 @@ License: For each use you must have a valid license purchased only from above li
 											<a href="#" class="menu-link px-5">
 												<span class="menu-title position-relative">Language
 												<span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-												<img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="" /></span></span>
+												<img class="w-15px h-15px rounded-1 ms-2" src="<?= base_url('/media/flags/united-states.svg')?>" alt="" /></span></span>
 											</a>
 											<!--begin::Menu sub-->
 											<div class="menu-sub menu-sub-dropdown w-175px py-4">
@@ -280,7 +280,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/united-states.svg" alt="" />
+														<img class="rounded-1" src="<?= base_url('/media/flags/united-states.svg')?>" alt="" />
 													</span>English</a>
 												</div>
 												<!--end::Menu item-->
@@ -288,7 +288,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/spain.svg" alt="" />
+														<img class="rounded-1" src="<?= base_url('/media/flags/spain.svg')?>" alt="" />
 													</span>Spanish</a>
 												</div>
 												<!--end::Menu item-->
@@ -296,7 +296,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/germany.svg" alt="" />
+														<img class="rounded-1" src="<?= base_url('/media/flags/germany.svg')?>" alt="" />
 													</span>German</a>
 												</div>
 												<!--end::Menu item-->
@@ -304,7 +304,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/japan.svg" alt="" />
+														<img class="rounded-1" src="<?= base_url('/media/flags/japan.svg')?>" alt="" />
 													</span>Japanese</a>
 												</div>
 												<!--end::Menu item-->
@@ -312,7 +312,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/france.svg" alt="" />
+														<img class="rounded-1" src="<?= base_url('/media/flags/france.svg')?>" alt="" />
 													</span>French</a>
 												</div>
 												<!--end::Menu item-->
@@ -368,7 +368,7 @@ License: For each use you must have a valid license purchased only from above li
 								<!--begin::Page title-->
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 									<!--begin::Title-->
-									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Add user
+									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1"><?= isset($user) ? 'Edit User' : 'Add User' ?>
 									<!--begin::Separator-->
 									<span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
 									<!--end::Separator-->
@@ -391,172 +391,164 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin::Sidebar-->
 									<div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
 										<!--begin::Card-->
-										<div class="card mb-5 mb-xl-8">
-											<div class="card-header my-7">
-	
-											<h2 class="fw-bolder">Add User</h2>
+										<div class="card mb-7 mb-xl-8 add-user">
+											<!-- Mostrar errores de validación -->
+											<?php if (isset($validation)): ?>
+												<div class="alert alert-danger">
+													<?= $validation->listErrors() ?>
+												</div>
+											<?php endif; ?>				
 											<!--begin::Card body-->
 											<div class="card-body">
 												
 												
-													<form id="kt_modal_add_user_form" class="form" action="#">
-														<!--begin::Scroll-->
-														<div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-															<!--begin::Input group-->
-															<div class="fv-row mb-7">
-																<!--begin::Label-->
-																<label class="d-block fw-bold fs-6 mb-5">Avatar</label>
-																<!--end::Label-->
-																<!--begin::Image input-->
-																<div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
-																	<!--begin::Preview existing avatar-->
-																	<div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/150-1.jpg);"></div>
-																	<!--end::Preview existing avatar-->
+
+												<form action="<?= isset($user['ID']) ? site_url('users/save/') . $user['ID'] : site_url('users/save') ?>" method="post" class="form">
+													<!--begin::Scroll-->
+													<div class="d-flex flex-column scroll-y me-n7 pe-7 mt-10" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">First Name</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="text" name="firstname" class="form-control form-control-solid mb-3 mb-lg-0"
+															value="<?= isset($user['Firstname']) ? esc($user['Firstname']) : '' ?>" required/>
+															<!--end::Input-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">Last Name</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="text" name="lastname" class="form-control form-control-solid mb-3 mb-lg-0"
+															value="<?= isset($user['Lastname']) ? esc($user['Lastname']) : '' ?>" required/>
+															<!--end::Input-->
+														</div>
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">Username</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="text" name="username" class="form-control form-control-solid mb-3 mb-lg-0"
+															value="<?= isset($user['Username']) ? esc($user['Username']) : '' ?>" required/>
+															<!--end::Input-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">Email</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0"
+															value="<?= isset($user['Email']) ? esc($user['Email']) : '' ?>" required/>
+															<!--end::Input-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">Password</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0"
+															value="" required/>
+															<!--end::Input-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="fv-row mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-2">Repeat Password</label>
+															<!--end::Label-->
+															<!--begin::Input-->
+															<input type="password" name="confirm-password" class="form-control form-control-solid mb-3 mb-lg-0"
+															value='' required/>
+															<!--end::Input-->
+														</div>
+														<!--end::Input group-->
+														<!--begin::Input group-->
+														<div class="mb-7">
+															<!--begin::Label-->
+															<label class="required fw-bold fs-6 mb-5">Role</label>
+															<!--end::Label-->
+															<!--begin::Roles-->
+															<!--begin::Input row-->
+															<div class="d-flex fv-row">
+																<!--begin::Radio-->
+																<div class="form-check form-check-custom form-check-solid">
+																	<!--begin::Input-->
+																	<input class="form-check-input me-3" name="role" type="radio" value="1" id="kt_modal_update_role_option_0" <?php echo (isset($user['RoleID']) && $user['RoleID'] == 1) ? 'checked' : ''; ?> />
+																	<!--end::Input-->
 																	<!--begin::Label-->
-																	<label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-																		<i class="bi bi-pencil-fill fs-7"></i>
-																		<!--begin::Inputs-->
-																		<input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-																		<input type="hidden" name="avatar_remove" />
-																		<!--end::Inputs-->
+																	<label class="form-check-label" for="kt_modal_update_role_option_0">
+																		<div class="fw-bolder text-gray-800">Administrator</div>
+																		<div class="text-gray-600">Has access to the whole site and every permission</div>
 																	</label>
 																	<!--end::Label-->
-																	<!--begin::Cancel-->
-																	<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-																		<i class="bi bi-x fs-2"></i>
-																	</span>
-																	<!--end::Cancel-->
-																	<!--begin::Remove-->
-																	<span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-																		<i class="bi bi-x fs-2"></i>
-																	</span>
-																	<!--end::Remove-->
 																</div>
-																<!--end::Image input-->
-																<!--begin::Hint-->
-																<div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-																<!--end::Hint-->
+																<!--end::Radio-->
 															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="fv-row mb-7">
-																<!--begin::Label-->
-																<label class="required fw-bold fs-6 mb-2">First Name</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
-																<!--end::Input-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="fv-row mb-7">
-																<!--begin::Label-->
-																<label class="required fw-bold fs-6 mb-2">Last Name</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
-																<!--end::Input-->
-															</div>
-															<!--begin::Input group-->
-															<div class="fv-row mb-7">
-																<!--begin::Label-->
-																<label class="required fw-bold fs-6 mb-2">Username</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
-																<!--end::Input-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="fv-row mb-7">
-																<!--begin::Label-->
-																<label class="required fw-bold fs-6 mb-2">Email</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="e.smith@kpmg.com.au" />
-																<!--end::Input-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="mb-7">
-																<!--begin::Label-->
-																<label class="required fw-bold fs-6 mb-5">Role</label>
-																<!--end::Label-->
-																<!--begin::Roles-->
-																<!--begin::Input row-->
-																<div class="d-flex fv-row">
-																	<!--begin::Radio-->
-																	<div class="form-check form-check-custom form-check-solid">
-																		<!--begin::Input-->
-																		<input class="form-check-input me-3" name="user_role" type="radio" value="0" id="kt_modal_update_role_option_0" checked='checked' />
-																		<!--end::Input-->
-																		<!--begin::Label-->
-																		<label class="form-check-label" for="kt_modal_update_role_option_0">
-																			<div class="fw-bolder text-gray-800">Administrator</div>
-																			<div class="text-gray-600">Has access to the whole site and every permission</div>
-																		</label>
-																		<!--end::Label-->
-																	</div>
-																	<!--end::Radio-->
+															<!--end::Input row-->
+															<div class='separator separator-dashed my-5'></div>
+															<!--begin::Input row-->
+															<div class="d-flex fv-row">
+																<!--begin::Radio-->
+																<div class="form-check form-check-custom form-check-solid">
+																	<!--begin::Input-->
+																	<input class="form-check-input me-3" name="role" type="radio" value="2" id="kt_modal_update_role_option_1" <?php echo (isset($user['RoleID']) && $user['RoleID'] == 2) ? 'checked' : ''; ?> />
+																	<!--end::Input-->
+																	<!--begin::Label-->
+																	<label class="form-check-label" for="kt_modal_update_role_option_1">
+																		<div class="fw-bolder text-gray-800">Chef</div>
+																		<div class="text-gray-600">Has access to the non-admin part of the site and can post recipes</div>
+																	</label>
+																	<!--end::Label-->
 																</div>
-																<!--end::Input row-->
-																<div class='separator separator-dashed my-5'></div>
-																<!--begin::Input row-->
-																<div class="d-flex fv-row">
-																	<!--begin::Radio-->
-																	<div class="form-check form-check-custom form-check-solid">
-																		<!--begin::Input-->
-																		<input class="form-check-input me-3" name="user_role" type="radio" value="1" id="kt_modal_update_role_option_1" />
-																		<!--end::Input-->
-																		<!--begin::Label-->
-																		<label class="form-check-label" for="kt_modal_update_role_option_1">
-																			<div class="fw-bolder text-gray-800">Chef</div>
-																			<div class="text-gray-600">Has access to the non-admin part of the site and can post recipes</div>
-																		</label>
-																		<!--end::Label-->
-																	</div>
-																	<!--end::Radio-->
-																</div>
-																<!--end::Input row-->
-																<div class='separator separator-dashed my-5'></div>
-																<!--begin::Input row-->
-																<div class="d-flex fv-row">
-																	<!--begin::Radio-->
-																	<div class="form-check form-check-custom form-check-solid">
-																		<!--begin::Input-->
-																		<input class="form-check-input me-3" name="user_role" type="radio" value="2" id="kt_modal_update_role_option_2" />
-																		<!--end::Input-->
-																		<!--begin::Label-->
-																		<label class="form-check-label" for="kt_modal_update_role_option_2">
-																			<div class="fw-bolder text-gray-800">User</div>
-																			<div class="text-gray-600">Has access to the non-admin part of the site and can only read recipes</div>
-																		</label>
-																		<!--end::Label-->
-																	</div>
-																	<!--end::Radio-->
-																</div>
-																<!--end::Input row-->
-																<div class='separator separator-dashed my-5'></div>
-
-																<!--end::Roles-->
+																<!--end::Radio-->
 															</div>
-															<!--end::Input group-->
+															<!--end::Input row-->
+															<div class='separator separator-dashed my-5'></div>
+															<!--begin::Input row-->
+															<div class="d-flex fv-row">
+																<!--begin::Radio-->
+																<div class="form-check form-check-custom form-check-solid">
+																	<!--begin::Input-->
+																	<input class="form-check-input me-3" name="role" type="radio" value="3" id="kt_modal_update_role_option_2" <?php echo (isset($user['RoleID']) && $user['RoleID'] == 3) ? 'checked' : ''; ?> />
+																	<!--end::Input-->
+																	<!--begin::Label-->
+																	<label class="form-check-label" for="kt_modal_update_role_option_2">
+																		<div class="fw-bolder text-gray-800">User</div>
+																		<div class="text-gray-600">Has access to the non-admin part of the site and can only read recipes</div>
+																	</label>
+																	<!--end::Label-->
+																</div>
+																<!--end::Radio-->
+															</div>
+															<!--end::Input row-->
+															<div class='separator separator-dashed my-5'></div>
+															<!--end::Roles-->
 														</div>
-														<!--end::Scroll-->
-														<!--begin::Actions-->
-														<div class="text-center pt-15">
-															<button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-															<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-																<span class="indicator-label">Submit</span>
-																<span class="indicator-progress">Please wait...
-																<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-															</button>
-														</div>
-														<!--end::Actions-->
-													</form>
-													<!--end::Form-->
-												</div>
-
+														<!--end::Input group-->
+													</div>
+													<!--end::Scroll-->
+													<!--begin::Actions-->
+													<div class="text-center pt-15">
+														<button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
+														<button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+															<span class="indicator-label">Submit</span>
+															<span class="indicator-progress">Please wait...
+															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+														</button>
+													</div>
+													
+													<!--end::Actions-->
+												</form>
+												<!--end::Form-->
 											</div>
 											<!--end::Card body-->
 										</div>
@@ -570,7 +562,33 @@ License: For each use you must have a valid license purchased only from above li
 						</div>
 						<!--end::Post-->
 					</div>
-					<!--end::Toolbar-->
+					<!--begin::Footer-->
+					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+						<!--begin::Container-->
+						<div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
+							<!--begin::Copyright-->
+							<div class="text-dark order-2 order-md-1">
+								<span class="text-muted fw-bold me-1">2025©</span>
+								<a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">I'm Cooking</a>
+							</div>
+							<!--end::Copyright-->
+							<!--begin::Menu-->
+							<ul class="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+								<li class="menu-item">
+									<a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
+								</li>
+								<li class="menu-item">
+									<a href="https://keenthemes.com/support" target="_blank" class="menu-link px-2">Support</a>
+								</li>
+								<li class="menu-item">
+									<a href="https://1.envato.market/EA4JP" target="_blank" class="menu-link px-2">Purchase</a>
+								</li>
+							</ul>
+							<!--end::Menu-->
+						</div>
+						<!--end::Container-->
+					</div>
+					<!--end::Footer-->
 				</div>
 				<!--end::Card footer-->
 			</div>
@@ -578,6 +596,7 @@ License: For each use you must have a valid license purchased only from above li
 		</div>
 		<!--end::Chat drawer-->
 		<!--end::Drawers-->
+		
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
 			<!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -589,13 +608,14 @@ License: For each use you must have a valid license purchased only from above li
 			</span>
 			<!--end::Svg Icon-->
 		</div>
+		
 		<!--end::Scrolltop-->
 		<!--end::Main-->
 		<script>var hostUrl = "assets/";</script>
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="assets/plugins/global/plugins.bundle.js"></script>
-		<script src="assets/js/scripts.bundle.js"></script>
+		<script src="<?= base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
+		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--end::Javascript-->
 	</body>
