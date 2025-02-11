@@ -57,7 +57,7 @@ class RecipeController extends BaseController
                 'title'       => 'required|min_length[3]|max_length[100]', 
                 'description' => 'required|min_length[3]|max_length[255]', 
                 'instructions' => 'required|min_length[3]', 
-                'image'       => 'permit_empty|valid_url', // Assuming image is a URL
+                'image'       => 'permit_empty|valid_url'
             ]);
 
             if (!$validation->withRequest($this->request)->run()) {
@@ -71,7 +71,6 @@ class RecipeController extends BaseController
                     'Description'  => $this->request->getPost('description'),
                     'Instructions' => $this->request->getPost('instructions'),
                     'Image'        => $this->request->getPost('image'),
-                    'UserID'      => session()->get('user_id') // Assuming you store user ID in session
                 ];
 
                 if ($id) {
