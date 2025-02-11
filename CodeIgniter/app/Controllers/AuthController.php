@@ -4,7 +4,7 @@ namespace App\Controllers;
 use App\Models\UserModel; // Import the user model to interact with the database.
 
 /**
- * [Description AuthController]
+ * This controller handles user authentication processes such as login, logout, and registration.
  */
 class AuthController extends BaseController
 {
@@ -31,7 +31,9 @@ class AuthController extends BaseController
     }
     
     /**
-     * Processes the registration of a new user.
+     * This method manages the registration process, including the validation of the fields and calling the userModel to save the user in the database.
+     * 
+     * @return string | \CodeIgniter\HTTP\RedirectResponse
      */
     public function registerProcess()
     {
