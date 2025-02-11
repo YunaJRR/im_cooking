@@ -566,23 +566,6 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Modal dialog-->
                                                 </div>
                                                 <!--end::Modal - New Card-->
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
-                                                
                                                 <!--begin::Modal - Add task-->
                                                 <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
                                                     <!--begin::Modal dialog-->

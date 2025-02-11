@@ -31,6 +31,10 @@ class AuthController extends BaseController
     {
         return view('add-user'); // Load and return the form for adding users.
     }
+    public function addRecipe()
+    {
+        return view('add-recipe'); // Load and return the form for adding users.
+    }
     
     /**
      * 
