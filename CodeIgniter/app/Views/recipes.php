@@ -767,7 +767,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <th class="min-w-125px">Description</th>
                                                         <th class="min-w-125px">Instructions</th>
                                                         <th class="min-w-125px">Image</th>
-                                                        <th class="min-w-125px">User ID</th>
+                                                        <th class="min-w-125px">Chef</th>
                                                         <th class="text-end min-w-100px">Actions</th>
                                                     </tr>
                                                     <!--end::Table row-->
@@ -790,7 +790,9 @@ License: For each use you must have a valid license purchased only from above li
                                                         <td><?= esc($recipe['Description']) ?></td>
                                                         <td><?= esc($recipe['Instructions']) ?></td>
                                                         <td><?= esc($recipe['Image']) ?></td>
-                                                        <td><?= esc($recipe['UserID']) ?></td>
+                                                        <td><?= esc($recipe['Username']) ?></td>
+
+
                                                         <!--begin::Action=-->
                                                         <td class="text-end">
                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -824,6 +826,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
+                                            <div class="mt-4">
+                                                <?= $pager->links('default', 'custom_pagination'); ?>
+                                            </div>
                                             <?php else: ?>
                                                 <p class="text-center">No hay recetas publicadas.</p>
                                             <?php endif; ?>

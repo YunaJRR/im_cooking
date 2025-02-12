@@ -9,41 +9,29 @@ use App\Models\RecipeModel;
 class RecipeController extends BaseController
 {
     public function index()
-    {
-        $session = session()->get('role');
-        if (!$session) {
-            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
-        }
-
-        $recipeModel = new RecipeModel();
-        $perPage = 3;
-        $data['recipes'] = $recipeModel->findAll();
-
-        // Get the search parameters from the request
-        $title = $this->request->getVar('title'); // For Title
-        $description = $this->request->getVar('description'); // For Description
-
-        // Build the query based on the search parameters
-        $query = $recipeModel;
-
-        if ($title) {
-            $query = $query->like('Title', $title);
-        }
-        if ($description) {
-            $query = $query->like('Description', $description);
-        }
-
-        // Execute the query and paginate results
-        $data['recipes'] = $query->paginate($perPage);
-        $data['pager'] = $recipeModel->pager;
-
-        // Store the search parameters in the data array
-        $data['Title'] = $title; 
-        $data['Description'] = $description; 
-
-        return view('recipes', $data);
+{
+    $session = session()->get('role');
+    if (!$session) {
+        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
     }
 
+    $recipeModel = new RecipeModel();
+    $perPage = 3;
+
+    // Get the search parameters from the request
+    $title = $this->request->getVar('title'); // For Title
+    $description = $this->request->getVar('description'); // For Description
+
+    // Execute the query and paginate results
+    $data['recipes'] = $recipeModel->getRecipes($title, $perPage);
+    $data['pager'] = $recipeModel->pager;
+
+    // Store the search parameters in the data array
+    $data['Title'] = $title; 
+    $data['Description'] = $description; 
+
+    return view('recipes', $data);
+}
     public function saveRecipe($id = null)
     {
         $recipeModel = new RecipeModel();
@@ -71,6 +59,7 @@ class RecipeController extends BaseController
                     'Description'  => $this->request->getPost('description'),
                     'Instructions' => $this->request->getPost('instructions'),
                     'Image'        => $this->request->getPost('image'),
+                    'UserID'       => session()->get('id')
                 ];
 
                 if ($id) {
