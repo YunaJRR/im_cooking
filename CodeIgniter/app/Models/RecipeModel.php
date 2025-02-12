@@ -9,6 +9,16 @@ class RecipeModel extends Model
     protected $primaryKey = 'ID';
     protected $allowedFields = ['CreationDate', 'Title', 'Description', 'Instructions', 'Image', 'UserID'];
 
+    public function getRecipes($search = null, $perPage = 3, $page = 1)
+{
+    $this->select('recipes.*, users.Username')
+         ->join('users', 'users.ID = recipes.UserID', 'left');
 
+    if ($search) {
+        return $this->like('Title', $search)
+                    ->paginate($perPage, 'default', $page);
+    }
+    return $this->paginate($perPage);
+}
 }
 ?>

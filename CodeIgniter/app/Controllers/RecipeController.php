@@ -9,42 +9,31 @@ use App\Models\RecipeModel;
 class RecipeController extends BaseController
 {
     public function index()
-    {
-        $session = session()->get('role');
-        if (!$session) {
-            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
-        }
-
-        $recipeModel = new RecipeModel();
-        $perPage = 3;
-        $data['recipes'] = $recipeModel->findAll();
-
-        // Get the search parameters from the request
-        $title = $this->request->getVar('title'); // For Title
-        $description = $this->request->getVar('description'); // For Description
-
-        // Build the query based on the search parameters
-        $query = $recipeModel;
-
-        if ($title) {
-            $query = $query->like('Title', $title);
-        }
-        if ($description) {
-            $query = $query->like('Description', $description);
-        }
-
-        // Execute the query and paginate results
-        $data['recipes'] = $query->paginate($perPage);
-        $data['pager'] = $recipeModel->pager;
-
-        // Store the search parameters in the data array
-        $data['Title'] = $title; 
-        $data['Description'] = $description; 
-
-        return view('recipes', $data);
+{
+    $session = session()->get('role');
+    if (!$session) {
+        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
     }
 
     
+    
+    $recipeModel = new RecipeModel();
+    $perPage = 3;
+
+    // Get the search parameters from the request
+    $title = $this->request->getVar('title'); // For Title
+    $description = $this->request->getVar('description'); // For Description
+
+    // Execute the query and paginate results
+    $data['recipes'] = $recipeModel->getRecipes($title, $perPage);
+    $data['pager'] = $recipeModel->pager;
+
+    // Store the search parameters in the data array
+    $data['Title'] = $title; 
+    $data['Description'] = $description; 
+
+    return view('recipes', $data);
+}
     public function addRecipe()
     {
         $session = session()->get('role');
@@ -66,7 +55,7 @@ class RecipeController extends BaseController
                 'title'       => 'required|min_length[3]|max_length[100]', 
                 'description' => 'required|min_length[3]|max_length[255]', 
                 'instructions' => 'required|min_length[3]', 
-                'image'       => 'permit_empty|valid_url', // Assuming image is a URL
+                'image'       => 'permit_empty|valid_url'
             ]);
 
             if (!$validation->withRequest($this->request)->run()) {
@@ -80,7 +69,7 @@ class RecipeController extends BaseController
                     'Description'  => $this->request->getPost('description'),
                     'Instructions' => $this->request->getPost('instructions'),
                     'Image'        => $this->request->getPost('image'),
-                    'UserID'      => session()->get('user_id') // Assuming you store user ID in session
+                    'UserID'       => session()->get('id')
                 ];
 
                 if ($id) {

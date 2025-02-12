@@ -13,7 +13,7 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 	<!--begin::Head-->
 	<head><base href="../">
-		<title><?= isset($recipe) ? 'Edit Recipe' : 'Add Recipe' ?></title>
+		<title><?= isset($comment) ? 'Edit Comment' : 'Add Comment' ?></title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,7 +103,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('recipes') ?>">
+									<a class="menu-link" href="<?= site_url('comments') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/coding/cod002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -115,7 +115,7 @@ License: For each use you must have a valid license purchased only from above li
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Recipes</span>
+										<span class="menu-title">Comments</span>
 									</a>
 								</div>
 								<div class="menu-item">
@@ -368,7 +368,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--begin::Page title-->
                                 <div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                     <!--begin::Title-->
-                                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1"><?= isset($recipe) ? 'Edit Recipe' : 'Add Recipe' ?>
+                                    <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1"><?= isset($comment) ? 'Edit Comment' : 'Add Comment' ?>
                                     <!--begin::Separator-->
                                     <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                                     <!--end::Separator-->
@@ -400,51 +400,36 @@ License: For each use you must have a valid license purchased only from above li
                                             <?php endif; ?>                
                                             <!--begin::Card body-->
                                             <div class="card-body">
-                                                <form action="<?= isset($recipe['ID']) ? site_url('recipes/save/') . $recipe['ID'] : site_url('recipes/save') ?>" method="post" class="form">
+                                                <form action="<?= isset($comment['ID']) ? site_url('comments/save/') . $comment['ID'] : site_url('comments/save') ?>" method="post" class="form">
                                                     <!--begin::Scroll-->
                                                     <div class="d-flex flex-column scroll-y me-n7 pe-7 mt-10" id="kt_modal_add_recipe_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_recipe_header" data-kt-scroll-wrappers="#kt_modal_add_recipe_scroll" data-kt-scroll-offset="300px">
-                                                        <!--begin::Input group-->
+                                                    <!--begin::Input group-->
+                                                    <div class="fv-row mb-7">
+                                                        <!--begin::Label-->
+                                                        <label for="RecipeID" class="required fw-bold fs-6 mb-2">Recipe</label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Input-->
+                                                        <select name="RecipeID" id="RecipeID" class="form-select" required>
+                                                            <option value="">Select a recipe</option>
+                                                            <?php foreach ($recipes as $recipe): ?>
+                                                                <option value="<?= $recipe['ID'] ?>"><?= esc($recipe['Title']) ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                    <!--end::Input group-->
+                                                    <!--begin::Input group-->
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
-                                                            <label class="required fw-bold fs-6 mb-2">Recipe Title</label>
+                                                            <label class="required fw-bold fs-6 mb-2">Comment Text</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="title" class="form-control form-control-solid mb-3 mb-lg-0"
-                                                            value="<?= isset($recipe['Title']) ? esc($recipe['Title']) : '' ?>" required/>
+                                                            <input type="text" name="text" class="form-control form-control-solid mb-3 mb-lg-0"
+                                                            value="<?= isset($comment['Text']) ? esc($comment['Text']) : '' ?>" required/>
                                                             <!--end::Input-->
                                                         </div>
                                                         <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="required fw-bold fs-6 mb-2">Description</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <textarea name="description" class="form-control form-control-solid mb-3 mb-lg-0" required><?= isset($recipe['Description']) ? esc($recipe['Description']) : '' ?></textarea>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="required fw-bold fs-6 mb-2">Instructions</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <textarea name="instructions" class="form-control form-control-solid mb-3 mb-lg-0" required><?= isset($recipe['Instructions']) ? esc($recipe['Instructions']) : '' ?></textarea>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-7">
-                                                            <!--begin::Label-->
-                                                            <label class="fw-bold fs-6 mb-2">Image URL</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="url" name="image" class="form-control form-control-solid mb-3 mb-lg-0"
-                                                            value="<?= isset($recipe['Image']) ? esc($recipe['Image']) : '' ?>"/>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
+
                                                     </div>
                                                     <!--end::Scroll-->
                                                     <!--begin::Actions-->

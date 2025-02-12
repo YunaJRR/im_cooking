@@ -436,7 +436,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Svg Icon-->Export</button>
                                                     <!--end::Export-->
                                                     <!--begin::Add recipe-->
-                                                    <a href="<?= site_url('add-user') ?>" type="button" class="btn btn-primary">
+                                                    <a href="<?= site_url('add-recipe') ?>" type="button" class="btn btn-primary">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                                         <span class="svg-icon svg-icon-2">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -445,7 +445,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             </svg>
                                                         </span>
                                                         <!--end::Svg Icon-->
-                                                    Add Recipe</button>
+                                                    Add Recipe</a>
                                                     <!--end::Add recipe-->
                                                 </div>
                                                 <!--end::Toolbar-->
@@ -560,7 +560,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <th class="min-w-125px">Description</th>
                                                         <th class="min-w-125px">Instructions</th>
                                                         <th class="min-w-125px">Image</th>
-                                                        <th class="min-w-125px">User ID</th>
+                                                        <th class="min-w-125px">Chef</th>
                                                         <th class="text-end min-w-100px">Actions</th>
                                                     </tr>
                                                     <!--end::Table row-->
@@ -583,7 +583,9 @@ License: For each use you must have a valid license purchased only from above li
                                                         <td><?= esc($recipe['Description']) ?></td>
                                                         <td><?= esc($recipe['Instructions']) ?></td>
                                                         <td><?= esc($recipe['Image']) ?></td>
-                                                        <td><?= esc($recipe['UserID']) ?></td>
+                                                        <td><?= esc($recipe['Username']) ?></td>
+
+
                                                         <!--begin::Action=-->
                                                         <td class="text-end">
                                                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
@@ -598,12 +600,12 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
+                                                                  <a href="<?= site_url('recipes/save/' . $recipe['ID']) ?>" class="menu-link px-3">Edit</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                                    <a href="<?= site_url('recipes/delete/' . $recipe['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                             </div>
@@ -617,6 +619,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
+                                            <div class="mt-4">
+                                                <?= $pager->links('default', 'custom_pagination'); ?>
+                                            </div>
                                             <?php else: ?>
                                                 <p class="text-center">No hay recetas publicadas.</p>
                                             <?php endif; ?>

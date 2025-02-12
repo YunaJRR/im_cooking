@@ -1,25 +1,33 @@
 .toolbar-fixed .toolbar {
-    top: 0!important;
+  top: 0!important;
 }
 
 #kt_header_user_menu_toggle {
-  position: absolute; /* Change to relative */
-  bottom: 0;
-  left: 45%;
+position: absolute; 
+bottom: 0;
+left: 45%;
 }
 
 .profile-icon {
-  position: absolute;
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  bottom: 0;
-  transform: translateX(-50%); /* Adjust for the width of the icon */
+position: absolute;
+width: 75px;
+height: 75px;
+border-radius: 50%;
+bottom: 0;
+transform: translateX(-50%);
 }
 
 .user-text {
-  position: absolute;
-  bottom: 80px;
-  transform: translateX(-50%);
-  font-size: 16px;
+position: absolute;
+bottom: 80px;
+transform: translateX(-50%);
+font-size: 16px;
+}
+
+.add-user{
+min-width: 1250px;
+}
+#kt_footer {
+position: relative; 
+z-index: 10; 
 }
