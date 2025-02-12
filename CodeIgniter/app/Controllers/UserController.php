@@ -9,6 +9,14 @@ use App\Controllers\Views;
 class UserController extends BaseController
 {
     
+    public function addUser()
+    {
+        $session = session()->get('role');
+    if (!$session) {
+        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+    }
+        return view('add-user'); // Load and return the form for adding users.
+    }
     public function index()
 {
     $session = session()->get('role');
@@ -55,6 +63,7 @@ class UserController extends BaseController
 
     return view('users', $data);
 }
+
 public function saveUser ($id = null)
 {
     $userModel = new UserModel();
@@ -110,7 +119,12 @@ public function saveUser ($id = null)
         $userData = [
             'DeletionDate' => date('Y-m-d H:i:s')
         ];
-        $userModel->update($id, $userData);
-        return redirect()->to('/users')->with('success', 'User deleted successfully.');
+        
+        // Update the user to mark as deleted
+        if ($userModel->update($id, $userData)) {
+            return redirect()->to('/users')->with('success', 'User  marked as deleted successfully.');
+        } else {
+            return redirect()->to('/users')->with('error', 'Failed to mark user as deleted.');
+        }
     }
 }

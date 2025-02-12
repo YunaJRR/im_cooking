@@ -36,6 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="assets/css/styles.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -43,11 +44,6 @@ License: For each use you must have a valid license purchased only from above li
 		$session = service('session');
 	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-        <?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -825,7 +821,9 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="<?= site_url('users/delete/' . $user['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                                    <form action="<?= site_url('users/delete/' . $user['ID']) ?>" method="POST" style="display:inline;">
+                                                                        <button type="submit" class="menu-link px-3" onclick="return confirm('Are you sure you want to mark this user as deleted?');">Delete</button>
+                                                                    </form>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                             </div>
@@ -920,7 +918,17 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="assets/js/custom/apps/user-management/users/list/table.js"></script>
 		<script src="assets/js/custom/apps/user-management/users/list/list-mods.js"></script>
 		<!--end::Page Custom Javascript-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 		<!--end::Javascript-->
+        <?php if (session()->getFlashdata('success')): ?>
+            <script>
+                    $(document).ready(function() {
+                        toastr.success('<?= session()->getFlashdata('success'); ?>');
+                    });
+            </script>
+        <?php endif; ?>
 	</body>
 	<!--end::Body-->
 </html>

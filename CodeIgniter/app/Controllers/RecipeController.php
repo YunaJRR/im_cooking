@@ -44,6 +44,15 @@ class RecipeController extends BaseController
         return view('recipes', $data);
     }
 
+    
+    public function addRecipe()
+    {
+        $session = session()->get('role');
+        if (!$session) {
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
+        return view('add-recipe'); // Load and return the form for adding users.
+    }
     public function saveRecipe($id = null)
     {
         $recipeModel = new RecipeModel();
