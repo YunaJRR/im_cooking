@@ -92,8 +92,16 @@ class RecipeController extends BaseController
     public function delete($id)
     {
         $recipeModel = new RecipeModel();
-        $recipeModel->delete($id); // Directly delete the recipe
-        return redirect()->to('/recipes')->with('success', 'Recipe deleted successfully.');
+        $recipeData = [
+            'DeletionDate' => date('Y-m-d H:i:s')
+        ];
+        
+        // Update the user to mark as deleted
+        if ($recipeModel->update($id, $recipeData)) {
+            return redirect()->to('/recipes')->with('success', 'Recipe  marked as deleted successfully.');
+        } else {
+            return redirect()->to('/recipes')->with('error', 'Failed to mark recipe as deleted.');
+        }
     }
 }
 

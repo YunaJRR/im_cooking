@@ -7,7 +7,7 @@ class RecipeModel extends Model
 {
     protected $table = 'recipes';
     protected $primaryKey = 'ID';
-    protected $allowedFields = ['CreationDate', 'Title', 'Description', 'Instructions', 'Image', 'UserID'];
+    protected $allowedFields = ['CreationDate', 'DeletionDate', 'Title', 'Description', 'Instructions', 'Image', 'UserID'];
 
     public function getRecipes($search = null, $perPage = 3, $page = 1)
 {
