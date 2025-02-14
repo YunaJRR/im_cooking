@@ -49,9 +49,6 @@ License: For each use you must have a valid license purchased only from above li
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
         <?php endif; ?>
-		<?php
-			$session = service('session');
-		?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
