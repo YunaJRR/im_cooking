@@ -36,6 +36,10 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="<?= base_url('assets/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
+<<<<<<< Updated upstream
+=======
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+>>>>>>> Stashed changes
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -528,7 +532,21 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
+<<<<<<< Updated upstream
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
 </html>
+=======
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
+		<!--end::Javascript-->
+	</body>
+	<!--end::Body-->
+</html>
+>>>>>>> Stashed changes
