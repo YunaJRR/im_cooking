@@ -12,9 +12,12 @@ class UserController extends BaseController
     public function addUser()
     {
         $session = session()->get('role');
-    if (!$session) {
-        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
-    }
+        if (!$session) {
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
+        if ((session()->get('role')) != 2){
+            return redirect()->to('')->with('error', 'You are not allowed here...');
+        }
         return view('add-user'); // Load and return the form for adding users.
     }
     public function index()
@@ -22,6 +25,9 @@ class UserController extends BaseController
     $session = session()->get('role');
     if (!$session) {
         return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+    }
+    if ((session()->get('role')) != 2){
+        return redirect()->to('')->with('error', 'You are not allowed here...');
     }
     
     $userModel = new UserModel();

@@ -18,11 +18,6 @@ class AuthController extends BaseController
         return view('sign-in'); // Load and return the login form view.
     }
 
-    public function login()
-    {
-        return view('login'); // Load and return the login form view.
-    }
-
     public function signUp()
     {
         return view('sign-up'); // Load and return the registration form view.
@@ -44,7 +39,7 @@ class AuthController extends BaseController
         $rules = [
             'firstname' => 'required|min_length[3]|max_length[50]', 
             'lastname'  => 'required|min_length[3]|max_length[50]', 
-            'username'  => 'required|min_length[3]|max_length[50]', 
+            'username'  => 'required|min_length[3]|max_length[20]', 
             'email'     => 'required|valid_email|is_unique[users.email]', 
             'password'  => 'required|min_length[8]', 
             'confirm-password' => 'required|matches[password]', 

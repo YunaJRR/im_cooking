@@ -40,6 +40,9 @@ License: For each use you must have a valid license purchased only from above li
 	<!--end::Head-->
 	<!--begin::Body-->
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+        <?php
+			$session = service('session');
+		?>
         <?php if (session()->getFlashdata('success')): ?>
             <script>
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
@@ -81,9 +84,37 @@ License: For each use you must have a valid license purchased only from above li
 							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
 								<div class="menu-item">
 									<div class="menu-content pb-2">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Admin</span>
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">I'm cooking</span>
 									</div>
 								</div>
+								
+								<div class="menu-item">
+									<a class="menu-link" href="<?= site_url('') ?>">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z" fill="black"/>
+													<path d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z" fill="black"/>
+													</svg>													
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Dashboard</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<div class="menu-content pb-2">
+										<?php if (session()->get('role') == '1'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">User</span>
+										<?php elseif (session()->get('role') == '2'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">Admin</span>
+										<?php elseif (session()->get('role') == '3'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">Chef</span>
+										<?php endif?>
+									</div>
+								</div>
+								<?php if (session()->get('role') == '2'): ?>
 								<div class="menu-item">
 									<a class="menu-link" href="<?= site_url('users') ?>">
 										<span class="menu-icon">
@@ -99,6 +130,8 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-title">Users</span>
 									</a>
 								</div>
+								<?php endif?>
+								
 								<div class="menu-item">
 									<a class="menu-link" href="<?= site_url('recipes') ?>">
 										<span class="menu-icon">
@@ -108,7 +141,7 @@ License: For each use you must have a valid license purchased only from above li
 													<path opacity="0.3" d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z" fill="black"/>
 													<path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="black"/>
 													<path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="black"/>
-													</svg>												
+												</svg>												
 											</span>
 											<!--end::Svg Icon-->
 										</span>
@@ -132,7 +165,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link active" href="<?= site_url('favorites') ?>">
+									<a class="menu-link" href="<?= site_url('favorites') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -149,10 +182,13 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
-									<div class="cursor-pointer " data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user" />
+									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+											
 									</div>
+									
 									<!--begin::Menu-->
 									<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
 										<!--begin::Menu item-->
@@ -165,9 +201,25 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-													<div class="fw-bolder d-flex align-items-center fs-5">Max Smith
-													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+														<?php
+															switch ($user = $session->get('role')) {
+																case '1':
+																	echo 'User';
+																	break;
+																case '2':
+																	echo 'Admin';
+																	break;
+																case '3':
+																	echo 'Chef';
+																	break;
+																default:
+																	break;
+															}
+														?>
+													</span></div>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -305,7 +357,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-5">
-										<a href="<?= site_url('sign-in') ?>" class="menu-link px-5">Sign Out</a>
+										<a href="<?= site_url('logout') ?>" class="menu-link px-5">Sign Out</a>
 										</div>
 										<!--end::Menu item-->
 										<!--begin::Menu separator-->

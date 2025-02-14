@@ -14,8 +14,6 @@ class RecipeController extends BaseController
     if (!$session) {
         return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
     }
-
-    
     
     $recipeModel = new RecipeModel();
     $perPage = 3;
@@ -39,6 +37,9 @@ class RecipeController extends BaseController
         $session = session()->get('role');
         if (!$session) {
             return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
+        if ((session()->get('role')) != 2 || (session()->get('role')) != 3){
+            return redirect()->to('')->with('error', 'You are not allowed here...');
         }
         return view('add-recipe'); // Load and return the form for adding users.
     }

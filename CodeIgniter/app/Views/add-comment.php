@@ -59,7 +59,7 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="<?= site_url('') ?>">
-							<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1-dark.svg') ?>" class="h-25px logo" />
+							<img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -84,11 +84,39 @@ License: For each use you must have a valid license purchased only from above li
 							<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
 								<div class="menu-item">
 									<div class="menu-content pb-2">
-										<span class="menu-section text-muted text-uppercase fs-8 ls-1">Admin</span>
+										<span class="menu-section text-muted text-uppercase fs-8 ls-1">I'm cooking</span>
 									</div>
 								</div>
+								
 								<div class="menu-item">
-									<a class="menu-link active" href="<?= site_url('users') ?>">
+									<a class="menu-link" href="<?= site_url('') ?>">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path opacity="0.3" d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z" fill="black"/>
+													<path d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z" fill="black"/>
+													</svg>													
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Dashboard</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<div class="menu-content pb-2">
+										<?php if (session()->get('role') == '1'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">User</span>
+										<?php elseif (session()->get('role') == '2'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">Admin</span>
+										<?php elseif (session()->get('role') == '3'): ?>
+											<span class="menu-section text-muted text-uppercase fs-8 ls-1">Chef</span>
+										<?php endif?>
+									</div>
+								</div>
+								<?php if (session()->get('role') == '2'): ?>
+								<div class="menu-item">
+									<a class="menu-link" href="<?= site_url('users') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -102,8 +130,10 @@ License: For each use you must have a valid license purchased only from above li
 										<span class="menu-title">Users</span>
 									</a>
 								</div>
+								<?php endif?>
+								
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('comments') ?>">
+									<a class="menu-link" href="<?= site_url('recipes') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/coding/cod002.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -111,11 +141,11 @@ License: For each use you must have a valid license purchased only from above li
 													<path opacity="0.3" d="M18 22C19.7 22 21 20.7 21 19C21 18.5 20.9 18.1 20.7 17.7L15.3 6.30005C15.1 5.90005 15 5.5 15 5C15 3.3 16.3 2 18 2H6C4.3 2 3 3.3 3 5C3 5.5 3.1 5.90005 3.3 6.30005L8.7 17.7C8.9 18.1 9 18.5 9 19C9 20.7 7.7 22 6 22H18Z" fill="black"/>
 													<path d="M18 2C19.7 2 21 3.3 21 5H9C9 3.3 7.7 2 6 2H18Z" fill="black"/>
 													<path d="M9 19C9 20.7 7.7 22 6 22C4.3 22 3 20.7 3 19H9Z" fill="black"/>
-													</svg>												
+												</svg>												
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Comments</span>
+										<span class="menu-title">Recipes</span>
 									</a>
 								</div>
 								<div class="menu-item">
@@ -152,10 +182,10 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-								<span class="text-white px-3 user-text	"><?php echo $logged_user = $session->get('name');?></span>
+									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg') ?>" alt="user"/>
+										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
 											
 									</div>
 									
@@ -166,30 +196,30 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="<?= base_url('assets/media/avatars/150-26.jpg') ?>" />
+													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $logged_user = $session->get('name'); ?>	
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
 													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
 														<?php
-															switch ($logged_user = $session->get('role')) {
+															switch ($user = $session->get('role')) {
 																case '1':
-																	echo 'Admin';
+																	echo 'User';
 																	break;
 																case '2':
-																	echo 'Chef';
+																	echo 'Admin';
 																	break;
 																case '3':
-																	echo 'User';
+																	echo 'Chef';
 																	break;
 																default:
 																	break;
 															}
 														?>
 													</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $logged_user = $session->get('email'); ?>	</a>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -272,7 +302,7 @@ License: For each use you must have a valid license purchased only from above li
 											<a href="#" class="menu-link px-5">
 												<span class="menu-title position-relative">Language
 												<span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-												<img class="w-15px h-15px rounded-1 ms-2" src="<?= base_url('/media/flags/united-states.svg')?>" alt="" /></span></span>
+												<img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="" /></span></span>
 											</a>
 											<!--begin::Menu sub-->
 											<div class="menu-sub menu-sub-dropdown w-175px py-4">
@@ -280,7 +310,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5 active">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="<?= base_url('/media/flags/united-states.svg')?>" alt="" />
+														<img class="rounded-1" src="assets/media/flags/united-states.svg" alt="" />
 													</span>English</a>
 												</div>
 												<!--end::Menu item-->
@@ -288,7 +318,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="<?= base_url('/media/flags/spain.svg')?>" alt="" />
+														<img class="rounded-1" src="assets/media/flags/spain.svg" alt="" />
 													</span>Spanish</a>
 												</div>
 												<!--end::Menu item-->
@@ -296,7 +326,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="<?= base_url('/media/flags/germany.svg')?>" alt="" />
+														<img class="rounded-1" src="assets/media/flags/germany.svg" alt="" />
 													</span>German</a>
 												</div>
 												<!--end::Menu item-->
@@ -304,7 +334,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="<?= base_url('/media/flags/japan.svg')?>" alt="" />
+														<img class="rounded-1" src="assets/media/flags/japan.svg" alt="" />
 													</span>Japanese</a>
 												</div>
 												<!--end::Menu item-->
@@ -312,7 +342,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="<?= base_url('/media/flags/france.svg')?>" alt="" />
+														<img class="rounded-1" src="assets/media/flags/france.svg" alt="" />
 													</span>French</a>
 												</div>
 												<!--end::Menu item-->
