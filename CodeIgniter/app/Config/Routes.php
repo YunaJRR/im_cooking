@@ -22,10 +22,10 @@ $routes->get('logout', 'AuthController::logout'); // Logout
 // User routes
 $routes->get('users', 'UserController::index'); // List users
 $routes->get('add-user', 'UserController::addUser'); // User addition page
-$routes->post('users/save', 'UserController::saveUser '); // Create user (POST)
-$routes->post('users/save/(:num)', 'UserController::saveUser /$1'); // Edit user (POST)
-$routes->get('users/save/(:num)', 'UserController::saveUser /$1'); // Edit user page
-$routes->post('users/delete/(:num)', 'UserController::delete/$1'); // Update user to mark as deleted
+$routes->post('users/save', 'UserController::saveUser'); // Create user (POST)
+$routes->post('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user (POST)
+$routes->get('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user page
+$routes->get('users/delete/(:num)', 'UserController::delete/$1'); // Update user to mark as deleted
 
 
 // Recipe routes

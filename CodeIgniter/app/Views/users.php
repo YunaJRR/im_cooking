@@ -851,9 +851,9 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <form action="<?= site_url('users/delete/' . $user['ID']) ?>" method="POST" style="display:inline;">
-                                                                        <button type="submit" class="menu-link px-3" onclick="return confirm('Are you sure you want to mark this user as deleted?');">Delete</button>
-                                                                    </form>
+                                                                    <a href="<?= site_url('users/delete/' . $user['ID']) ?>" class="menu-link px-3">
+                                                                        Delete
+                                                                    </a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                             </div>
