@@ -36,6 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="assets/css/styles.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -43,11 +44,6 @@ License: For each use you must have a valid license purchased only from above li
         <?php
 			$session = service('session');
 		?>
-        <?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -424,19 +420,7 @@ License: For each use you must have a valid license purchased only from above li
                                         <div class="card-header border-0 pt-6">
                                             <!--begin::Card title-->
                                             <div class="card-title">
-                                                <!--begin::Search-->
-                                                <div class="d-flex align-items-center position-relative my-1">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
-                                                            <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
-                                                        </svg>
-                                                    </span>
-                                                    <!--end::Svg Icon-->
-                                                    <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search user" />
-                                                </div>
-                                                <!--end::Search-->
+                                                
                                             </div>
                                             <!--begin::Card title-->
                                             <!--begin::Card toolbar-->
@@ -510,7 +494,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Svg Icon-->Export</button>
                                                     <!--end::Export-->
                                                     <!--begin::Add user-->
-                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                                                    <a href="<?= site_url('add-favorite') ?>" type="button" class="btn btn-primary">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                                     <span class="svg-icon svg-icon-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -518,8 +502,9 @@ License: For each use you must have a valid license purchased only from above li
                                                             <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                                         </svg>
                                                     </span>
-                                                    <!--end::Svg Icon-->Add User</button>
+                                                    <!--end::Svg Icon-->Add Favorite</button>
                                                     <!--end::Add user-->
+                                                    </a>
                                                 </div>
                                                 <!--end::Toolbar-->
                                                 <!--begin::Group actions-->
@@ -836,9 +821,8 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                                             </div>
                                                         </th>
-                                                        <th class="min-w-125px">User ID</th>
-                                                        <th class="min-w-125px">Recipe ID</th>
-                                                        <th class="min-w-125px">Text</th>
+                                                        <th class="min-w-125px">User</th>
+                                                        <th class="min-w-125px">Recipe</th>
                                                         <th class="min-w-125px">Date</th>
                                                         <th class="text-end min-w-100px">Actions</th>
                                                     </tr>
@@ -847,7 +831,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($favorites as $favorite): ?>
+                                                    <?php foreach ($favorites as $favorite): 
+                                                            if (!$favorite['DeletionDate']){    
+                                                    ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -858,8 +844,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         </td>
                                                         <!--end::Checkbox-->
                                                         <!--begin::User=-->
-                                                        <td><?= esc($favorite['UserID']) ?></td>
-                                                        <td><?= esc($favorite['RecipeID']) ?></td>
+                                                        <td><?= esc($favorite['Username']) ?></td>
+                                                        <td><?= esc($favorite['Title']) ?></td>
                                                         <td><?= esc($favorite['Date']) ?></td>
                                                         <!--begin::Action=-->
                                                         <td class="text-end">
@@ -875,12 +861,12 @@ License: For each use you must have a valid license purchased only from above li
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
+                                                                <a href="<?= site_url('favorites/save/' . $favorite['ID']) ?>" class="menu-link px-3">Edit</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
-                                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                                                    <a href="<?= site_url('favorites/delete/' . $favorite['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
                                                                 </div>
                                                                 <!--end::Menu item-->
                                                             </div>
@@ -890,12 +876,15 @@ License: For each use you must have a valid license purchased only from above li
                                                     </tr>
                                                     <!--end::Table row-->
 
-                                                    <?php endforeach; ?>
+                                                <?php 
+                                                    }
+                                                    endforeach;
+                                                ?>
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
                                             <?php else: ?>
-                                                <p class="text-center">No hay usuarios registrados.</p>
+                                                <p class="text-center">There are no favorites registered.</p>
                                             <?php endif; ?>
                                             <!--end::Table-->
                                         </div>
@@ -967,7 +956,13 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="assets/js/custom/widgets.js"></script>
 		<!--end::Page Custom Javascript-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
