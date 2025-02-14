@@ -44,14 +44,14 @@ License: For each use you must have a valid license purchased only from above li
 		<?php
 			$session = service('session');
 		?>
-<<<<<<< HEAD
 		<?php if (session()->getFlashdata('success')): ?>
             <script>
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
         <?php endif; ?>
-=======
->>>>>>> features/usertable-admin
+		<?php
+			$session = service('session');
+		?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">

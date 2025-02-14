@@ -37,9 +37,16 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 >>>>>>> features/usertable-admin
+=======
+<<<<<<< Updated upstream
+=======
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+>>>>>>> Stashed changes
+>>>>>>> hotfixes
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -563,6 +570,10 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+>>>>>>> hotfixes
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
@@ -579,4 +590,3 @@ License: For each use you must have a valid license purchased only from above li
 	</body>
 	<!--end::Body-->
 </html>
->>>>>>> features/usertable-admin
