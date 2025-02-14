@@ -27,3 +27,19 @@ $routes->get('users/delete/(:num)', 'UserController::delete/$1'); // Delete user
 $routes->post('recipes/save/(:num)', 'RecipeController::saveRecipe/$1'); // Edit recipe (POST)
 $routes->get('recipes/delete/(:num)', 'RecipeController::delete/$1'); // Delete recipe
 
+// Comment routes
+$routes->get('comments', 'CommentController::index'); // List comments
+$routes->get('add-comment', 'CommentController::addComment'); // Comment addition page
+$routes->post('comments/save', 'CommentController::saveComment'); // Create comment (POST)
+$routes->post('comments/save/(:num)', 'CommentController::saveComment/$1'); // Edit comment (POST)
+$routes->get('comments/save/(:num)', 'CommentController::saveComment/$1'); // Edit comment page
+$routes->get('comments/delete/(:num)', 'CommentController::delete/$1'); // Delete comment
+
+// Favorite routes
+$routes->get('favorites', 'FavoriteController::index'); // List favorites
+$routes->get('add-favorite', 'FavoriteController::addFavorite'); // Favorite addition page
+$routes->post('favorites/save', 'FavoriteController::saveFavorite'); // Create favorite (POST)
+$routes->post('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite (POST)
+$routes->get('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite page
+$routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Delete favorite
+

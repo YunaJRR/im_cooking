@@ -7,7 +7,7 @@ class CommentModel extends Model
 {
     protected $table = 'comments';
     protected $primaryKey = 'ID';
-    protected $allowedFields = ['UserID', 'RecipeID', 'Text', 'Date'];
+    protected $allowedFields = ['UserID', 'RecipeID', 'Text', 'Date', 'DeletionDate'];
 
 }
 ?>

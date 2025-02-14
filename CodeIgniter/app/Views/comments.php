@@ -36,15 +36,14 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="assets/css/styles.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-        <?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
+		<?php
+			$session = service('session');
+		?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -795,7 +794,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($comments as $comment): ?>
+													<?php foreach ($comments as $comment): 
+															if (!$comment['DeletionDate']){    
+                                                    ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -810,36 +811,40 @@ License: For each use you must have a valid license purchased only from above li
                                                         <td><?= esc($comment['RecipeID']) ?></td>
                                                         <td><?= esc($comment['Text']) ?></td>
                                                         <td><?= esc($comment['Date']) ?></td>
-                                                        <!--begin::Action=-->
-                                                        <td class="text-end">
-                                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                            <span class="svg-icon svg-icon-5 m-0">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                                                    <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                                                </svg>
-                                                            </span>
-                                                            <!--end::Svg Icon--></a>
-                                                            <!--begin::Menu-->
-                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                    <a href="../../demo1/dist/apps/user-management/users/view.html" class="menu-link px-3">Edit</a>
-                                                                </div>
-                                                                <!--end::Menu item-->
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                    <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
-                                                                </div>
-                                                                <!--end::Menu item-->
-                                                            </div>
-                                                            <!--end::Menu-->
-                                                        </td>
-                                                        <!--end::Action=-->
+														<?php if (session()->get('role') == '2'): ?>
+															<!--begin::Action=-->
+															<td class="text-end">
+																<a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+																<!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+																<span class="svg-icon svg-icon-5 m-0">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+																		<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
+																	</svg>
+																</span>
+																<!--end::Svg Icon--></a>
+																<!--begin::Menu-->
+																<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+																	<!--begin::Menu item-->
+																	<div class="menu-item px-3">
+																	<a href="<?= site_url('comments/save/' . $comment['ID']) ?>" class="menu-link px-3">Edit</a>
+																	</div>
+																	<!--end::Menu item-->
+																	<!--begin::Menu item-->
+																	<div class="menu-item px-3">
+																		<a href="<?= site_url('comments/delete/' . $comment['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+																	</div>
+																	<!--end::Menu item-->
+																</div>
+																<!--end::Menu-->
+															</td>
+															<!--end::Action=-->
+														<?php endif; ?>
                                                     </tr>
                                                     <!--end::Table row-->
-
-                                                    <?php endforeach; ?>
+                                                    <?php
+														} 
+														endforeach;
+													?>
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
@@ -916,7 +921,13 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="assets/js/custom/widgets.js"></script>
 		<!--end::Page Custom Javascript-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
