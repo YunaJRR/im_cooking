@@ -7,7 +7,7 @@ class CommentModel extends Model
 {
     protected $table = 'comments';
     protected $primaryKey = 'ID';
-    protected $allowedFields = ['User ID', 'RecipeID', 'Text', 'Date'];
+    protected $allowedFields = ['UserID', 'RecipeID', 'Text', 'Date', 'DeletionDate'];
 
     public function getComments($search = null, $perPage = 3, $page = 1)
     {

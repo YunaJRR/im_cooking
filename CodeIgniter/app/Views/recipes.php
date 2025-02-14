@@ -36,6 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="assets/css/styles.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -43,11 +44,14 @@ License: For each use you must have a valid license purchased only from above li
 		<?php
 			$session = service('session');
 		?>
+<<<<<<< HEAD
 		<?php if (session()->getFlashdata('success')): ?>
             <script>
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
         <?php endif; ?>
+=======
+>>>>>>> features/usertable-admin
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -624,7 +628,10 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($recipes as $recipe): ?>
+													
+													<?php foreach ($recipes as $recipe): 
+														if (!$recipe['DeletionDate']){    
+                                                    ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -672,7 +679,10 @@ License: For each use you must have a valid license purchased only from above li
                                                     </tr>
                                                     <!--end::Table row-->
 
-                                                    <?php endforeach; ?>
+                                                    <?php 
+														}
+														endforeach; 
+													?>
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
@@ -680,7 +690,7 @@ License: For each use you must have a valid license purchased only from above li
                                                 <?= $pager->links('default', 'custom_pagination'); ?>
                                             </div>
                                             <?php else: ?>
-                                                <p class="text-center">No hay recetas publicadas.</p>
+                                                <p class="text-center">There are no recipes registered.</p>
                                             <?php endif; ?>
                                             <!--end::Table-->
                                         </div>
@@ -752,8 +762,14 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="assets/js/custom/widgets.js"></script>
 		<!--end::Page Custom Javascript-->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 		<!--end::Javascript-->
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
 	</body>
 	<!--end::Body-->
 </html>

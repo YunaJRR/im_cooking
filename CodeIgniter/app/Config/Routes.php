@@ -46,4 +46,9 @@ $routes->get('comments/delete/(:num)', 'CommentController::delete/$1'); // Delet
 
 // Favorite routes
 $routes->get('favorites', 'FavoriteController::index'); // List favorites
+$routes->get('add-favorite', 'FavoriteController::addFavorite'); // Favorite addition page
+$routes->post('favorites/save', 'FavoriteController::saveFavorite'); // Create favorite (POST)
+$routes->post('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite (POST)
+$routes->get('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite page
+$routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Delete favorite
 

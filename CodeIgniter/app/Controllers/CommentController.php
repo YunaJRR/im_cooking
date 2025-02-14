@@ -17,7 +17,6 @@ class CommentController extends BaseController
         if (!$session) {
             return redirect()->to(uri: 'sign-in')->with('error', 'You must be logged in to access this page.');
         }
-
         $commentModel = new CommentModel();
         $perPage = 3;
 
@@ -89,7 +88,7 @@ class CommentController extends BaseController
             } else {
                 // Prepare form data
                 $commentData = [
-                    'UserID' => session()->get('ID'), // Assuming you store user ID in session
+                    'UserID' => session()->get('id'), // Assuming you store user ID in session
                     'RecipeID' => $this->request->getPost('RecipeID'),
                     'Text' => $this->request->getPost('text'),
                     'Date' => date('Y-m-d H:i:s'),

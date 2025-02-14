@@ -36,6 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="assets/css/styles.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -43,11 +44,6 @@ License: For each use you must have a valid license purchased only from above li
 		<?php
 			$session = service('session');
 		?>
-		<?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
         <!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -624,7 +620,9 @@ License: For each use you must have a valid license purchased only from above li
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
-                                                    <?php foreach ($comments as $comment): ?>
+													<?php foreach ($comments as $comment): 
+															if (!$comment['DeletionDate']){    
+                                                    ?>
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::Checkbox-->
@@ -654,12 +652,12 @@ License: For each use you must have a valid license purchased only from above li
 																<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
 																	<!--begin::Menu item-->
 																	<div class="menu-item px-3">
-																		<a href="<?= site_url('comments/save/' . $comment['ID']) ?>" class="menu-link px-3">Edit</a>
+																	<a href="<?= site_url('comments/save/' . $comment['ID']) ?>" class="menu-link px-3">Edit</a>
 																	</div>
 																	<!--end::Menu item-->
 																	<!--begin::Menu item-->
 																	<div class="menu-item px-3">
-																		<a href="<?= site_url('comments/delete/' . $comment['ID']) ?>" class="menu -link px-3" data-kt-comments-table-filter="delete_row">Delete</a>
+																		<a href="<?= site_url('comments/delete/' . $comment['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
 																	</div>
 																	<!--end::Menu item-->
 																</div>
@@ -669,7 +667,10 @@ License: For each use you must have a valid license purchased only from above li
 														<?php endif; ?>
                                                     </tr>
                                                     <!--end::Table row-->
-                                                    <?php endforeach; ?>
+                                                    <?php
+														} 
+														endforeach;
+													?>
                                                 </tbody>
                                                 <!--end::Table body-->
                                             </table>
@@ -749,7 +750,13 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Page Custom Javascript(used by this page)-->
 		<script src="assets/js/custom/widgets.js"></script>
 		<!--end::Page Custom Javascript-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

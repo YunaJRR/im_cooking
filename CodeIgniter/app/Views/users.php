@@ -873,7 +873,7 @@ License: For each use you must have a valid license purchased only from above li
                                                 <?= $pager->links('default', 'custom_pagination'); ?>
                                             </div>
                                             <?php else: ?>
-                                                <p class="text-center">No hay usuarios registrados.</p>
+                                                <p class="text-center">There are no users registered.</p>
                                             <?php endif; ?>
                                             <!--end::Table-->
                                         </div>
