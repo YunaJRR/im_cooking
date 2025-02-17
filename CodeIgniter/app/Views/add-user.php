@@ -60,7 +60,7 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="<?= site_url('') ?>">
-							<img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" />
+							<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1-dark.svg')?>" class="h-25px logo" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -186,7 +186,7 @@ License: For each use you must have a valid license purchased only from above li
 									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
 											
 									</div>
 									
@@ -197,7 +197,7 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+													<img alt="Logo" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
