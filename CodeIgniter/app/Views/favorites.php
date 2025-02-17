@@ -161,7 +161,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('favorites') ?>">
+									<a class="menu-link active" href="<?= site_url('favorites') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/general/gen029.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -859,11 +859,6 @@ License: For each use you must have a valid license purchased only from above li
                                                             <!--end::Svg Icon--></a>
                                                             <!--begin::Menu-->
                                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                                                <!--begin::Menu item-->
-                                                                <div class="menu-item px-3">
-                                                                <a href="<?= site_url('favorites/save/' . $favorite['ID']) ?>" class="menu-link px-3">Edit</a>
-                                                                </div>
-                                                                <!--end::Menu item-->
                                                                 <!--begin::Menu item-->
                                                                 <div class="menu-item px-3">
                                                                     <a href="<?= site_url('favorites/delete/' . $favorite['ID']) ?>" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>

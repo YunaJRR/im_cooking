@@ -111,8 +111,16 @@ class FavoriteController extends BaseController
     public function delete($id)
     {
         $favoriteModel = new FavoriteModel();
-        $favoriteModel->delete($id);
-        return redirect()->to('/favorites')->with('success', 'Favorite deleted successfully.');
+        $favoriteData = [
+            'DeletionDate' => date('Y-m-d H:i:s')
+        ];
+        
+        // Update the user to mark as deleted
+        if ($favoriteModel->update($id, $favoriteData)) {
+            return redirect()->to('/favorites')->with('success', 'User  marked as deleted successfully.');
+        } else {
+            return redirect()->to('/favorites')->with('error', 'Failed to mark user as deleted.');
+        }
     }
 
 }

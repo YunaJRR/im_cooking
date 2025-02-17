@@ -40,9 +40,7 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-up -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
-				<!--begin::Content-->
-				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?= base_url('assets/media/illustrations/sketchy-1/14.png') ?>)">				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
 					<a href="../../demo1/dist/index.html" class="mb-12">
 						<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1.svg')?>" class="h-40px" />
@@ -187,7 +185,7 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="<?= base_url('assets/js/custom/authentication/sign-up/general.js')?>"></script>
+		<script src="<?= base_url(relativePath: 'assets/js/custom/authentication/sign-up/general.js')?>"></script>
 		<!--end::Page Custom Javascript-->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

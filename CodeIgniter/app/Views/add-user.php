@@ -44,11 +44,6 @@ License: For each use you must have a valid license purchased only from above li
 		$session = service('session');
 	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-        <?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
 		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -117,7 +112,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<?php if (session()->get('role') == '2'): ?>
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('users') ?>">
+									<a class="menu-link active" href="<?= site_url('users') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -183,7 +178,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
+									<span class="text-white user-text"><?php echo $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
@@ -202,10 +197,10 @@ License: For each use you must have a valid license purchased only from above li
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $session->get('name'); ?>	
 													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
 														<?php
-															switch ($user = $session->get('role')) {
+															switch ($session->get('role')) {
 																case '1':
 																	echo 'User';
 																	break;
@@ -220,7 +215,7 @@ License: For each use you must have a valid license purchased only from above li
 															}
 														?>
 													</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
@@ -410,6 +405,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--end::Page title-->
 							</div>
+							
 							<!--end::Container-->
 						</div>
 						<!--end::Toolbar-->

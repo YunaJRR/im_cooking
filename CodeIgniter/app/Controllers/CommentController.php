@@ -72,6 +72,11 @@ class CommentController extends BaseController
         // Fetch recipes to display in the dropdown
         $data['recipes'] = $this->recipeModel->findAll(); // Fetch all recipes
 
+        // If editing, set the selected recipe ID
+        if ($data['comment']) {
+            $data['selectedRecipeID'] = $data['comment']['RecipeID'];
+        }
+
         if ($this->request->getMethod() == 'POST') {
             // Validation rules
             $validation = \Config\Services::validation();

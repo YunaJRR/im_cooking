@@ -129,7 +129,7 @@ License: For each use you must have a valid license purchased only from above li
 								<?php endif?>
 								
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('recipes') ?>">
+									<a class="menu-link active" href="<?= site_url('recipes') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/coding/cod002.svg-->
 											<span class="svg-icon svg-icon-2">

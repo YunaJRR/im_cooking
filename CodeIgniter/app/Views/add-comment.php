@@ -36,10 +36,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="<?= base_url('assets/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
-<<<<<<< HEAD
-=======
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
->>>>>>> features/usertable-admin
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -47,14 +44,6 @@ License: For each use you must have a valid license purchased only from above li
 		$session = service('session');
 	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
-<<<<<<< HEAD
-        <?php if (session()->getFlashdata('success')): ?>
-            <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
-            </script>
-        <?php endif; ?>
-=======
->>>>>>> features/usertable-admin
 		<!--begin::Main-->
 		<!--begin::Root-->
 		<div class="d-flex flex-column flex-root">
@@ -66,7 +55,7 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="<?= site_url('') ?>">
-							<img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" />
+							<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1-dark.svg')?>" class="h-25px logo" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -156,7 +145,7 @@ License: For each use you must have a valid license purchased only from above li
 									</a>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('comments') ?>">
+									<a class="menu-link active" href="<?= site_url('comments') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm003.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -192,7 +181,7 @@ License: For each use you must have a valid license purchased only from above li
 									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
 											
 									</div>
 									
@@ -203,7 +192,7 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+													<img alt="Logo" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
@@ -447,11 +436,13 @@ License: For each use you must have a valid license purchased only from above li
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
                                                         <select name="RecipeID" id="RecipeID" class="form-select" required>
-                                                            <option value="">Select a recipe</option>
-                                                            <?php foreach ($recipes as $recipe): ?>
-                                                                <option value="<?= $recipe['ID'] ?>"><?= esc($recipe['Title']) ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+															<option value="">Select a recipe</option>
+															<?php foreach ($recipes as $recipe): ?>
+																<option value="<?= $recipe['ID'] ?>" <?= isset($selectedRecipeID) && $selectedRecipeID == $recipe['ID'] ? 'selected' : '' ?>>
+																	<?= esc($recipe['Title']) ?>
+																</option>
+															<?php endforeach; ?>
+														</select>
                                                         <!--end::Input-->
                                                     </div>
                                                     <!--end::Input group-->
@@ -550,6 +541,13 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="<?= base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
 		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
+            </script>
+        <?php endif; ?>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

@@ -24,13 +24,13 @@ License: For each use you must have a valid license purchased only from above li
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/favicon.ico')?>" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/plugins/global/plugins.bundle.css')?>" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/css/style.bundle.css')?>" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
@@ -40,19 +40,23 @@ License: For each use you must have a valid license purchased only from above li
 		<!--begin::Main-->
 		<div class="d-flex flex-column flex-root">
 			<!--begin::Authentication - Sign-in -->
-			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
-				<!--begin::Content-->
+			<div class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed" style="background-image: url(<?= base_url('assets/media/illustrations/sketchy-1/14.png') ?>)">				<!--begin::Content-->
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
-					<a href="../../demo1/dist/index.html" class="mb-12">
-						<img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
+					<a href="" class="mb-12">
+						<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1.svg')?>" class="h-40px" />
 					</a>
 					<!--end::Logo-->
 					<!--begin::Wrapper-->
 					<div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 						<!--begin::Form-->
 						<form action="<?= site_url('login/process') ?>" class="form w-100" novalidate="novalidate" id="kt_sign_in_form" method="post">
-							<?= csrf_field() ?>
+							<?= csrf_field(); ?>
+							<?php if (isset($validation)): ?>
+								<div class="alert alert-danger">
+									<?= $validation->listErrors() ?>
+								</div>
+							<?php endif; ?>
 							<!--begin::Heading-->
 							<div class="text-center mb-10">
 								<!--begin::Title-->
@@ -133,9 +137,9 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Page Custom Javascript-->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-		<?php if (session()->getFlashdata('success')): ?>
+		<?php if (session()->getFlashdata('error')): ?>
             <script>
-                toastr.success('<?= session()->getFlashdata('success'); ?>');
+                toastr.error('<?= session()->getFlashdata('error'); ?>');
             </script>
         <?php endif; ?>
 		<!--end::Javascript-->

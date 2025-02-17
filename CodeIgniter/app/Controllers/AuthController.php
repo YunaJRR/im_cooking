@@ -103,10 +103,12 @@ class AuthController extends BaseController
 
             // Redirect to the home page with a success message.
             return redirect()->to('')->with('success', 'Login successful.');
+        }else{
+            // If the credentials are incorrect, show an error message.
+            return redirect()->to(uri: 'sign-in')->with('error', 'Incorrect email or password.');
         }
 
-        // If the credentials are incorrect, show an error message.
-        return redirect()->to(uri: '/login')->with('error', 'Incorrect email or password.');
+        
     }
 
     public function logout()
