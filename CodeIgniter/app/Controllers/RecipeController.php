@@ -9,29 +9,38 @@ use App\Models\RecipeModel;
 class RecipeController extends BaseController
 {
     public function index()
-{
-    $session = session()->get('role');
-    if (!$session) {
-        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+    {
+        $session = session()->get('role');
+        if (!$session) {
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
+        
+        $recipeModel = new RecipeModel();
+        $perPage = 3; // Set the number of items per page
+
+        // Get the search parameters from the request
+        $title = $this->request->getVar('title'); // For Title
+        $description = $this->request->getVar('description'); // For Description
+
+        // Get sorting parameters from the request
+        $sortField = $this->request->getVar('sortField') ?? 'id'; // Default sort field
+        $sortOrder = $this->request->getVar('sortOrder') ?? 'asc'; // Default sort order
+
+        // Get the current page from the request, default to 1
+        $page = (int) $this->request->getVar('page') ?: 1;
+
+        // Execute the query and paginate results
+        $data['recipes'] = $recipeModel->getRecipes($title, $perPage, $page, $sortField, $sortOrder);
+        $data['pager'] = $recipeModel->pager;
+
+        // Store the search parameters in the data array
+        $data['Title'] = $title; 
+        $data['Description'] = $description; 
+        $data['sortField'] = $sortField; // Pass sort field to view
+        $data['sortOrder'] = $sortOrder; // Pass sort order to view
+
+        return view('recipes', $data);
     }
-    
-    $recipeModel = new RecipeModel();
-    $perPage = 3;
-
-    // Get the search parameters from the request
-    $title = $this->request->getVar('title'); // For Title
-    $description = $this->request->getVar('description'); // For Description
-
-    // Execute the query and paginate results
-    $data['recipes'] = $recipeModel->getRecipes($title, $perPage);
-    $data['pager'] = $recipeModel->pager;
-
-    // Store the search parameters in the data array
-    $data['Title'] = $title; 
-    $data['Description'] = $description; 
-
-    return view('recipes', $data);
-}
     public function addRecipe()
     {
         $session = session()->get('role');

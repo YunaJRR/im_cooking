@@ -802,11 +802,46 @@ License: For each use you must have a valid license purchased only from above li
                                                                 <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                                             </div>
                                                         </th>
-                                                        <th class="min-w-125px">First Name</th>
-                                                        <th class="min-w-125px">Last name</th>
-                                                        <th class="min-w-125px">Username</th>
-                                                        <th class="min-w-125px">Email</th>
-                                                        <th class="min-w-125px">Joined Date</th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=Firstname&sortOrder=' . (($sortField == 'Firstname' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                First Name
+                                                                <?php if ($sortField == 'Firstname'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=Lastname&sortOrder=' . (($sortField == 'Lastname' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Last Name
+                                                                <?php if ($sortField == 'Lastname'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=Username&sortOrder=' . (($sortField == 'Username' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Username
+                                                                <?php if ($sortField == 'Username'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=Email&sortOrder=' . (($sortField == 'Email' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Email
+                                                                <?php if ($sortField == 'Email'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=CreationDate&sortOrder=' . (($sortField == 'CreationDate' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Joined Date
+                                                                <?php if ($sortField == 'CreationDate'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
                                                         <th class="text-end min-w-100px">Actions</th>
                                                     </tr>
                                                     <!--end::Table row-->

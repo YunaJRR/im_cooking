@@ -21,54 +21,64 @@ class UserController extends BaseController
         return view('add-user'); // Load and return the form for adding users.
     }
     public function index()
-{
-    $session = session()->get('role');
-    if (!$session) {
-        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
-    }
-    if ((session()->get('role')) != 2){
-        return redirect()->to('')->with('error', 'You are not allowed here...');
-    }
-    
-    $userModel = new UserModel();
-    $perPage = 3;
-    $data['user'] = $userModel->findAll();
+    {
+        $session = session()->get('role');
+        if (!$session) {
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
+        }
+        if ((session()->get('role')) != 2) {
+            return redirect()->to('')->with('error', 'You are not allowed here...');
+        }
 
-    // Get the search parameters from the request
-    $name = $this->request->getVar('name'); // For Username
-    $firstname = $this->request->getVar('firstname'); // For Firstname
-    $lastname = $this->request->getVar('lastname'); // For Lastname
-    $email = $this->request->getVar('email'); // For Email
+        $userModel = new UserModel();
+        $perPage = 3;
 
-    // Build the query based on the search parameters
-    $query = $userModel;
-    $query = $query->where('DeletionDate', null);
+        // Get the search parameters from the request
+        $name = $this->request->getVar('name'); // For Username
+        $firstname = $this->request->getVar('firstname'); // For Firstname
+        $lastname = $this->request->getVar('lastname'); // For Lastname
+        $email = $this->request->getVar('email'); // For Email
 
-    if ($name) {
-        $query = $query->like('Username', $name);
+        // Get sorting parameters from the request
+        $sortField = $this->request->getVar('sortField') ?? 'id'; // Default sort field
+        $sortOrder = $this->request->getVar('sortOrder') ?? 'asc'; // Default sort order
+
+        // Build the query based on the search parameters
+        $query = $userModel;
+        $query = $query->where('DeletionDate', null);
+
+        if ($name) {
+            $query = $query->like('Username', $name);
+        }
+        if ($firstname) {
+            $query = $query->like('Firstname', $firstname);
+        }
+        if ($lastname) {
+            $query = $query->like('Lastname', $lastname);
+        }
+        if ($email) {
+            $query = $query->like('Email', $email);
+        }
+
+        // Apply sorting
+        $query = $query->orderBy($sortField, $sortOrder);
+
+        // Execute the query and paginate results
+        $data['users'] = $query->paginate($perPage);
+        $data['pager'] = $userModel->pager;
+
+        // Store the search parameters in the data array
+        $data['Username'] = $name; 
+        $data['Firstname'] = $firstname; 
+        $data['Lastname'] = $lastname; 
+        $data['Email'] = $email; 
+
+        // Store sorting parameters in the data array
+        $data['sortField'] = $sortField;
+        $data['sortOrder'] = $sortOrder;
+
+        return view('users', $data);
     }
-    if ($firstname) {
-        $query = $query->like('Firstname', $firstname);
-    }
-    if ($lastname) {
-        $query = $query->like('Lastname', $lastname);
-    }
-    if ($email) {
-        $query = $query->like('Email', $email);
-    }
-
-    // Execute the query and paginate results
-    $data['users'] = $query->paginate($perPage);
-    $data['pager'] = $userModel->pager;
-
-    // Store the search parameters in the data array
-    $data['Username'] = $name; 
-    $data['Firstname'] = $firstname; 
-    $data['Lastname'] = $lastname; 
-    $data['Email'] = $email; 
-
-    return view('users', $data);
-}
 
 public function saveUser ($id = null)
 {

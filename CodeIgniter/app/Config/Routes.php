@@ -52,3 +52,8 @@ $routes->post('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); /
 $routes->get('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite page
 $routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Delete favorite
 
+// Event routes
+$routes->get('/fetch-events', 'EventController::fetchEvents');
+$routes->post('/add-event', 'EventController::addEvent');
+$routes->delete('/delete-event/(:num)', 'EventController::deleteEvent/$1');
+

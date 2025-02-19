@@ -363,7 +363,7 @@ License: For each use you must have a valid license purchased only from above li
 										<div class="menu-item px-5">
 											<div class="menu-content px-5">
 												<label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-													<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="../../demo1/dist/index.html" />
+													<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="../../demo1/dist.html" />
 													<span class="pulse-ring ms-n1"></span>
 													<span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
 												</label>
@@ -599,24 +599,49 @@ License: For each use you must have a valid license purchased only from above li
                                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                                                 <!--begin::Table head-->
                                                 <thead>
-                                                    <!--begin::Table row-->
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="w-10px pe-2">
+													<!--begin::Table row-->
+													<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+														<th class="w-10px pe-2">
                                                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                                                 <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                                             </div>
                                                         </th>
-                                                        <th class="min-w-125px">Title</th>
-                                                        <th class="min-w-125px">Description</th>
-                                                        <th class="min-w-125px">Instructions</th>
-                                                        <th class="min-w-125px">Image</th>
-                                                        <th class="min-w-125px">Chef</th>
-														<?php if (session()->get('role') == '2'): ?>
-                                                        	<th class="text-end min-w-100px">Actions</th>
-														<?php endif?>
-                                                    </tr>
-                                                    <!--end::Table row-->
-                                                </thead>
+														<th class="min-w-125px">
+															<a href="<?= site_url('recipes?title=' . urlencode($Title) . '&description=' . urlencode($Description) . '&sortField=Title&sortOrder=' . (($sortField == 'Title' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Title
+																<?php if ($sortField == 'Title'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('recipes?title=' . urlencode($Title) . '&description=' . urlencode($Description) . '&sortField=Description&sortOrder=' . (($sortField == 'Description' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Description
+																<?php if ($sortField == 'Description'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('recipes?title=' . urlencode($Title) . '&description=' . urlencode($Description) . '&sortField=CreationDate&sortOrder=' . (($sortField == 'CreationDate' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Created Date
+																<?php if ($sortField == 'CreationDate'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('recipes?title=' . urlencode($Title) . '&description=' . urlencode($Description) . '&sortField=Image&sortOrder=' . (($sortField == 'Image' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Image
+																<?php if ($sortField == 'Image'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="text-end min-w-100px">Actions</th>
+													</tr>
+													<!--end::Table row-->
+												</thead>
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
