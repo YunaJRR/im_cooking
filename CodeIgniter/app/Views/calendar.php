@@ -565,7 +565,7 @@ License: For each use you must have a valid license purchased only from above li
 					eventClick: function (info) {
 						if (confirm('¿Deseas eliminar este evento?')) {
 							$.ajax({
-								url: '<?= site_url('event/deleteEvent/' . "' + info.event.id + '"); ?>', // URL to delete event
+								url: '<?= site_url('event/deleteEvent/' . "' + event.id + '"); ?>', // URL to delete event
 								method: 'DELETE',
 								success: function(response) {
 									if (response.success) {
