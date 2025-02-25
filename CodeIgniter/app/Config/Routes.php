@@ -53,8 +53,8 @@ $routes->get('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); //
 $routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Delete favorite
 
 // Event routes
-$routes->get('calendar', 'EventController::index'); // Calendar view
-$routes->get('/fetch-events', 'EventController::fetchEvents');
-$routes->post('/add-event', 'EventController::addEvent');
-$routes->delete('/delete-event/(:num)', 'EventController::deleteEvent/$1');
+$routes->get('calendar', 'EventController::index');
+$routes->get('event/fetchEvents', 'EventController::fetchEvents');
+$routes->post('event/addEvent', 'EventController::addEvent');
+$routes->delete('event/deleteEvent/(:num)', 'EventController::deleteEvent/$1');
 

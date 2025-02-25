@@ -1,62 +1,38 @@
 <?php
-namespace App\Controllers;
-use App\Models\EventModel;
-use CodeIgniter\API\ResponseTrait; // To handle JSON responses
 
-class EventController extends BaseController{
-    use ResponseTrait; 
+namespace App\Controllers;
+
+use App\Models\EventModel;
+
+class EventController extends BaseController
+{
+    protected $eventModel;
+
+    public function __construct()
+    {
+        $this->eventModel = new EventModel();
+    }
 
     public function index()
     {
-        return view('calendar'); // Load and return the event view
+        return view('calendar');
     }
-
     public function fetchEvents()
     {
-        $model = new EventModel();
-        $events = $model->findAll(); // Fetch all events
-
-        return $this->respond($events, 200); // Respond with JSON and 200 status code
+        $events = $this->eventModel->findAll();
+        return $this->response->setJSON($events);
     }
 
     public function addEvent()
     {
-        $model = new EventModel();
-        $data = $this->request->getJson(); // Get data from POST request
-
-        if ($model->insert($data)) {
-            $response = [
-                'status'   => 201,
-                'error'    => null,
-                'messages' => [
-                    'success' => 'Event saved successfully'
-                ]
-            ];
-            return $this->respondCreated($response); // Respond with 201 Created status
-        } else {
-            return $this->fail($model->errors()); // Respond with validation errors
-        }
+        $data = $this->request->getPost();
+        $this->eventModel->insert($data);
+        return $this->response->setJSON(['success' => true]);
     }
 
-    public function deleteEvent($id = null)
+    public function deleteEvent($id)
     {
-        $model = new EventModel();
-        $event = $model->find($id);
-        if ($event === null) {
-            return $this->failNotFound('Event not found');
-        }
-
-        if ($model->delete($id)) {
-            $response = [
-                'status'   => 200,
-                'error'    => null,
-                'messages' => [
-                    'success' => 'Event deleted successfully'
-                ]
-            ];
-            return $this->respond($response);
-        } else {
-            return $this->fail('Could not delete event');
-        }
+        $this->eventModel->delete($id);
+        return $this->response->setJSON(['success' => true]);
     }
 }

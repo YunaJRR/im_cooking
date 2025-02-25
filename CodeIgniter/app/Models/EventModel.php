@@ -7,7 +7,11 @@ use CodeIgniter\Model;
 class EventModel extends Model
 {
     protected $table = 'event';
-    protected $primaryKey = 'PK_ID_EVENT';
-    protected $allowedFields = ['TITLE', 'START_DATE', 'END_DATE', 'DESCRIPTION_ES', 'DESCRIPTION_ENG', 'DELETION_DATE'];
+    protected $primaryKey = 'ID';
+    protected $allowedFields = ['title', 'start', 'end'];
  
+    public function getEvents()
+    {
+        return $this->findAll();
+    }
 }

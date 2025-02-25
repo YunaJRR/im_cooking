@@ -499,6 +499,93 @@ License: For each use you must have a valid license purchased only from above li
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
         <?php endif; ?>
+
+		<script>
+			$(document).ready(function () {
+				console.log('Fetching events from:', '<?= site_url('event/fetchEvents'); ?>');
+
+				const calendarEl = document.getElementById('calendar');
+
+				// Initialize FullCalendar
+				const calendar = new FullCalendar.Calendar(calendarEl, {
+					initialView: 'dayGridMonth',
+					selectable: true,
+					editable: true,
+
+					// Load events from the server
+					events: function(fetchInfo, successCallback, failureCallback) {
+						$.ajax({
+							url: '<?= site_url('event/fetchEvents'); ?>',
+							method: 'GET',
+							dataType: 'json',
+							success: function(data) {
+								// Check if data is an array
+								if (Array.isArray(data)) {
+									successCallback(data);
+								} else {
+									console.error('Unexpected data format:', data);
+									failureCallback();
+								}
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								console.error('Error fetching events:', textStatus, errorThrown);
+								console.error('Response:', jqXHR.responseText); // Log the full response
+								failureCallback();
+							}
+						});
+					},
+
+					// Add event
+					select: function (info) {
+						const title = prompt('Título del evento:');
+						if (title) {
+							$.ajax({
+								url: '<?= site_url('event/addEvent'); ?>', // URL to add event
+								method: 'POST',
+								data: {
+									title: title,
+									start: info.startStr,
+									end: info.endStr // Optional: you can set an end date if needed
+								},
+								success: function(response) {
+									if (response.success) {
+										calendar.refetchEvents(); // Refresh the events
+									} else {
+										alert('Error al agregar el evento.');
+									}
+								},
+								error: function() {
+									alert('Error al agregar el evento.');
+								}
+							});
+						}
+					},
+
+					// Delete event
+					eventClick: function (info) {
+						if (confirm('¿Deseas eliminar este evento?')) {
+							$.ajax({
+								url: '<?= site_url('event/deleteEvent/' . "' + info.event.id + '"); ?>', // URL to delete event
+								method: 'DELETE',
+								success: function(response) {
+									if (response.success) {
+										calendar.refetchEvents(); // Refresh the events
+									} else {
+										alert('Error al eliminar el evento.');
+									}
+								},
+								error: function() {
+									alert('Error al eliminar el evento.');
+								}
+							});
+						}
+					}
+				});
+
+				calendar.render();
+			});
+		</script>
+
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
