@@ -16,6 +16,6 @@ class EventModel extends Model
     }
     public function getActiveEvents()
     {
-        return $this->where('DeletionDate = "0000-00-00 00:00:00"')->findAll();
+        return $this->where('DeletionDate IS NULL OR DeletionDate = "0000-00-00 00:00:00"')->findAll();
     }
 }
