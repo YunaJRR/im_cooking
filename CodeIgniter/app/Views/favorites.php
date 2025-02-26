@@ -624,173 +624,19 @@ License: For each use you must have a valid license purchased only from above li
                                                             <!--begin::Modal body-->
                                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                                                 <!--begin::Form-->
-                                                                <form id="kt_modal_add_user_form" class="form" action="#">
-                                                                    <!--begin::Scroll-->
-                                                                    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-                                                                        <!--begin::Input group-->
-                                                                        <div class="fv-row mb-7">
-                                                                            <!--begin::Label-->
-                                                                            <label class="d-block fw-bold fs-6 mb-5">Avatar</label>
-                                                                            <!--end::Label-->
-                                                                            <!--begin::Image input-->
-                                                                            <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(assets/media/avatars/blank.png)">
-                                                                                <!--begin::Preview existing avatar-->
-                                                                                <div class="image-input-wrapper w-125px h-125px" style="background-image: url(assets/media/avatars/150-1.jpg);"></div>
-                                                                                <!--end::Preview existing avatar-->
-                                                                                <!--begin::Label-->
-                                                                                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
-                                                                                    <i class="bi bi-pencil-fill fs-7"></i>
-                                                                                    <!--begin::Inputs-->
-                                                                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
-                                                                                    <input type="hidden" name="avatar_remove" />
-                                                                                    <!--end::Inputs-->
-                                                                                </label>
-                                                                                <!--end::Label-->
-                                                                                <!--begin::Cancel-->
-                                                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
-                                                                                    <i class="bi bi-x fs-2"></i>
-                                                                                </span>
-                                                                                <!--end::Cancel-->
-                                                                                <!--begin::Remove-->
-                                                                                <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
-                                                                                    <i class="bi bi-x fs-2"></i>
-                                                                                </span>
-                                                                                <!--end::Remove-->
-                                                                            </div>
-                                                                            <!--end::Image input-->
-                                                                            <!--begin::Hint-->
-                                                                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                                                            <!--end::Hint-->
-                                                                        </div>
-                                                                        <!--end::Input group-->
-                                                                        <!--begin::Input group-->
-                                                                        <div class="fv-row mb-7">
-                                                                            <!--begin::Label-->
-                                                                            <label class="required fw-bold fs-6 mb-2">Full Name</label>
-                                                                            <!--end::Label-->
-                                                                            <!--begin::Input-->
-                                                                            <input type="text" name="user_name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Full name" value="Emma Smith" />
-                                                                            <!--end::Input-->
-                                                                        </div>
-                                                                        <!--end::Input group-->
-                                                                        <!--begin::Input group-->
-                                                                        <div class="fv-row mb-7">
-                                                                            <!--begin::Label-->
-                                                                            <label class="required fw-bold fs-6 mb-2">Email</label>
-                                                                            <!--end::Label-->
-                                                                            <!--begin::Input-->
-                                                                            <input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="e.smith@kpmg.com.au" />
-                                                                            <!--end::Input-->
-                                                                        </div>
-                                                                        <!--end::Input group-->
-                                                                        <!--begin::Input group-->
-                                                                        <div class="mb-7">
-                                                                            <!--begin::Label-->
-                                                                            <label class="required fw-bold fs-6 mb-5">Role</label>
-                                                                            <!--end::Label-->
-                                                                            <!--begin::Roles-->
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="0" id="kt_modal_update_role_option_0" checked='checked' />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_0">
-                                                                                        <div class="fw-bolder text-gray-800">Administrator</div>
-                                                                                        <div class="text-gray-600">Best for business owners and company administrators</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="1" id="kt_modal_update_role_option_1" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_1">
-                                                                                        <div class="fw-bolder text-gray-800">Developer</div>
-                                                                                        <div class="text-gray-600">Best for developers or people primarily using the API</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="2" id="kt_modal_update_role_option_2" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_2">
-                                                                                        <div class="fw-bolder text-gray-800">Analyst</div>
-                                                                                        <div class="text-gray-600">Best for people who need full access to analytics data, but don't need to update business settings</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="3" id="kt_modal_update_role_option_3" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_3">
-                                                                                        <div class="fw-bolder text-gray-800">Support</div>
-                                                                                        <div class="text-gray-600">Best for employees who regularly refund payments and respond to disputes</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <div class='separator separator-dashed my-5'></div>
-                                                                            <!--begin::Input row-->
-                                                                            <div class="d-flex fv-row">
-                                                                                <!--begin::Radio-->
-                                                                                <div class="form-check form-check-custom form-check-solid">
-                                                                                    <!--begin::Input-->
-                                                                                    <input class="form-check-input me-3" name="user_role" type="radio" value="4" id="kt_modal_update_role_option_4" />
-                                                                                    <!--end::Input-->
-                                                                                    <!--begin::Label-->
-                                                                                    <label class="form-check-label" for="kt_modal_update_role_option_4">
-                                                                                        <div class="fw-bolder text-gray-800">Trial</div>
-                                                                                        <div class="text-gray-600">Best for people who need to preview content data, but don't need to make any updates</div>
-                                                                                    </label>
-                                                                                    <!--end::Label-->
-                                                                                </div>
-                                                                                <!--end::Radio-->
-                                                                            </div>
-                                                                            <!--end::Input row-->
-                                                                            <!--end::Roles-->
-                                                                        </div>
-                                                                        <!--end::Input group-->
+                                                                <form id="form-filter" method="GET" action="<?= site_url('favorites') ?>" class="mb-3">
+                                                                    <div class="input-group w-auto mb-3">
+                                                                        <div class="fs-5 text-dark fw-bolder pb-2">User </div>
+                                                                        <input type="text" name="user" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($User) ?>" placeholder="Search"/>
                                                                     </div>
-                                                                    <!--end::Scroll-->
+                                                                    <div class="input-group w-auto mb-3">
+                                                                        <div class="fs-5 text-dark fw-bolder pb-2">Recipe</div>
+                                                                        <input type="text" name="recipe" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Recipe) ?>" placeholder="Search"/>
+                                                                    </div>
                                                                     <!--begin::Actions-->
-                                                                    <div class="text-center pt-15">
-                                                                        <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
-                                                                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                                                                            <span class="indicator-label">Submit</span>
-                                                                            <span class="indicator-progress">Please wait...
-                                                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                                        </button>
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <button type="button" id="resetFilters" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6">Reset</button>
+                                                                        <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
                                                                     </div>
                                                                     <!--end::Actions-->
                                                                 </form>
@@ -814,19 +660,33 @@ License: For each use you must have a valid license purchased only from above li
                                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                                                 <!--begin::Table head-->
                                                 <thead>
-                                                    <!--begin::Table row-->
                                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="w-10px pe-2">
-                                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
-                                                            </div>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('favorites?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&sortField=users.Username&sortOrder=' . (($sortField == 'users.Username' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                User
+                                                                <?php if ($sortField == 'users.Username'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
                                                         </th>
-                                                        <th class="min-w-125px">User</th>
-                                                        <th class="min-w-125px">Recipe</th>
-                                                        <th class="min-w-125px">Date</th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('favorites?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&sortField=recipes.Title&sortOrder=' . (($sortField == 'recipes.Title' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Recipe
+                                                                <?php if ($sortField == 'recipes.Title'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
+                                                            <a href="<?= site_url('favorites?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&sortField=favorites.Date&sortOrder=' . (($sortField == 'favorites.Date' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+                                                                Date
+                                                                <?php if ($sortField == 'favorites.Date'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
                                                         <th class="text-end min-w-100px">Actions</th>
                                                     </tr>
-                                                    <!--end::Table row-->
                                                 </thead>
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
@@ -836,13 +696,6 @@ License: For each use you must have a valid license purchased only from above li
                                                     ?>
                                                     <!--begin::Table row-->
                                                     <tr>
-                                                        <!--begin::Checkbox-->
-                                                        <td>
-                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox" value="1" />
-                                                            </div>
-                                                        </td>
-                                                        <!--end::Checkbox-->
                                                         <!--begin::User=-->
                                                         <td><?= esc($favorite['Username']) ?></td>
                                                         <td><?= esc($favorite['Title']) ?></td>

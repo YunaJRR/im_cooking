@@ -13,43 +13,38 @@ class FavoriteController extends BaseController
         $this->recipeModel = new RecipeModel(); // Load RecipeModel
     }
     public function index()
-    {
-        $session = session()->get('role');
-        if (!$session) {
-            return redirect()->to(uri: 'sign-in')->with('error', 'You must be logged in to access this page.');
-        }
-
-        $favoriteModel = new FavoriteModel();
-        $perPage = 3;
-
-        // Get the search parameters from the request
-        $user = $this->request->getVar('user'); // For Favorite Text
-        $recipe = $this->request->getVar('recipe'); // For Favorite Text
-
-        // Build the query based on the search parameters
-        $query = $favoriteModel;
-        $query->select('favorites.*, users.Username, recipes.Title')
-          ->join('users AS u1', 'u1.ID = favorites.UserID', 'left')
-          ->join('recipes AS r1', 'r1.ID = favorites.RecipeID', 'left');
-
-        if ($user) {
-            $query->like('users.Username', $user); // Correctly filter by Username
-        }
-        if ($recipe) {
-            $query->like('recipes.Title', $recipe); // Correctly filter by Recipe Title
-        }
-
-
-        // Execute the query and paginate results
-        $data['favorites'] = $favoriteModel->getFavorites($user, $perPage);
-        $data['pager'] = $favoriteModel->pager;
-
-        // Store the search parameters in the data array
-        $data['User'] = $user;
-        $data['Recipe'] = $recipe;
-
-        return view('favorites', $data);
+{
+    $session = session()->get('role');
+    if (!$session) {
+        return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
     }
+
+    $favoriteModel = new FavoriteModel();
+    $perPage = 3;
+
+    // Get the search parameters from the request
+    $user = $this->request->getVar('user'); // For Favorite Text
+    $recipe = $this->request->getVar('recipe'); // For Favorite Text
+
+    // Get sorting parameters from the request
+    $sortField = $this->request->getVar('sortField') ?? 'favorites.ID'; // Default sort field
+    $sortOrder = $this->request->getVar('sortOrder') ?? 'asc'; // Default sort order
+
+    // Get the current page number from the request
+    $page = $this->request->getVar('page') ?? 1; // Default to page 1 if not set
+
+    // Execute the query and paginate results
+    $data['favorites'] = $favoriteModel->getFavorites($user, $perPage, $page, $sortField, $sortOrder);
+    $data['pager'] = $favoriteModel->pager;
+
+    // Store the search parameters in the data array
+    $data['User'] = $user; // Corrected variable name
+    $data['Recipe'] = $recipe; // Corrected variable name
+    $data['sortField'] = $sortField; // Pass sort field to view
+    $data['sortOrder'] = $sortOrder; // Pass sort order to view
+
+    return view('favorites', $data);
+}
     public function addFavorite()
     {
         $session = session()->get('role');

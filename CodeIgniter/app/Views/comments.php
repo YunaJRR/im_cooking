@@ -451,7 +451,7 @@ License: For each use you must have a valid license purchased only from above li
                                                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                             <!--begin::Input group-->
                                                             <form id="form-filter" method="GET" action="<?= site_url('comments') ?>" class="mb-3">
-                                                            <div class="input-group w-auto mb-3">
+                                                            	<div class="input-group w-auto mb-3">
                                                                     <div class="fs-5 text-dark fw-bolder pb-2">User</div>
                                                                     <input type="text" name="user" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($User) ?>" placeholder="Search"/>
                                                                 </div>
@@ -600,23 +600,44 @@ License: For each use you must have a valid license purchased only from above li
                                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_comments">
                                                 <!--begin::Table head-->
                                                 <thead>
-                                                    <!--begin::Table row-->
-                                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                                        <th class="w-10px pe-2">
-                                                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_comments .form-check-input" value="1" />
-                                                            </div>
-                                                        </th>
-                                                        <th class="min-w-125px">User</th>
-                                                        <th class="min-w-125px">Recipe</th>
-                                                        <th class="min-w-125px">Comment</th>
-                                                        <th class="min-w-125px">Date</th>
+													<tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
+														<th class="min-w-125px">
+															<a href="<?= site_url('comments?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&text=' . urlencode($Text) . '&sortField=Username&sortOrder=' . (($sortField == 'Username' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																User
+																<?php if ($sortField == 'Username'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('comments?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&text=' . urlencode($Text) . '&sortField=Title&sortOrder=' . (($sortField == 'Title' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Recipe
+																<?php if ($sortField == 'Title'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('comments?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&text=' . urlencode($Text) . '&sortField=Text&sortOrder=' . (($sortField == 'Text' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Comment
+																<?php if ($sortField == 'Text'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
+														<th class="min-w-125px">
+															<a href="<?= site_url('comments?user=' . urlencode($User) . '&recipe=' . urlencode($Recipe) . '&text=' . urlencode($Text) . '&sortField=date&sortOrder=' . (($sortField == 'date' && $sortOrder == 'asc') ? 'desc' : 'asc')) ?>">
+																Date
+																<?php if ($sortField == 'date'): ?>
+																	<span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+																<?php endif; ?>
+															</a>
+														</th>
 														<?php if (session()->get('role') == '2'): ?>
-                                                        	<th class="text-end min-w-100px">Actions</th>
+															<th class="text-end min-w-100px">Actions</th>
 														<?php endif; ?>
-                                                    </tr>
-                                                    <!--end::Table row-->
-                                                </thead>
+													</tr>
+												</thead>
                                                 <!--end::Table head-->
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
@@ -625,13 +646,6 @@ License: For each use you must have a valid license purchased only from above li
                                                     ?>
                                                     <!--begin::Table row-->
                                                     <tr>
-                                                        <!--begin::Checkbox-->
-                                                        <td>
-                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                <input class="form-check-input" type="checkbox" value="1" />
-                                                            </div>
-                                                        </td>
-                                                        <!--end::Checkbox-->
                                                         <!--begin::Comment Data-->
                                                         <td><?= esc($comment['Username']) ?></td>
                                                         <td><?= esc($comment['Title']) ?></td>

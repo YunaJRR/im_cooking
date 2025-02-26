@@ -26,11 +26,26 @@ class RecipeController extends BaseController
         $sortField = $this->request->getVar('sortField') ?? 'id'; // Default sort field
         $sortOrder = $this->request->getVar('sortOrder') ?? 'asc'; // Default sort order
 
-        // Get the current page from the request, default to 1
-        $page = (int) $this->request->getVar('page') ?: 1;
+        // Build the query
+        $query = $recipeModel;
+        $query = $query->where('recipes.DeletionDate', null);
+
+        // Join with users table to get the Username
+        $query = $query->select('recipes.*, users.Username')
+                    ->join('users', 'users.ID = recipes.UserID', 'left');
+
+        if ($title) {
+            $query = $query->like('Title', $title);
+        }
+        if ($description) {
+            $query = $query->like('Description', $description);
+        }
+
+        // Apply sorting
+        $query = $query->orderBy($sortField, $sortOrder);
 
         // Execute the query and paginate results
-        $data['recipes'] = $recipeModel->getRecipes($title, $perPage, $page, $sortField, $sortOrder);
+        $data['recipes'] = $query->paginate($perPage);
         $data['pager'] = $recipeModel->pager;
 
         // Store the search parameters in the data array

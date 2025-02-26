@@ -15,8 +15,9 @@ class CommentController extends BaseController
     {
         $session = session()->get('role');
         if (!$session) {
-            return redirect()->to(uri: 'sign-in')->with('error', 'You must be logged in to access this page.');
+            return redirect()->to('sign-in')->with('error', 'You must be logged in to access this page.');
         }
+        
         $commentModel = new CommentModel();
         $perPage = 3;
 
@@ -25,30 +26,23 @@ class CommentController extends BaseController
         $recipe = $this->request->getVar('recipe'); // For Comment Text
         $text = $this->request->getVar('text'); // For Comment Text
 
-        // Build the query based on the search parameters
-        $query = $commentModel;
-        $query->select('comments.*, users.Username, recipes.Title')
-          ->join('users AS u1', 'u1.ID = comments.UserID', 'left')
-          ->join('recipes AS r1', 'r1.ID = comments.RecipeID', 'left');
+        // Get sorting parameters from the request
+        $sortField = $this->request->getVar('sortField') ?? 'comments.ID'; // Default sort field
+        $sortOrder = $this->request->getVar('sortOrder') ?? 'asc'; // Default sort order
 
-        if ($user) {
-            $query->like('users.Username', $user); // Correctly filter by Username
-        }
-        if ($recipe) {
-            $query->like('recipes.Title', $recipe); // Correctly filter by Recipe Title
-        }
-        if ($text) {
-            $query->like('comments.Text', $text); // Correctly filter by Comment Text
-        }
+        // Get the current page number from the request
+        $page = $this->request->getVar('page') ?? 1; // Default to page 1 if not set
 
         // Execute the query and paginate results
-        $data['comments'] = $commentModel->getComments($text, $perPage);
+        $data['comments'] = $commentModel->getComments($text, $perPage, $page, $sortField, $sortOrder);
         $data['pager'] = $commentModel->pager;
 
         // Store the search parameters in the data array
         $data['User'] = $user;
         $data['Recipe'] = $recipe;
         $data['Text'] = $text;
+        $data['sortField'] = $sortField; // Pass sort field to view
+        $data['sortOrder'] = $sortOrder; // Pass sort order to view
 
         return view('comments', $data);
     }
