@@ -502,8 +502,6 @@ License: For each use you must have a valid license purchased only from above li
 
 		<script>
 			$(document).ready(function () {
-				console.log('Fetching events from:', '<?= site_url('event/fetchEvents'); ?>');
-
 				const calendarEl = document.getElementById('calendar');
 
 				// Initialize FullCalendar
@@ -521,6 +519,8 @@ License: For each use you must have a valid license purchased only from above li
 							success: function(data) {
 								// Check if data is an array
 								if (Array.isArray(data)) {
+									// Log the data to ensure it contains the expected structure
+									console.log('Fetched events:', data);
 									successCallback(data);
 								} else {
 									console.error('Unexpected data format:', data);
@@ -563,19 +563,29 @@ License: For each use you must have a valid license purchased only from above li
 
 					// Delete event
 					eventClick: function (info) {
-						if (confirm('¿Deseas eliminar este evento?')) {
+						console.log('Event clicked:', info.event);
+						var eventId = info.event.id; // Get the event ID
+
+						// Check if the event ID is valid
+						if (!eventId) {
+							alert('Error: Event ID is not defined.');
+							return;
+						}
+
+						if (confirm('Are you sure you want to mark this event as deleted?')) {
 							$.ajax({
-								url: '<?= site_url('event/deleteEvent/' . "' + event.id + '"); ?>', // URL to delete event
-								method: 'DELETE',
+								url: '<?= site_url('event/deleteEvent/'); ?>' + eventId, // URL to mark as deleted
+								method: 'POST', // Use POST for updating 
+								    
 								success: function(response) {
 									if (response.success) {
 										calendar.refetchEvents(); // Refresh the events
 									} else {
-										alert('Error al eliminar el evento.');
+										alert('Error marking event as deleted.');
 									}
 								},
 								error: function() {
-									alert('Error al eliminar el evento.');
+									alert('Error marking event as deleted.');
 								}
 							});
 						}

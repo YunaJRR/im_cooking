@@ -19,7 +19,9 @@ class EventController extends BaseController
     }
     public function fetchEvents()
     {
-        $events = $this->eventModel->findAll();
+        $events = $this->eventModel->getActiveEvents();
+
+        
         return $this->response->setJSON($events);
     }
 
@@ -32,7 +34,16 @@ class EventController extends BaseController
 
     public function deleteEvent($id)
     {
-        $this->eventModel->delete($id);
-        return $this->response->setJSON(['success' => true]);
+        $eventModel = new EventModel();
+        $eventData = [
+            'deletiondate' => date('Y-m-d H:i:s')
+        ];
+        // Update the user to mark as deleted
+        if ($eventModel->update($id, $eventData)) {
+            return $this->response->setJSON(['success' => true]);
+        } else {
+            return $this->response->setJSON(['success' => false]);
+        }
+        
     }
 }

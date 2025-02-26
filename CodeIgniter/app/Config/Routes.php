@@ -56,5 +56,5 @@ $routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Del
 $routes->get('calendar', 'EventController::index');
 $routes->get('event/fetchEvents', 'EventController::fetchEvents');
 $routes->post('event/addEvent', 'EventController::addEvent');
-$routes->delete('event/deleteEvent/(:num)', 'EventController::deleteEvent/$1');
+$routes->post('event/deleteEvent/(:num)', 'EventController::deleteEvent/$1');
 

@@ -8,10 +8,14 @@ class EventModel extends Model
 {
     protected $table = 'event';
     protected $primaryKey = 'ID';
-    protected $allowedFields = ['title', 'start', 'end'];
+    protected $allowedFields = ['title', 'start', 'end', 'deletiondate'];
  
     public function getEvents()
     {
         return $this->findAll();
+    }
+    public function getActiveEvents()
+    {
+        return $this->where('DeletionDate = "0000-00-00 00:00:00"')->findAll();
     }
 }
