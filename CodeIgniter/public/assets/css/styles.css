@@ -32,3 +32,6 @@ min-width: 1250px;
 position: relative; 
 z-index: 10; 
 }
+.filtro{ 
+    margin-right: 40px;
+}

@@ -26,6 +26,8 @@ $routes->post('users/save', 'UserController::saveUser'); // Create user (POST)
 $routes->post('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user (POST)
 $routes->get('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user page
 $routes->get('users/delete/(:num)', 'UserController::delete/$1'); // Update user to mark as deleted
+$routes->get('users/exportToCsv', 'UserController::exportToCsv'); // Export users to CSV
+
 
 
 // Recipe routes

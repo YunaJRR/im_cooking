@@ -143,4 +143,58 @@ public function saveUser ($id = null)
             return redirect()->to('/users')->with('error', 'Failed to mark user as deleted.');
         }
     }
+   
+    public function exportToCsv()
+    {
+        $userModel = new UserModel();
+
+        // Get the search parameters from the request
+        $name = $this->request->getVar('name'); // For Username
+        $firstname = $this->request->getVar('firstname'); // For Firstname
+        $lastname = $this->request->getVar('lastname'); // For Lastname
+        $email = $this->request->getVar('email'); // For Email
+
+        // Build the query based on the search parameters
+        $query = $userModel->where('DeletionDate', null);
+
+        if ($name) {
+            $query = $query->like('Username', $name);
+        }
+        if ($firstname) {
+            $query = $query->like('Firstname', $firstname);
+        }
+        if ($lastname) {
+            $query = $query->like('Lastname', $lastname);
+        }
+        if ($email) {
+            $query = $query->like('Email', $email);
+        }
+
+        // Get the results
+        $users = $query->findAll();
+
+        // Set the headers for the CSV file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="users.csv"');
+
+        // Open the output stream
+        $output = fopen('php://output', 'w');
+
+        // Add the CSV column headers
+        fputcsv($output, ['Username', 'Firstname', 'Lastname', 'Email']);
+
+        // Add the user data to the CSV
+        foreach ($users as $user) {
+            fputcsv($output, [
+                $user['Username'],
+                $user['Firstname'],
+                $user['Lastname'],
+                $user['Email']
+            ]);
+        }
+
+        // Close the output stream
+        fclose($output);
+        exit; // Terminate the script to prevent any further output
+    }
 }
