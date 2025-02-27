@@ -58,3 +58,8 @@ $routes->get('event/fetchEvents', 'EventController::fetchEvents');
 $routes->post('event/addEvent', 'EventController::addEvent');
 $routes->post('event/deleteEvent/(:num)', 'EventController::deleteEvent/$1');
 
+// Profile routes
+$routes->get('profile', 'ProfileController::index'); // Profile page
+$routes->get('profile/edit', 'ProfileController::edit'); // Profile edit page
+$routes->post('profile/save/(:num)', 'ProfileController::save/$1'); // Save profile (POST)
+

@@ -12,8 +12,8 @@ License: For each use you must have a valid license purchased only from above li
 -->
 <html lang="en">
 	<!--begin::Head-->
-	<head><base href="">
-		<title>Metronic - the world's #1 selling Bootstrap Admin Theme Ecosystem for HTML, Vue, React, Angular &amp; Laravel by Keenthemes</title>
+	<head><base href="../">
+		<title>My Profile</title>
 		<meta name="description" content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
 		<meta name="keywords" content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,23 +24,23 @@ License: For each use you must have a valid license purchased only from above li
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Keenthemes | Metronic" />
 		<link rel="canonical" href="https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+		<link rel="shortcut icon" href="<?= base_url('assets/media/logos/favicon.ico') ?>" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->
 		<!--begin::Page Vendor Stylesheets(used by this page)-->
-		<link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Page Vendor Stylesheets-->
 		<!--begin::Global Stylesheets Bundle(used by all pages)-->
-		<link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-		<link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
+		<link href="<?= base_url('assets/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
-		<link rel="stylesheet" href="assets/css/styles.css">
+		<link rel="stylesheet" href="<?= base_url('assets/css/styles.css') ?>">
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
-	<?php
+    <?php
 		$session = service('session');
 	?>
 	<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
@@ -55,7 +55,7 @@ License: For each use you must have a valid license purchased only from above li
 					<div class="aside-logo flex-column-auto" id="kt_aside_logo">
 						<!--begin::Logo-->
 						<a href="<?= site_url('') ?>">
-							<img alt="Logo" src="assets/media/logos/logo-1-dark.svg" class="h-25px logo" />
+							<img alt="Logo" src="<?= base_url('assets/media/logos/logo-1-dark.svg')?>" class="h-25px logo" />
 						</a>
 						<!--end::Logo-->
 						<!--begin::Aside toggler-->
@@ -85,7 +85,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								
 								<div class="menu-item">
-									<a class="menu-link active" href="<?= site_url('') ?>">
+									<a class="menu-link" href="<?= site_url('') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -114,7 +114,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<?php if (session()->get('role') == '2'): ?>
 								<div class="menu-item">
-									<a class="menu-link" href="<?= site_url('users') ?>">
+									<a class="menu-link active" href="<?= site_url('users') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -249,7 +249,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu separator-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-5">
-											<a href="<?= site_url('profile') ?>">My Profile</a>
+											<a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
 										</div>
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
@@ -417,17 +417,18 @@ License: For each use you must have a valid license purchased only from above li
 								<!--begin::Page title-->
 								<div data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}" class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
 									<!--begin::Title-->
-									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">Dashboard
+									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">My Profile
 									<!--begin::Separator-->
 									<span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
 									<!--end::Separator-->
 									<!--begin::Description-->
-									<small class="text-muted fs-7 fw-bold my-1 ms-1">#XRS-45670</small>
+									<small class="text-muted fs-7 fw-bold my-1 ms-1"><?= $session->get('name'); ?></small>
 									<!--end::Description--></h1>
 									<!--end::Title-->
 								</div>
 								<!--end::Page title-->
 							</div>
+							
 							<!--end::Container-->
 						</div>
 						<!--end::Toolbar-->
@@ -435,283 +436,73 @@ License: For each use you must have a valid license purchased only from above li
 						<div class="post d-flex flex-column-fluid" id="kt_post">
 							<!--begin::Container-->
 							<div id="kt_content_container" class="container-xxl">
-								<!--begin::Row-->
-								<div class="row gy-5 g-xl-8">
-									<!--begin::Col-->
-									<div class="col-xxl-4">
-										<!--begin::Mixed Widget 2-->
-										<div class="card card-xxl-stretch">
-											<!--begin::Header-->
-											<div class="card-header border-0 bg-danger py-5">
-												<h3 class="card-title fw-bolder text-white">Sales Statistics</h3>
-											</div>
-											<!--end::Header-->
-											<!--begin::Body-->
-											<div class="card-body p-0">
-												<!--begin::Chart-->
-												<div id="commentchart" class="card-rounded-bottom bg-danger" data-kt-color="danger" style="height: 200px"></div>
-												<!--end::Chart-->
-												<!--begin::Stats-->
-												<div class="card-p mt-n20 position-relative">
-													<!--begin::Row-->
-													<div class="row g-0">
-														<!--begin::Col-->
-														<div class="col bg-light-warning px-6 py-8 rounded-2 me-7 mb-7">
-															<!--begin::Svg Icon | path: icons/duotune/general/gen032.svg-->
-															<span class="svg-icon svg-icon-3x svg-icon-warning d-block my-2">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																	<rect x="8" y="9" width="3" height="10" rx="1.5" fill="black" />
-																	<rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black" />
-																	<rect x="18" y="11" width="3" height="8" rx="1.5" fill="black" />
-																	<rect x="3" y="13" width="3" height="6" rx="1.5" fill="black" />
-																</svg>
-															</span>
-															<!--end::Svg Icon-->
-															<a href="#" class="text-warning fw-bold fs-6">Weekly Sales</a>
-														</div>
-														<!--end::Col-->
-														<!--begin::Col-->
-														<div class="col bg-light-primary px-6 py-8 rounded-2 mb-7">
-															<!--begin::Svg Icon | path: icons/duotune/finance/fin006.svg-->
-															<span class="svg-icon svg-icon-3x svg-icon-primary d-block my-2">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																	<path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="black" />
-																	<path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="black" />
-																</svg>
-															</span>
-															<!--end::Svg Icon-->
-															<a href="#" class="text-primary fw-bold fs-6">New Projects</a>
-														</div>
-														<!--end::Col-->
-													</div>
-													<!--end::Row-->
-													<!--begin::Row-->
-													<div class="row g-0">
-														<!--begin::Col-->
-														<div class="col bg-light-danger px-6 py-8 rounded-2 me-7">
-															<!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
-															<span class="svg-icon svg-icon-3x svg-icon-danger d-block my-2">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																	<path opacity="0.3" d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z" fill="black" />
-																	<path d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z" fill="black" />
-																</svg>
-															</span>
-															<!--end::Svg Icon-->
-															<a href="#" class="text-danger fw-bold fs-6 mt-2">Item Orders</a>
-														</div>
-														<!--end::Col-->
-														<!--begin::Col-->
-														<div class="col bg-light-success px-6 py-8 rounded-2">
-															<!--begin::Svg Icon | path: icons/duotune/communication/com010.svg-->
-															<span class="svg-icon svg-icon-3x svg-icon-success d-block my-2">
-																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-																	<path d="M6 8.725C6 8.125 6.4 7.725 7 7.725H14L18 11.725V12.925L22 9.725L12.6 2.225C12.2 1.925 11.7 1.925 11.4 2.225L2 9.725L6 12.925V8.725Z" fill="black" />
-																	<path opacity="0.3" d="M22 9.72498V20.725C22 21.325 21.6 21.725 21 21.725H3C2.4 21.725 2 21.325 2 20.725V9.72498L11.4 17.225C11.8 17.525 12.3 17.525 12.6 17.225L22 9.72498ZM15 11.725H18L14 7.72498V10.725C14 11.325 14.4 11.725 15 11.725Z" fill="black" />
-																</svg>
-															</span>
-															<!--end::Svg Icon-->
-															<a href="#" class="text-success fw-bold fs-6 mt-2">Bug Reports</a>
-														</div>
-														<!--end::Col-->
-													</div>
-													<!--end::Row-->
+								<!--begin::Layout-->
+								<div class="d-flex flex-column flex-xl-row">
+									<!--begin::Sidebar-->
+									<div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+										<!--begin::Card-->
+										<div class="card mb-7 mb-xl-8 add-user">
+											<!-- Mostrar errores de validación -->
+											<?php if (isset($validation)): ?>
+												<div class="alert alert-danger">
+													<?= $validation->listErrors() ?>
 												</div>
-												<!--end::Stats-->
-											</div>
-											<!--end::Body-->
-										</div>
-										<!--end::Mixed Widget 2-->
-									</div>
-									<!--end::Col-->
-									<!--begin::Col-->
-									<div class="col-xxl-4">
-										<!--begin::List Widget 5-->
-										<div class="card card-xxl-stretch">
-											<!--begin::Header-->
-											<div class="card-header align-items-center border-0 mt-4">
-												<h3 class="card-title align-items-start flex-column">
-													<span class="fw-bolder mb-2 text-dark">Activities</span>
-													<span class="text-muted fw-bold fs-7">Recent Recipes</span>
-												</h3>
-												<div class="card-toolbar">
-													<!--begin::Menu-->
-													<button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-														<!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-														<span class="svg-icon svg-icon-2">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-																<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-																	<rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-																	<rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																	<rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																	<rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-																</g>
-															</svg>
-														</span>
-														<!--end::Svg Icon-->
-													</button>
-													<!--begin::Menu 1-->
-													<div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_61484bf44f851">
-														<!--begin::Header-->
-														<div class="px-7 py-5">
-															<div class="fs-5 text-dark fw-bolder">Filter Options</div>
-														</div>
-														<!--end::Header-->
-														<!--begin::Menu separator-->
-														<div class="separator border-gray-200"></div>
-														<!--end::Menu separator-->
-														<!--begin::Form-->
-														<div class="px-7 py-5">
-															<!--begin::Input group-->
-															<div class="mb-10">
-																<!--begin::Label-->
-																<label class="form-label fw-bold">Status:</label>
-																<!--end::Label-->
-																<!--begin::Input-->
-																<div>
-																	<select class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_61484bf44f851" data-allow-clear="true">
-																		<option></option>
-																		<option value="1">Approved</option>
-																		<option value="2">Pending</option>
-																		<option value="2">In Process</option>
-																		<option value="2">Rejected</option>
-																	</select>
-																</div>
-																<!--end::Input-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="mb-10">
-																<!--begin::Label-->
-																<label class="form-label fw-bold">Member Type:</label>
-																<!--end::Label-->
-																<!--begin::Options-->
-																<div class="d-flex">
-																	<!--begin::Options-->
-																	<label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-																		<input class="form-check-input" type="checkbox" value="1" />
-																		<span class="form-check-label">Author</span>
-																	</label>
-																	<!--end::Options-->
-																	<!--begin::Options-->
-																	<label class="form-check form-check-sm form-check-custom form-check-solid">
-																		<input class="form-check-input" type="checkbox" value="2" checked="checked" />
-																		<span class="form-check-label">Customer</span>
-																	</label>
-																	<!--end::Options-->
-																</div>
-																<!--end::Options-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Input group-->
-															<div class="mb-10">
-																<!--begin::Label-->
-																<label class="form-label fw-bold">Notifications:</label>
-																<!--end::Label-->
-																<!--begin::Switch-->
-																<div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-																	<input class="form-check-input" type="checkbox" value="" name="notifications" checked="checked" />
-																	<label class="form-check-label">Enabled</label>
-																</div>
-																<!--end::Switch-->
-															</div>
-															<!--end::Input group-->
-															<!--begin::Actions-->
-															<div class="d-flex justify-content-end">
-																<button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2" data-kt-menu-dismiss="true">Reset</button>
-																<button type="submit" class="btn btn-sm btn-primary" data-kt-menu-dismiss="true">Apply</button>
-															</div>
-															<!--end::Actions-->
-														</div>
-														<!--end::Form-->
-													</div>
-													<!--end::Menu 1-->
-													<!--end::Menu-->
-												</div>
-											</div>
-											<!--end::Header-->
-											<!--begin::Body-->
-											<div class="card-body pt-5">
-												<!--begin::Timeline-->
-												<div class="timeline-label">
-													<!--begin::Item-->
-													<div class="timeline-item">
-														<!--begin::Label-->
-														<div class="timeline-label fw-bolder text-gray-800 fs-6">10:00</div>
-														<!--end::Label-->
-														<!--begin::Badge-->
-														<div class="timeline-badge">
-															<i class="fa fa-genderless text-success fs-1"></i>
-														</div>
-														<!--end::Badge-->
-														<!--begin::Content-->
-														<div class="timeline-content d-flex">
-															<span class="fw-bolder text-gray-800 ps-3">New recipe! <a href="<?= site_url('recipes') ?>" class=text-primary>Cheesecake</a></span>
-														</div>
-														<!--end::Content-->
-													</div>
-													<!--end::Item-->
-												</div>
-												<!--end::Timeline-->
-											</div>
-											<!--end: Card Body-->
-										</div>
-										<!--end: List Widget 5-->
-									</div>
-									<!--end::Col-->
-									<!--begin::Col-->
-									<div class="col-xxl-4">
-										<!--begin::Mixed Widget 7-->
-										<div class="card card-xxl-stretch-60 mb-5 mb-xl-8">
-											<!--begin::Body-->
-											<div class="card-body d-flex flex-column p-0">
-												<!--begin::Stats-->
-												<div class="flex-grow-1 card-p pb-0">
-													<div class="d-flex flex-stack flex-wrap">
-														<div class="me-2">
-															<a href="#" class="text-dark text-hover-primary fw-bolder fs-3">Users per month</a>
-														</div>
-														<div class="fw-bolder fs-3 text-primary">10 users!</div>
-													</div>
-												</div>
-												<!--end::Stats-->
-												<!--begin::Chart-->
-												<div class="card-rounded-bottom" id="userchart" data-kt-chart-color="primary" style="height: 175px"></div>
-												<!--end::Chart-->
-											</div>
-											<!--end::Body-->
-										</div>
-										<!--end::Mixed Widget 7-->
-										<!--begin::Mixed Widget 10-->
-										<div class="card card-xxl-stretch-40 mb-5 mb-xl-8">
-											<!--begin::Body-->
-											<div class="card-body p-0 d-flex justify-content-between flex-column overflow-hidden">
-												<!--begin::Hidden-->
-												<div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
-													<div class="me-2">
-														<span class="fw-bolder text-gray-800 d-block fs-3">Sales</span>
-														<span class="text-gray-400 fw-bold">Oct 8 - Oct 26 21</span>
-													</div>
-													<div class="fw-bolder fs-3 text-primary">$15,300</div>
-												</div>
-												<!--end::Hidden-->
-												<!--begin::Chart-->
-												<div class="card-rounded-bottom" id="popularitychart"  style="height: 175px"></div>
-												<!--end::Chart-->
-											</div>
-										</div>
-										<!--end::Mixed Widget 10-->
-									</div>
-									<!--end::Col-->
-								</div>
-								<!--end::Row-->
-								<!--begin::Row-->
+											<?php endif; ?>				
+											<!--begin::Card body-->
+											<div class="card-body">
+                                                <div class="d-flex flex-column align-items-center text-center">
+                                                    <!-- Profile Picture -->
+                                                    <div class="mb-4">
+                                                        <img src="<?= base_url('assets/media/avatars/150-26.jpg') ?>" alt="Profile Picture" class="rounded-circle" style="width: 100px; height: 100px;">
+                                                    </div>
 
+                                                    <!-- User Information Display -->
+                                                    <h3 class="fw-bold fs-5 mb-2"><?= esc($session->get('firstname')) . ' ' . esc($session->get('lastname')) ?></h3>
+                                                    <p class="text-muted mb-4"><?= esc($session->get('email')) ?></p>
+
+                                                    <div class="d-flex flex-column w-100">
+                                                        <div class="fv-row mb-3">
+                                                            <label class="fw-bold fs-6 mb-2">Username</label>
+                                                            <div class="form-control form-control-solid mb-3 mb-lg-0">
+                                                                <?= esc($session->get('name')) ?>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="fv-row mb-3">
+                                                            <label class="fw-bold fs-6 mb-2">First Name</label>
+                                                            <div class="form-control form-control-solid mb-3 mb-lg-0">
+                                                                <?= esc($session->get('firstname')) ?>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="fv-row mb-3">
+                                                            <label class="fw-bold fs-6 mb-2">Last Name</label>
+                                                            <div class="form-control form-control-solid mb-3 mb-lg-0">
+                                                                <?= esc($session->get('lastname')) ?>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="fv-row mb-3">
+                                                            <label class="fw-bold fs-6 mb-2">Email</label>
+                                                            <div class="form-control form-control-solid mb-3 mb-lg-0">
+                                                                <?= esc($session->get('email')) ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+											<!--end::Card body-->
+										</div>
+										<!--end::Card-->
+									</div>
+									<!--end::Sidebar-->
+								</div>
+								<!--end::Layout-->
 							</div>
 							<!--end::Container-->
 						</div>
 						<!--end::Post-->
 					</div>
-					<!--end::Content-->
 					<!--begin::Footer-->
 					<div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
 						<!--begin::Container-->
@@ -740,11 +531,13 @@ License: For each use you must have a valid license purchased only from above li
 					</div>
 					<!--end::Footer-->
 				</div>
-				<!--end::Wrapper-->
+				<!--end::Card footer-->
 			</div>
-			<!--end::Page-->
+			<!--end::Messenger-->
 		</div>
-		<!--end::Root-->
+		<!--end::Chat drawer-->
+		<!--end::Drawers-->
+		
 		<!--begin::Scrolltop-->
 		<div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
 			<!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -756,37 +549,22 @@ License: For each use you must have a valid license purchased only from above li
 			</span>
 			<!--end::Svg Icon-->
 		</div>
+		
 		<!--end::Scrolltop-->
 		<!--end::Main-->
-		<script src="assets/js/custom/session.js"></script>
 		<script>var hostUrl = "assets/";</script>
 		<!--begin::Javascript-->
 		<!--begin::Global Javascript Bundle(used by all pages)-->
-		<script src="assets/plugins/global/plugins.bundle.js"></script>
-		<script src="assets/js/scripts.bundle.js"></script>
+		<script src="<?= base_url('assets/plugins/global/plugins.bundle.js')?>"></script>
+		<script src="<?= base_url('assets/js/scripts.bundle.js')?>"></script>
 		<!--end::Global Javascript Bundle-->
-		<!--begin::Page Vendors Javascript(used by this page)-->
-		<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
-		<!--end::Page Vendors Javascript-->
-		<!--begin::Page Custom Javascript(used by this page)-->
-		<script src="assets/js/custom/widgets.js"></script>
-		<script src="assets/js/custom/apps/charts/userchart.js"></script>
-		<script src="assets/js/custom/apps/charts/popularitychart.js"></script>
-		<script src="assets/js/custom/apps/charts/commentchart.js"></script>
-		<!--end::Page Custom Javascript-->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 		<?php if (session()->getFlashdata('success')): ?>
             <script>
                 toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
-        <?php endif; 
-		if (session()->getFlashdata('error')): ?>
-            <script>
-                toastr.error('<?= session()->getFlashdata('error'); ?>');
-            </script>
-        <?php endif; 
-		?>
+        <?php endif; ?>
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

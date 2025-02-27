@@ -91,24 +91,33 @@ class AuthController extends BaseController
         $userModel = new UserModel();
         $logged_user = $userModel->findByEmail($this->request->getPost('email')); // Find the user by their email.
 
-        if ($logged_user && password_verify($this->request->getPost('password'), $logged_user['Password'])) {
-            // If the credentials are correct, save user data in the session.
-            $session->set([
-                'id'        => $logged_user['ID'],           // User ID.
-                'name'      => $logged_user['Username'],     // User name.
-                'email'     => $logged_user['Email'],        // User email.
-                'role'      => $logged_user['RoleID'],       // User role
-                'isLoggedIn' => true,                  // Flag to indicate that the user is logged in.
-            ]);
+        // Check if the user exists and if they are not marked for deletion.
+        if ($logged_user) {
+            if ($logged_user['DeletionDate'] !== null && $logged_user['DeletionDate'] !== "0000-00-00 00:00:00") {
+                // If the user is marked for deletion, redirect with an error message.
+                return redirect()->to('sign-in')->with('error', 'Your account has been previously deleted. Please contact support.');
+            }
 
-            // Redirect to the home page with a success message.
-            return redirect()->to('')->with('success', 'Login successful.');
-        }else{
-            // If the credentials are incorrect, show an error message.
-            return redirect()->to(uri: 'sign-in')->with('error', 'Incorrect email or password.');
+            // Verify the password if the user is not marked for deletion.
+            if (password_verify($this->request->getPost('password'), $logged_user['Password'])) {
+                // If the credentials are correct, save user data in the session.
+                $session->set([
+                    'id'        => $logged_user['ID'],           // User ID.
+                    'name'      => $logged_user['Username'],     // User name.
+                    'firstname' => $logged_user['Firstname'],    // User firstname.
+                    'lastname'  => $logged_user['Lastname'],     // User lastname.
+                    'email'     => $logged_user['Email'],        // User email.
+                    'role'      => $logged_user['RoleID'],       // User role
+                    'isLoggedIn'=> true,                          // Flag to indicate that the user is logged in.
+                ]);
+
+                // Redirect to the home page with a success message.
+                return redirect()->to('')->with('success', 'Login successful.');
+            }
         }
 
-        
+        // If the credentials are incorrect or user does not exist, show an error message.
+        return redirect()->to('sign-in')->with('error', 'Incorrect email or password.');
     }
 
     public function logout()
