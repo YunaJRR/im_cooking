@@ -505,7 +505,11 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Menu 1-->
                                                     <!--end::Filter-->
                                                     <!--begin::Export-->
-                                                    <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                                                    <a type="button" href="<?= site_url('favorites/exportToCsv?' . http_build_query([
+														'user' => $User ,
+														'recipe' => $Recipe, 
+														'date' => $Date 
+													])) ?>" class="btn btn-primary me-3">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                     <span class="svg-icon svg-icon-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

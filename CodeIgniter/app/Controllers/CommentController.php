@@ -25,6 +25,7 @@ class CommentController extends BaseController
         $user = $this->request->getVar('user'); // For Comment Text
         $recipe = $this->request->getVar('recipe'); // For Comment Text
         $text = $this->request->getVar('text'); // For Comment Text
+        $date = $this->request->getVar('date'); // For Comment Text
 
         // Get sorting parameters from the request
         $sortField = $this->request->getVar('sortField') ?? 'comments.ID'; // Default sort field
@@ -41,6 +42,7 @@ class CommentController extends BaseController
         $data['User'] = $user;
         $data['Recipe'] = $recipe;
         $data['Text'] = $text;
+        $data['Date'] = $date;
         $data['sortField'] = $sortField; // Pass sort field to view
         $data['sortOrder'] = $sortOrder; // Pass sort order to view
 
@@ -116,6 +118,62 @@ class CommentController extends BaseController
         $commentModel = new CommentModel();
         $commentModel->delete($id);
         return redirect()->to('/comments')->with('success', 'Comment deleted successfully.');
+    }
+    public function exportToCsv()
+    {
+        $commentModel = new CommentModel();
+
+        // Get the search parameters from the request
+        $user = $this->request->getVar('user'); // For Username
+        $recipe = $this->request->getVar('recipe'); // For Recipe Title
+        $text = $this->request->getVar('text'); // For Comment Text
+        $date = $this->request->getVar('date'); // For Comment Date
+
+        // Build the query based on the search parameters
+        $query = $commentModel->select('comments.*, users.Username, recipes.Title')
+            ->join('users', 'users.ID = comments.UserID', 'left')
+            ->join('recipes', 'recipes.ID = comments.RecipeID', 'left')
+            ->where('comments.DeletionDate', null); // Ensure we only get non-deleted comments
+
+        if ($user) {
+            $query = $query->like('users.Username', $user);
+        }
+        if ($recipe) {
+            $query = $query->like('recipes.Title', $recipe);
+        }
+        if ($text) {
+            $query = $query->like('comments.Text', $text);
+        }
+        if ($date) {
+            $query = $query->like('Date', $text);
+        }
+
+        // Get the results
+        $comments = $query->findAll();
+
+        // Set the headers for the CSV file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="comments.csv"');
+
+        // Open the output stream
+        $output = fopen('php://output', 'w');
+
+        // Add the CSV column headers
+        fputcsv($output, ['User ', 'Recipe Title', 'Comment Text', 'Date Added']);
+
+        // Add the comment data to the CSV
+        foreach ($comments as $comment) {
+            fputcsv($output, [
+                $comment['Username'], // User's name
+                $comment['Title'],    // Recipe title
+                $comment['Text'],     // Comment text
+                $comment['Date'],     // Date added
+            ]);
+        }
+
+        // Close the output stream
+        fclose($output);
+        exit; // Terminate the script to prevent any further output
     }
 }
 ?>

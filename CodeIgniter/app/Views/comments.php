@@ -499,7 +499,12 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--end::Menu 1-->
                                                     <!--end::Filter-->
                                                     <!--begin::Export-->
-                                                    <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
+                                                    <a type="button" href="<?= site_url('comments/exportToCsv?' . http_build_query([
+														'user' => $User , // Assuming you have a variable for the username
+														'recipe' => $Recipe, // Assuming you have a variable for the recipe title
+														'text' => $Text, // Assuming you have a variable for the comment text
+														'date' => $Date // Assuming you have a variable for the comment text
+													])) ?>" class="btn btn-primary me-3">
                                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                     <span class="svg-icon svg-icon-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

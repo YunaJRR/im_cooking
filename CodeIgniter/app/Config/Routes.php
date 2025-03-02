@@ -37,6 +37,7 @@ $routes->post('recipes/save', 'RecipeController::saveRecipe'); // Create recipe 
 $routes->post('recipes/save/(:num)', 'RecipeController::saveRecipe/$1'); // Edit recipe (POST)
 $routes->get('recipes/save/(:num)', 'RecipeController::saveRecipe/$1'); // Edit recipe page
 $routes->get('recipes/delete/(:num)', 'RecipeController::delete/$1'); // Delete recipe
+$routes->get('recipes/exportToCsv', 'RecipeController::exportToCsv'); // Export recies to CSV
 
 // Comment routes
 $routes->get('comments', 'CommentController::index'); // List comments
@@ -45,6 +46,7 @@ $routes->post('comments/save', 'CommentController::saveComment'); // Create comm
 $routes->post('comments/save/(:num)', 'CommentController::saveComment/$1'); // Edit comment (POST)
 $routes->get('comments/save/(:num)', 'CommentController::saveComment/$1'); // Edit comment page
 $routes->get('comments/delete/(:num)', 'CommentController::delete/$1'); // Delete comment
+$routes->get('comments/exportToCsv', 'CommentController::exportToCsv'); // Export comment to CSV
 
 // Favorite routes
 $routes->get('favorites', 'FavoriteController::index'); // List favorites
@@ -53,6 +55,7 @@ $routes->post('favorites/save', 'FavoriteController::saveFavorite'); // Create f
 $routes->post('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite (POST)
 $routes->get('favorites/save/(:num)', 'FavoriteController::saveFavorite/$1'); // Edit favorite page
 $routes->get('favorites/delete/(:num)', 'FavoriteController::delete/$1'); // Delete favorite
+$routes->get('favorites/exportToCsv', 'FavoriteController::exportToCsv'); // Export favorites to CSV
 
 // Event routes
 $routes->get('calendar', 'EventController::index');

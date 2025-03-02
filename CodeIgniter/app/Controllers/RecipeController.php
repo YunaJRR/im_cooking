@@ -21,6 +21,10 @@ class RecipeController extends BaseController
         // Get the search parameters from the request
         $title = $this->request->getVar('title'); // For Title
         $description = $this->request->getVar('description'); // For Description
+        $instructions = $this->request->getVar('instructions'); // For Instructions
+        $image = $this->request->getVar('image'); // For Image
+ 
+
 
         // Get sorting parameters from the request
         $sortField = $this->request->getVar('sortField') ?? 'id'; // Default sort field
@@ -34,6 +38,7 @@ class RecipeController extends BaseController
         $query = $query->select('recipes.*, users.Username')
                     ->join('users', 'users.ID = recipes.UserID', 'left');
 
+        
         if ($title) {
             $query = $query->like('Title', $title);
         }
@@ -51,6 +56,9 @@ class RecipeController extends BaseController
         // Store the search parameters in the data array
         $data['Title'] = $title; 
         $data['Description'] = $description; 
+        $data['Instructions'] = $instructions; 
+        $data['Image'] = $image;
+
         $data['sortField'] = $sortField; // Pass sort field to view
         $data['sortOrder'] = $sortOrder; // Pass sort order to view
 
@@ -125,6 +133,65 @@ class RecipeController extends BaseController
             return redirect()->to('/recipes')->with('success', 'Recipe  marked as deleted successfully.');
         } else {
             return redirect()->to('/recipes')->with('error', 'Failed to mark recipe as deleted.');
+        }
+    }
+
+    public function exportToCsv()
+    {
+        try{
+            $recipeModel = new RecipeModel();
+
+            // Get the search parameters from the request
+            $title = $this->request->getVar('title'); // For Title
+            $description = $this->request->getVar('description'); // For Description
+            $instructions = $this->request->getVar('instructions'); // For Instructions
+            $image = $this->request->getVar('image'); // For Image
+
+            // Build the query based on the search parameters
+            $query = $recipeModel->where('DeletionDate', null);
+
+            if ($title) {
+                $query = $query->like('Title', $title);
+            }
+            if ($description) {
+                $query = $query->like('Description', $description);
+            }
+            if ($instructions) {
+                $query = $query->like('Instructions', $instructions);
+            }
+            if ($image) {
+                $query = $query->like('Image', $image);
+            }
+
+            // Get the results
+            $recipes = $query->findAll();
+
+            // Set the headers for the CSV file
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="recipes.csv"');
+
+            // Open the output stream
+            $output = fopen('php://output', 'w');
+
+            // Add the CSV column headers
+            fputcsv($output, ['Title', 'Description', 'Instructions', 'Image']);
+
+            // Add the user data to the CSV
+            foreach ($recipes as $recipe) {
+                fputcsv($output, [
+                    $recipe['Title'],
+                    $recipe['Description'],
+                    $recipe['Instructions'],
+                    $recipe['Image'],
+                ]);
+            }
+
+            // Close the output stream
+            fclose($output);
+            exit; // Terminate the script to prevent any further output
+        }catch (\Exception $e) {
+            log_message('error', 'Error exporting to CSV: ' . $e->getMessage());
+            return redirect()->to('/recipes')->with('error', 'An error occurred while exporting to CSV.');
         }
     }
 }

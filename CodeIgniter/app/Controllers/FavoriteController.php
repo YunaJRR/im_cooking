@@ -25,6 +25,7 @@ class FavoriteController extends BaseController
     // Get the search parameters from the request
     $user = $this->request->getVar('user'); // For Favorite Text
     $recipe = $this->request->getVar('recipe'); // For Favorite Text
+    $date = $this->request->getVar('date'); // For Favorite Text
 
     // Get sorting parameters from the request
     $sortField = $this->request->getVar('sortField') ?? 'favorites.ID'; // Default sort field
@@ -40,6 +41,8 @@ class FavoriteController extends BaseController
     // Store the search parameters in the data array
     $data['User'] = $user; // Corrected variable name
     $data['Recipe'] = $recipe; // Corrected variable name
+    $data['Date'] = $this->request->getVar('date'); // Get the date from the request
+
     $data['sortField'] = $sortField; // Pass sort field to view
     $data['sortOrder'] = $sortOrder; // Pass sort order to view
 
@@ -118,4 +121,55 @@ class FavoriteController extends BaseController
         }
     }
 
+    public function exportToCsv()
+    {
+        $favoriteModel = new FavoriteModel();
+
+        // Get the search parameters from the request
+        $user = $this->request->getVar('user'); // For Username
+        $recipe = $this->request->getVar('recipe'); // For Recipe Title
+        $date = $this->request->getVar('date'); // For Recipe Date
+
+        // Build the query based on the search parameters
+        $query = $favoriteModel->select('favorites.*, users.Username, recipes.Title')
+            ->join('users', 'users.ID = favorites.UserID', 'left')
+            ->join('recipes', 'recipes.ID = favorites.RecipeID', 'left')
+            ->where('favorites.DeletionDate', null); // Ensure we only get non-deleted favorites
+
+        if ($user) {
+            $query = $query->like('users.Username', $user);
+        }
+        if ($recipe) {
+            $query = $query->like('recipes.Title', $recipe);
+        }
+        if ($date) {
+            $query = $query->like('Date', $date); // Corrected to use favorites.Date
+        }
+
+        // Get the results
+        $favorites = $query->findAll();
+
+        // Set the headers for the CSV file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="favorites.csv"');
+
+        // Open the output stream
+        $output = fopen('php://output', 'w');
+
+        // Add the CSV column headers
+        fputcsv($output, ['User', 'Recipe Title', 'Date Added']);
+
+        // Add the favorite data to the CSV
+        foreach ($favorites as $favorite) {
+            fputcsv($output, [
+                $favorite['Username'], // User's name
+                $favorite['Title'],    // Recipe title
+                $favorite['Date'],     // Date added
+            ]);
+        }
+
+        // Close the output stream
+        fclose($output);
+        exit; // Terminate the script to prevent any further output
+    }
 }
