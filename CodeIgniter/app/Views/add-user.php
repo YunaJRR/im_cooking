@@ -201,10 +201,10 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<!--begin::User-->
 								<div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
+									<span class="text-white user-text"><?=$session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?=base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
 											
 									</div>
 									
@@ -215,15 +215,15 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+													<img alt="Logo" src="<?=base_url('assets/media/avatars/150-26.jpg')?>" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
 												<div class="d-flex flex-column">
-												<div class="fw-bolder d-flex align-items-center fs-5"><?php echo $user = $session->get('name'); ?>	
+												<div class="fw-bolder d-flex align-items-center fs-5"><?=$session->get('name'); ?>	
 													<span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
 														<?php
-															switch ($user = $session->get('role')) {
+															switch ($logged_user = $session->get('role')) {
 																case '1':
 																	echo 'User';
 																	break;
@@ -238,7 +238,7 @@ License: For each use you must have a valid license purchased only from above li
 															}
 														?>
 													</span></div>
-													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?php echo $user = $session->get('email'); ?>	</a>
+													<a href="#" class="fw-bold text-muted text-hover-primary fs-7"><?=$session->get('email'); ?>	</a>
 												</div>
 												<!--end::Username-->
 											</div>
