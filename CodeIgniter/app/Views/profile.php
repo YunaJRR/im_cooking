@@ -114,7 +114,7 @@ License: For each use you must have a valid license purchased only from above li
 								</div>
 								<?php if (session()->get('role') == '2'): ?>
 								<div class="menu-item">
-									<a class="menu-link active" href="<?= site_url('users') ?>">
+									<a class="menu-link" href="<?= site_url('users') ?>">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/comm006.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -249,7 +249,7 @@ License: For each use you must have a valid license purchased only from above li
 										<!--end::Menu separator-->
 										<!--begin::Menu item-->
 										<div class="menu-item px-5">
-											<a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+											<a class="menu-link px-5" href="<?= site_url('profile') ?>">My Profile</a>
 										</div>
 										<!--end::Menu item-->
 										<!--begin::Menu item-->
