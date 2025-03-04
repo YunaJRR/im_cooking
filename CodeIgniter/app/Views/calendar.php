@@ -97,7 +97,7 @@ License: For each use you must have a valid license purchased only from above li
 											</span>
 											<!--end::Svg Icon-->
 										</span>
-										<span class="menu-title">Calendar</span>
+										<span class="menu-title">Dashboard</span>
 									</a>
 								</div>
 								<div class="menu-item">
@@ -560,7 +560,7 @@ License: For each use you must have a valid license purchased only from above li
 
 					// Add event
 					select: function (info) {
-						const title = prompt('Título del evento:');
+						const title = prompt('Event title:');
 						if (title) {
 							$.ajax({
 								url: '<?= site_url('event/addEvent'); ?>', // URL to add event

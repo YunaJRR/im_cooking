@@ -38,7 +38,7 @@ class EventController extends BaseController
         $eventData = [
             'deletiondate' => date('Y-m-d H:i:s')
         ];
-        // Update the user to mark as deleted
+
         if ($eventModel->update($id, $eventData)) {
             return $this->response->setJSON(['success' => true]);
         } else {
