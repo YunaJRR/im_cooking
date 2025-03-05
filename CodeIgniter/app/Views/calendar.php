@@ -568,7 +568,6 @@ License: For each use you must have a valid license purchased only from above li
 								data: {
 									title: title,
 									start: info.startStr,
-									end: info.endStr // Optional: you can set an end date if needed
 								},
 								success: function(response) {
 									if (response.success) {
