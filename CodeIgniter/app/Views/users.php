@@ -487,10 +487,18 @@ License: For each use you must have a valid license purchased only from above li
                                                                     <div class="fs-5 text-dark fw-bolder pb-2">Email</div>
                                                                     <input type="text" name="email" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Email) ?>" placeholder="Search"/>
                                                                 </div>
+                                                                
+                                                                <!-- Hidden fields for sorting parameters -->
+                                                                <input type="hidden" name="sortField" value="<?= htmlspecialchars($sortField) ?>">
+                                                                <input type="hidden" name="sortOrder" value="<?= htmlspecialchars($sortOrder) ?>">
+                                                                
+                                                                <!-- Hidden field for current page -->
+                                                                <input type="hidden" name="page" value="<?= htmlspecialchars($currentPage) ?>">
+
                                                                 <!--begin::Actions-->
                                                                 <div class="d-flex justify-content-end">
-                                                                <button type="button" id="resetFilters" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6">Reset</button>
-                                                                    <button type="submit " class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                                                    <button type="button" id="resetFilters" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6">Reset</button>
+                                                                    <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true">Apply</button>
                                                                 </div>
                                                                 <!--end::Actions-->
                                                             </form>
@@ -504,6 +512,8 @@ License: For each use you must have a valid license purchased only from above li
                                                         'firstname' => $Firstname,
                                                         'lastname' => $Lastname,
                                                         'email' => $Email,
+                                                        'sortField' => $sortField, 
+                                                        'sortOrder' => $sortOrder, 
                                                     ])) ?>" class="btn btn-primary me-3">
                                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                                         <span class="svg-icon svg-icon-2">
@@ -774,7 +784,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--begin::Table row-->
                                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                         <th class="min-w-125px">
-                                                            <a href="<?= site_url('users?sortField=Firstname&sortOrder=' . (($sortField == 'Firstname' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email); ?>">
+                                                            <a href="<?= site_url('users?sortField=Firstname&sortOrder=' . (($sortField == 'Firstname' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 First Name
                                                                 <?php if ($sortField == 'Firstname'): ?>
                                                                     <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
@@ -782,7 +792,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             </a>
                                                         </th>
                                                         <th class="min-w-125px">
-                                                            <a href="<?= site_url('users?sortField=Lastname&sortOrder=' . (($sortField == 'Lastname' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email); ?>">
+                                                            <a href="<?= site_url('users?sortField=Lastname&sortOrder=' . (($sortField == 'Lastname' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 Last Name
                                                                 <?php if ($sortField == 'Lastname'): ?>
                                                                     <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
@@ -790,7 +800,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             </a>
                                                         </th>
                                                         <th class="min-w-125px">
-                                                            <a href="<?= site_url('users?sortField=Username&sortOrder=' . (($sortField == 'Username' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email); ?>">
+                                                            <a href="<?= site_url('users?sortField=Username&sortOrder=' . (($sortField == 'Username' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 Username
                                                                 <?php if ($sortField == 'Username'): ?>
                                                                     <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
@@ -798,7 +808,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             </a>
                                                         </th>
                                                         <th class="min-w-125px">
-                                                            <a href="<?= site_url('users?sortField=Email&sortOrder=' . (($sortField == 'Email' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email); ?>">
+                                                            <a href="<?= site_url('users?sortField=Email&sortOrder=' . (($sortField == 'Email' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 Email
                                                                 <?php if ($sortField == 'Email'): ?>
                                                                     <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
@@ -806,7 +816,7 @@ License: For each use you must have a valid license purchased only from above li
                                                             </a>
                                                         </th>
                                                         <th class="min-w-125px">
-                                                            <a href="<?= site_url('users?sortField=CreationDate&sortOrder=' . (($sortField == 'CreationDate' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email); ?>">
+                                                            <a href="<?= site_url('users?sortField=CreationDate&sortOrder=' . (($sortField == 'CreationDate' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 Joined Date
                                                                 <?php if ($sortField == 'CreationDate'): ?>
                                                                     <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
@@ -949,6 +959,7 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Page Custom Javascript-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        
 
 		<!--end::Javascript-->
         <?php if (session()->getFlashdata('success')): ?>

@@ -209,7 +209,7 @@ License: For each use you must have a valid license purchased only from above li
 									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?= base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
 											
 									</div>
 									

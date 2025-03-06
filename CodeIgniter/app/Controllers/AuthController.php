@@ -66,7 +66,7 @@ class AuthController extends BaseController
         ]);
 
         // Redirect to the login form with a success message.
-        return redirect()->to('/sign-in')->with('success', 'User  registered successfully.');
+        return redirect()->to('/sign-in')->with('success', 'User registered successfully.');
     }
 
     public function loginProcess()

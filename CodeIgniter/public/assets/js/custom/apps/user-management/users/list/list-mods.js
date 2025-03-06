@@ -14,6 +14,16 @@ document.getElementById('resetFilters').addEventListener('click', function() {
         select.selectedIndex = 0; // Reset to the first option (usually empty)
     });
 
-    // Optionally, you can also submit the form after resetting
-    form.submit();
+    // Construct the new URL preserving sorting
+    const urlParams = new URLSearchParams(window.location.search);
+    const sortField = urlParams.get('sortField');
+    const sortOrder = urlParams.get('sortOrder');
+
+    let newUrl = window.location.pathname; // Keep the base URL
+    if (sortField && sortOrder) {
+        newUrl += `?sortField=${sortField}&sortOrder=${sortOrder}`;
+    }
+
+    // Redirect to the new URL
+    window.location.href = newUrl;
 });

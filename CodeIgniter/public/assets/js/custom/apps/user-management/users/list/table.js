@@ -99,13 +99,9 @@ var KTUsersList = function() {
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary"
                         }
-                        
                     })
                 }))
-                
-                 
             }));
-            
         };
         const updateSelectedRowsDisplay = () => {
             const selectedData = e.rows('.selected').data();
@@ -150,11 +146,30 @@ var KTUsersList = function() {
                 }]
             })).on("draw", (function() {
                 l(), c(), a()
-            }))/*.on('click', 'tbody tr', function() {
-                $(this).toggleClass('selected'); // Toggle selected class
-                updateSelectedRowsDisplay(); // Update selected rows display
-            })*/,
-            l (),
+            })).on('order.dt', function () {
+                const order = e.order();
+                const columnIndex = order[0][0];
+                const sortDirection = order[0][1];
+                const columnDataName = e.settings().init().columns[columnIndex].data;
+
+                let newUrl = window.location.pathname + "?";
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchParams = [];
+                urlParams.forEach(function(value, key) {
+                    if (key !== 'sortField' && key !== 'sortOrder') {
+                        searchParams.push(key + "=" + value);
+                    }
+                });
+                newUrl += searchParams.join('&');
+
+                if (columnDataName && sortDirection) {
+                    newUrl += (searchParams.length > 0 ? '&' : '') + "sortField=" + columnDataName + "&sortOrder=" + sortDirection;
+                }
+
+                window.location.href = newUrl;
+
+            }),
+            l(),
             document.querySelector('[data-kt-user-table-filter="search"]').addEventListener("keyup", (function(t) {
                 e.search(t.target.value).draw()
             })),
@@ -168,17 +183,37 @@ var KTUsersList = function() {
             (() => {
                 const t = document.querySelector('[data-kt-user-table-filter="form"]'),
                     n = t.querySelector('[data-kt-user-table-filter="filter"]'),
-                    r = t.querySelectorAll("select");
+                    r = t.querySelectorAll("input[type='text']"); // Select input text elements
+
                 n.addEventListener("click", (function() {
-                    var t = "";
-                    r.forEach(((e, n) => {
-                        e.value && "" !== e.value && (0 !== n && (t += " "), t += e.value)
-                    })),
-                    e.search(t).draw()
-                }))
+                    console.log("Apply filter clicked"); // Debugging
+
+                    const urlParams = new URLSearchParams();
+
+                    r.forEach(((e) => {
+                        console.log("Input element name:", e.name, "value:", e.value); // Debugging
+                        if (e.value && "" !== e.value) {
+                            urlParams.append(e.name, e.value);
+                        }
+                    }));
+
+                    console.log("URL parameters after adding input values:", urlParams.toString()); // Debugging
+
+                    const sortField = new URLSearchParams(window.location.search).get('sortField');
+                    const sortOrder = new URLSearchParams(window.location.search).get('sortOrder');
+
+                    if (sortField && sortOrder) {
+                        urlParams.append('sortField', sortField);
+                        urlParams.append('sortOrder', sortOrder);
+                    }
+
+                    console.log("Final URL parameters:", urlParams.toString()); // Debugging
+
+                    window.location.href = window.location.pathname + "?" + urlParams.toString();
+                }));
             })()
         )},
-        getSelectedRows: function() { // Function to retrieve selected rows
+        getSelectedRows: function() {
             return selectedRows;
         }
     }

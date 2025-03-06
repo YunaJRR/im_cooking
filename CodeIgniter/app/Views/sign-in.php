@@ -85,9 +85,6 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin::Label-->
 									<label class="form-label fw-bolder text-dark fs-6 mb-0">Password</label>
 									<!--end::Label-->
-									<!--begin::Link-->
-									<a href="../../demo1/dist/authentication/flows/basic/password-reset.html" class="link-primary fs-6 fw-bolder">Forgot Password ?</a>
-									<!--end::Link-->
 								</div>
 								<!--end::Wrapper-->
 								<!--begin::Input-->
@@ -140,6 +137,11 @@ License: For each use you must have a valid license purchased only from above li
 		<?php if (session()->getFlashdata('error')): ?>
             <script>
                 toastr.error('<?= session()->getFlashdata('error'); ?>');
+            </script>
+        <?php endif; ?>
+		<?php if (session()->getFlashdata('success')): ?>
+            <script>
+                toastr.success('<?= session()->getFlashdata('success'); ?>');
             </script>
         <?php endif; ?>
 		<!--end::Javascript-->

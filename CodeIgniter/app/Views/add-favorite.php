@@ -209,7 +209,7 @@ License: For each use you must have a valid license purchased only from above li
 									<span class="text-white user-text"><?php echo $user = $session->get('name');?></span>
 									<!--begin::Menu wrapper-->
 									<div class="cursor-pointer" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-										<img class="profile-icon" src="assets/media/avatars/150-26.jpg" alt="user"/>
+										<img class="profile-icon" src="<?=base_url('assets/media/avatars/150-26.jpg')?>" alt="user"/>
 											
 									</div>
 									
@@ -220,7 +220,7 @@ License: For each use you must have a valid license purchased only from above li
 											<div class="menu-content d-flex align-items-center px-3">
 												<!--begin::Avatar-->
 												<div class="symbol symbol-50px me-5">
-													<img alt="Logo" src="assets/media/avatars/150-26.jpg" />
+													<img alt="Logo" src="<?=base_url('assets/media/avatars/150-26.jpg')?>" />
 												</div>
 												<!--end::Avatar-->
 												<!--begin::Username-->
@@ -326,7 +326,7 @@ License: For each use you must have a valid license purchased only from above li
 											<a href="#" class="menu-link px-5">
 												<span class="menu-title position-relative">Language
 												<span class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-												<img class="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="" /></span></span>
+												<img class="w-15px h-15px rounded-1 ms-2" src="<?=base_url('assets/media/flags/united-states.svg')?>" alt="" /></span></span>
 											</a>
 											<!--begin::Menu sub-->
 											<div class="menu-sub menu-sub-dropdown w-175px py-4">
@@ -366,7 +366,7 @@ License: For each use you must have a valid license purchased only from above li
 												<div class="menu-item px-3">
 													<a href="../../demo1/dist/account/settings.html" class="menu-link d-flex px-5">
 													<span class="symbol symbol-20px me-4">
-														<img class="rounded-1" src="assets/media/flags/france.svg" alt="" />
+														<img class="rounded-1" src="<?=base_url('assets/media/flags/france.svg')?>" alt="" />
 													</span>French</a>
 												</div>
 												<!--end::Menu item-->

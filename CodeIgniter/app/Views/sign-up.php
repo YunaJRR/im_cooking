@@ -78,13 +78,13 @@ License: For each use you must have a valid license purchased only from above li
 							<div class="row fv-row mb-7">
 								<!--begin::Col-->
 								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6">First Name</label>
+									<label class="form-label fw-bolder text-dark fs-6 required">First Name</label>
 									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="firstname" id="firstname" autocomplete="off" />
 								</div>
 								<!--end::Col-->
 								<!--begin::Col-->
 								<div class="col-xl-6">
-									<label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+									<label class="form-label fw-bolder text-dark fs-6 required">Last Name</label>
 									<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="lastname" id="lastname" autocomplete="off" />
 								</div>
 								<!--end::Col-->
@@ -92,13 +92,13 @@ License: For each use you must have a valid license purchased only from above li
 							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="fv-row mb-7">
-								<label class="form-label fw-bolder text-dark fs-6">Username</label>
+								<label class="form-label fw-bolder text-dark fs-6 required">Username</label>
 								<input class="form-control form-control-lg form-control-solid" type="text" placeholder="" name="username" id="username" autocomplete="off" />
 							</div>
 							<!--end::Input group-->
 							<!--begin::Input group-->
 							<div class="fv-row mb-7">
-								<label class="form-label fw-bolder text-dark fs-6">Email</label>
+								<label class="form-label fw-bolder text-dark fs-6 required">Email</label>
 								<input class="form-control form-control-lg form-control-solid" type="email" placeholder="" name="email" id="email" autocomplete="off" />
 							</div>
 							<!--end::Input group-->
@@ -107,7 +107,7 @@ License: For each use you must have a valid license purchased only from above li
 								<!--begin::Wrapper-->
 								<div class="mb-1">
 									<!--begin::Label-->
-									<label class="form-label fw-bolder text-dark fs-6">Password</label>
+									<label class="form-label fw-bolder text-dark fs-6 required">Password</label>
 									<!--end::Label-->
 									<!--begin::Input wrapper-->
 									<div class="position-relative mb-3">
@@ -135,7 +135,7 @@ License: For each use you must have a valid license purchased only from above li
 							<!--end::Input group=-->
 							<!--begin::Input group-->
 							<div class="fv-row mb-5">
-								<label class="form-label fw-bolder text-dark fs-6">Confirm Password</label>
+								<label class="form-label fw-bolder text-dark fs-6 required">Confirm Password</label>
 								<input class="form-control form-control-lg form-control-solid" type="password" placeholder="" name="confirm-password" id="confirm-password" autocomplete="off" />
 							</div>
 							<!--end::Input group-->

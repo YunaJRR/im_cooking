@@ -33,6 +33,9 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $perPage = 3;
 
+        $currentPage = $this->request->getVar('page') ?? 1; // Default to page 1 if not set
+        $data['currentPage'] = $currentPage; // Pass the current page to the view
+
         // Get the search parameters from the request
         $name = $this->request->getVar('name'); // For Username
         $firstname = $this->request->getVar('firstname'); // For Firstname
@@ -154,8 +157,13 @@ public function saveUser ($id = null)
         $lastname = $this->request->getVar('lastname'); // For Lastname
         $email = $this->request->getVar('email'); // For Email
 
+        // Get sorting parameters from the request
+        $sortField = $this->request->getVar('sortField');
+        $sortOrder = $this->request->getVar('sortOrder');
+
         // Build the query based on the search parameters
-        $query = $userModel->where('DeletionDate', null);
+        $query = $userModel;
+        $query = $query->where('DeletionDate', null);
 
         if ($name) {
             $query = $query->like('Username', $name);
@@ -168,6 +176,11 @@ public function saveUser ($id = null)
         }
         if ($email) {
             $query = $query->like('Email', $email);
+        }
+
+        // Apply sorting
+        if ($sortField && $sortOrder) { // check if sort parameters exist
+            $query = $query->orderBy($sortField, $sortOrder);
         }
 
         // Get the results

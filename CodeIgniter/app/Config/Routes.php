@@ -13,7 +13,6 @@ $routes->get('home', 'Home::index');
 
 // Authentication routes
 $routes->get('sign-in', 'AuthController::signIn'); // Login page
-$routes->get('login', 'AuthController::login'); // Login page
 $routes->get('sign-up', 'AuthController::signUp'); // Registration page
 $routes->post('login/process', 'AuthController::loginProcess'); // Process login
 $routes->post('register/process', 'AuthController::registerProcess'); // Process registration
