@@ -26,6 +26,8 @@ $routes->post('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user 
 $routes->get('users/save/(:num)', 'UserController::saveUser/$1'); // Edit user page
 $routes->get('users/delete/(:num)', 'UserController::delete/$1'); // Update user to mark as deleted
 $routes->get('users/exportToCsv', 'UserController::exportToCsv'); // Export users to CSV
+$routes->get('users/getUsersByRole/(:num)', 'UserController::getUsersByRole/$1');
+
 
 
 

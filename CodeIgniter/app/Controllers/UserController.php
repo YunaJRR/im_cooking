@@ -20,6 +20,15 @@ class UserController extends BaseController
         }
         return view('add-user'); // Load and return the form for adding users.
     }
+    public function getUsersByRole($roleID)
+    {
+        $userModel = new UserModel();
+        $users = $userModel->where('RoleID', $roleID)
+                        ->where('DeletionDate', null)
+                        ->findAll();
+
+        return $this->response->setJSON($users);
+    }
     public function index()
     {
         $session = session()->get('role');
@@ -210,4 +219,7 @@ public function saveUser ($id = null)
         fclose($output);
         exit; // Terminate the script to prevent any further output
     }
+    
+
+
 }

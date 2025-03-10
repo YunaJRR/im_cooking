@@ -471,36 +471,30 @@ License: For each use you must have a valid license purchased only from above li
                                                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                             <!--begin::Input group-->
                                                             <form id="form-filter" method="GET" action="<?= site_url('users') ?>" class="mb-3">
+                                                                <!-- Role Selector -->
                                                                 <div class="input-group w-auto mb-3">
-                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Username</div>
-                                                                    <input type="text" name="name" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Username) ?>" placeholder="Search"/>
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Role</div>
+                                                                    <select id="roleFilter" name="role" class="form-control form-control-solid w-250px">
+                                                                        <option value="">Select a Role</option>
+                                                                        <option value="1">User</option>
+                                                                        <option value="2">Admin</option>
+                                                                        <option value="3">Chef</option>
+                                                                    </select>
                                                                 </div>
-                                                                <div class="input-group w-auto mb-3">
-                                                                    <div class="fs-5 text-dark fw-bolder pb-2">First name</div>
-                                                                    <input type="text" name="firstname" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Firstname) ?>" placeholder="Search"/>
-                                                                </div>
-                                                                <div class="input-group w-auto mb-3">
-                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Last name</div>
-                                                                    <input type="text" name="lastname" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Lastname) ?>" placeholder="Search"/>
-                                                                </div>
-                                                                <div class="input-group w-auto mb-3">
-                                                                    <div class="fs-5 text-dark fw-bolder pb-2">Email</div>
-                                                                    <input type="text" name="email" class="form-control form-control-solid w-250px" value="<?= htmlspecialchars($Email) ?>" placeholder="Search"/>
-                                                                </div>
-                                                                
-                                                                <!-- Hidden fields for sorting parameters -->
-                                                                <input type="hidden" name="sortField" value="<?= htmlspecialchars($sortField) ?>">
-                                                                <input type="hidden" name="sortOrder" value="<?= htmlspecialchars($sortOrder) ?>">
-                                                                
-                                                                <!-- Hidden field for current page -->
-                                                                <input type="hidden" name="page" value="<?= htmlspecialchars($currentPage) ?>">
 
-                                                                <!--begin::Actions-->
+                                                                <!-- User Selector (Populated dynamically) -->
+                                                                <div class="input-group w-auto mb-3">
+                                                                    <div class="fs-5 text-dark fw-bolder pb-2">User</div>
+                                                                    <select id="userFilter" name="user" class="form-control form-control-solid w-250px" disabled>
+                                                                        <option value="">Select a User</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <!-- Actions -->
                                                                 <div class="d-flex justify-content-end">
                                                                     <button type="button" id="resetFilters" class="btn btn-light btn-active-light-primary fw-bold me-2 px-6">Reset</button>
-                                                                    <button type="submit" class="btn btn-primary fw-bold px-6" data-kt-menu-dismiss="true">Apply</button>
+                                                                    <button type="submit" class="btn btn-primary fw-bold px-6">Apply</button>
                                                                 </div>
-                                                                <!--end::Actions-->
                                                             </form>
                                                         </div>
                                                         <!--end::Content-->
@@ -784,6 +778,14 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--begin::Table row-->
                                                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
                                                         <th class="min-w-125px">
+                                                            <a href="<?= site_url('users?sortField=RoleID&sortOrder=' . (($sortField == 'RoleID' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
+                                                                Role
+                                                                <?php if ($sortField == 'RoleID'): ?>
+                                                                    <span class="sort-arrow"><?= $sortOrder == 'asc' ? '▲' : '▼' ?></span>
+                                                                <?php endif; ?>
+                                                            </a>
+                                                        </th>
+                                                        <th class="min-w-125px">
                                                             <a href="<?= site_url('users?sortField=Firstname&sortOrder=' . (($sortField == 'Firstname' && $sortOrder == 'asc') ? 'desc' : 'asc') . '&name=' . $Username . '&firstname=' . $Firstname . '&lastname=' . $Lastname . '&email=' . $Email . '&page=' . $currentPage); ?>">
                                                                 First Name
                                                                 <?php if ($sortField == 'Firstname'): ?>
@@ -836,6 +838,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <!--begin::Table row-->
                                                     <tr>
                                                         <!--begin::User=-->
+                                                        <td><?= esc($user['RoleID'] == 1 ? 'User' : ($user['RoleID'] == 2 ? 'Admin' : ($user['RoleID'] == 3 ? 'Chef' : 'Unknown')))?></td>
                                                         <td><?= esc($user['Firstname']) ?></td>
                                                         <td><?= esc($user['Lastname']) ?></td>
                                                         <td><?= esc($user['Username']) ?></td>
@@ -959,7 +962,42 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Page Custom Javascript-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-        
+        <script>
+            $(document).ready(function () {
+                $("#roleFilter").change(function () {
+                    var selectedRole = $(this).val(); // Get selected role value
+
+                    if (selectedRole) {
+                        $.ajax({
+                            url: "<?= site_url('users/getUsersByRole') ?>/" + selectedRole,
+                            type: "GET",
+                            dataType: "json",
+                            success: function (response) {
+                                var userSelect = $("#userFilter");
+                                userSelect.empty().append('<option value="">Select a User</option>'); // Reset options
+
+                                if (response.length > 0) {
+                                    $.each(response, function (index, user) {
+                                        userSelect.append('<option value="' + user.ID + '">' + user.Username + '</option>');
+                                    });
+                                    userSelect.prop("disabled", false); // Enable dropdown
+                                } else {
+                                    userSelect.prop("disabled", true);
+                                }
+                            },
+                            error: function () {
+                                console.log("AJAX error: Unable to fetch users.");
+                            }
+                        });
+                    } else {
+                        $("#userFilter").empty().append('<option value="">Select a User</option>').prop("disabled", true);
+                    }
+                });
+            });
+
+
+
+        </script>
 
 		<!--end::Javascript-->
         <?php if (session()->getFlashdata('success')): ?>
