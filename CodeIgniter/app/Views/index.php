@@ -304,9 +304,9 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin::Row-->
 									<div class="row gy-5 g-xl-8">
 										<!--begin::Col-->
-										<div class="col-xxl-4" data-swapy-slot="foo">
+										<div id="1" class="col-xxl-4" data-swapy-slot="foo">
 											<!--begin::Mixed Widget 2-->
-											<div class="card card-xxl-stretch" data-swapy-item="a">
+											<div class="card card-xxl-stretch" data-swapy-item="1">
 												<!--begin::Header-->
 												<div class="card-header border-0 bg-danger py-5">
 													<h3 class="card-title fw-bolder text-white">Sales Statistics</h3>
@@ -390,9 +390,8 @@ License: For each use you must have a valid license purchased only from above li
 										</div>
 										<!--end::Col-->
 										<!--begin::Col-->
-										<div class="col-xxl-4" data-swapy-slot="bar">
-											<!--begin::List Widget 5-->
-											<div class="card card-xxl-stretch" data-swapy-item="b">
+										<div id="2" class="col-xxl-4" data-swapy-slot="bar">											<!--begin::List Widget 5-->
+											<div class="card card-xxl-stretch" data-swapy-item="2">
 												<!--begin::Header-->
 												<div class="card-header align-items-center border-0 mt-4">
 													<h3 class="card-title align-items-start flex-column">
@@ -525,8 +524,8 @@ License: For each use you must have a valid license purchased only from above li
 										</div>
 										<!--end::Col-->
 										<!--begin::Col-->
-										<div class="col-xxl-4" data-swapy-slot="baz">
-											<div class="card card-xxl-stretch-60 mb-5 mb-xl-8" data-swapy-item="c">
+										<div id="3" class="col-xxl-4" data-swapy-slot="baz" >
+											<div class="card card-xxl-stretch-60 mb-5 mb-xl-8" data-swapy-item="3">
 												<div class="card-body d-flex flex-column p-0">
 													<div class="flex-grow-1 card-p pb-0">
 														<div class="d-flex flex-stack flex-wrap">
@@ -627,13 +626,64 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 		<script>
-			const container = document.querySelector('.container')
+			document.addEventListener('DOMContentLoaded', () => {
+				const container = document.querySelector('.container');
 
-			const swapy = Swapy.createSwapy(container, {
-			animation: 'dynamic'
-			})
+				// Initialize Swapy
+				const swapy = Swapy.createSwapy(container, {
+					animation: 'dynamic'
+				});
 
-			swapy.enable(true)
+				swapy.enable(true);
+
+				// Function to save order in localStorage
+				function saveOrder() {
+					const slots = Array.from(container.querySelectorAll('[data-swapy-slot]')).reduce((acc, slot) => {
+						const items = Array.from(slot.querySelectorAll('[data-swapy-item]')).map(item => item.getAttribute('data-swapy-item'));
+						acc[slot.getAttribute('data-swapy-slot')] = items;
+						return acc;
+					}, {});
+
+					localStorage.setItem('swapyOrder', JSON.stringify(slots));
+				}
+
+				// Function to load order from localStorage
+				function loadOrder() {
+					const savedOrder = JSON.parse(localStorage.getItem('swapyOrder'));
+
+					if (savedOrder) {
+						// Create a map of existing elements
+						const elementMap = {};
+						container.querySelectorAll('[data-swapy-item]').forEach(el => {
+							elementMap[el.getAttribute('data-swapy-item')] = el;
+						});
+
+						// Reorder elements within their respective slots
+						Object.entries(savedOrder).forEach(([slotName, itemIDs]) => {
+							const slot = container.querySelector(`[data-swapy-slot="${slotName}"]`);
+							if (slot) {
+								itemIDs.forEach(itemID => {
+									if (elementMap[itemID]) {
+										slot.appendChild(elementMap[itemID]); // Preserve structure while reordering
+									} else {
+										console.warn(`Element with data-swapy-item="${itemID}" not found.`);
+									}
+								});
+							}
+						});
+					}
+				}
+
+				// Listen for Swapy swap event and save order
+				swapy.onSwap(() => {
+					saveOrder();
+				});
+
+				// Load stored order on page load
+				loadOrder();
+			});
+
+
 		</script>
 		<?php if (session()->getFlashdata('success')): ?>
             <script>
